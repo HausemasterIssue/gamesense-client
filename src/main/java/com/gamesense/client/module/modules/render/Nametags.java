@@ -48,7 +48,7 @@ public class Nametags extends Module {
     BooleanSetting showEntityID = registerBoolean("Entity Id", false);
     ModeSetting levelColor = registerMode("Level Color", ColorUtil.colors, "Green");
     public BooleanSetting customColor = registerBoolean("Custom Color", true);
-    public ColorSetting borderColor = registerColor("Border Color", new GSColor(255, 0, 0, 255));
+    public ColorSetting borderColor = registerColor("Border Color", new GSColor(0, 0, 0, 255));
 
     public void onWorldRender(RenderEvent event) {
         if (mc.player == null || mc.world == null) {
@@ -360,6 +360,6 @@ public class Nametags extends Module {
             string = string.substring(10, charCount);
         }
 
-        return string.substring(0, 1).toUpperCase() + string.substring(1) + ColorUtil.settingToTextFormatting(levelColor) + ((level > 1) ? level : "");
+        return string.substring(0, 1).toUpperCase() + string.substring(1) + ((level > 1) ? level : "");
     }
 }
