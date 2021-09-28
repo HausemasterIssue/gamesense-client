@@ -65,15 +65,12 @@ public class ModuleManager {
         addMod(new AutoTool());
         addMod(new ChatModifier());
         addMod(new ChatSuffix());
-        addMod(new DiscordRPCModule());
         addMod(new FastPlace());
         addMod(new FakePlayer());
         addMod(new HotbarRefill());
         addMod(new MCF());
         addMod(new MCP());
-        addMod(new MultiTask());
         addMod(new NoEntityTrace());
-        addMod(new NoKick());
         addMod(new PhysicsSpammer());
         addMod(new PvPInfo());
         addMod(new SortInventory());
@@ -88,7 +85,6 @@ public class ModuleManager {
         addMod(new ESP());
         addMod(new Freecam());
         addMod(new Fullbright());
-        addMod(new HitSpheres());
         addMod(new HoleESP());
         addMod(new LogoutSpots());
         addMod(new Nametags());
