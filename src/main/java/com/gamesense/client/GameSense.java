@@ -23,12 +23,9 @@ import java.awt.*;
 @Mod(modid = GameSense.MODID, name = GameSense.MODNAME, version = GameSense.MODVER)
 public class GameSense {
 
-    public static final String MODNAME = "GameSense";
-    public static final String MODID = "gamesense";
-    public static final String MODVER = "v2.3.0";
-    /**
-     * Official release starts with a "v", dev versions start with a "d" to bypass version check
-     */
+    public static final String MODNAME = "SpiderSense";
+    public static final String MODID = "spidersense";
+    public static final String MODVER = "v2.3.1";
 
     public static final Logger LOGGER = LogManager.getLogger(MODNAME);
     public static final EventBus EVENT_BUS = new EventManager();
@@ -47,6 +44,7 @@ public class GameSense {
         LOGGER.info("Starting up " + MODNAME + " " + MODVER + "!");
         startClient();
         LOGGER.info("Finished initialization for " + MODNAME + " " + MODVER + "!");
+        LOGGER.info("cum");
     }
 
     public CFontRenderer cFontRenderer;
