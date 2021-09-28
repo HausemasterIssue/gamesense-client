@@ -122,7 +122,7 @@ public class Blocker extends Module {
             if ((temp = BlockUtil.getBlock(pos)) instanceof BlockObsidian ||
                     temp == Blocks.BEDROCK) {
                 if (blocksPlaced++ == 0) {
-                    AntiCrystal.getHotBarPressure(blockPlaced.getValue());
+                    
                 }
 
                 PlacementUtil.placeItem(new BlockPos(pos.getX(), pos.getY() + surround.y, pos.getZ()), EnumHand.MAIN_HAND, rotate.getValue(), Items.STRING.getClass());
