@@ -40,7 +40,6 @@ public class ModuleManager {
         addMod(new Surround());
         //Exploits
         addMod(new FastBreak());
-        addMod(new HoosiersDupe());
         addMod(new LiquidInteract());
         addMod(new NoInteract());
         addMod(new NoSwing());
