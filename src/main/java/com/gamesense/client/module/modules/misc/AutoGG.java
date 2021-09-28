@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Module.Declaration(name = "AutoGG", category = Category.Misc)
+@Module.Declaration(name = "AutoEZ", category = Category.Misc)
 public class AutoGG extends Module {
 
     public static AutoGG INSTANCE;
@@ -126,7 +126,7 @@ public class AutoGG extends Module {
         if (AutoGgMessages.size() > 0)
             message = AutoGgMessages.get(index);
         else
-            message = "GG! GameSense " + GameSense.MODVER + " is on top!";
+            message = "hey guys i just DUMPSTERED this shitter thanks to SpiderSense " + GameSense.MODVER;
 
         String messageSanitized = message.replaceAll("ยง", "").replace("{name}", name);
         if (messageSanitized.length() > 255) {
