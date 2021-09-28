@@ -21,7 +21,6 @@ public class ModuleManager {
 
     public static void init() {
         //Combat
-        addMod(new AntiCrystal());
         addMod(new AutoAnvil());
         addMod(new AutoArmor());
         addMod(new AutoCrystal());
