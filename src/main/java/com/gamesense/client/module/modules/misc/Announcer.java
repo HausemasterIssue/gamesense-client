@@ -57,12 +57,13 @@ public class Announcer extends Module {
     public static String breakMessage = "I just snapped{amount}{name} out of existance thanks to SpiderSense!";
     public static String attackMessage = "I just smacked{name} with a{item} thanks to SpiderSense!";
     public static String eatMessage = "I just choked on {amount}{name}s thanks to SpiderSense!";
-    public static String guiMessage = "I just opened my advanced hacking console thanks to GameSense!";
+    public static String guiMessage = "I just opened my super cool and sexy ClickGUI thanks to SpiderSense!";
 
-    //English, Arabic, Spanish, French, Hebrew, German, Japanese, Dutch, Greek, Turkish, Polish, Russian, Danish, Albanian, Chinese and Finnish.
-    public static String[] walkMessages = {"Ich bin dank SpiderSense gerade{blocks} Meter gelaufen!"};
-    public static String[] jumpMessages = {"Dank SpiderSense bin ich gerade bis zum Haus deiner Mutter in die Luft gesprungen!"};
-    public static String[] breakMessages = {"Ich habe {amount}{name} dank SpiderSense gerade aus der Existenz gerissen!"};
+    // i can't code
+    public static String[] walkMessages = {"I just walked{blocks} meters thanks to SpiderSense!"};
+    public static String[] placeMessages = {"I just put {amount} of the shit called {name} into the your mom thanks to SpiderSense!"};
+    public static String[] jumpMessages = {"I just hopped all the way to your moms hause in the air thanks to SpiderSense!"};
+    public static String[] breakMessages = {"I just snapped{amount}{name} out of existance thanks to SpiderSense!"};
     public static String[] eatMessages = {"I just choked on {amount}{name}s thanks to SpiderSense!"};
 
     public void onUpdate() {
