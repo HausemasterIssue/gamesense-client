@@ -44,7 +44,7 @@ public class GameSense {
         LOGGER.info("Starting up " + MODNAME + " " + MODVER + "!");
         startClient();
         LOGGER.info("Finished initialization for " + MODNAME + " " + MODVER + "!");
-        LOGGER.info("cum");
+        LOGGER.info("OwO how did you find this?");
     }
 
     public CFontRenderer cFontRenderer;
