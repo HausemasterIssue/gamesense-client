@@ -65,20 +65,8 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
         GameSense.EVENT_BUS.post(moveEvent);
         super.move(type, moveEvent.getX(), moveEvent.getY(), moveEvent.getZ());
     }
-
-    @ModifyArg(method = "setSprinting", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/AbstractClientPlayer;setSprinting(Z)V"), index = 0)
-    public boolean modifySprinting(boolean sprinting) {
-        EntityPlayerSP player = Minecraft.getMinecraft().player;
-        Sprint sprint = ModuleManager.getModule(Sprint.class);
-
-        if (player != null && sprint.isEnabled() && sprint.shouldSprint(player)) {
-            return true;
-        } else {
-            return sprinting;
-        }
-    }
-
-    // Sponsored by KAMI Blue
+    
+    // Sponsored by c0mmie_ Blue
     // https://github.com/kami-blue/client/blob/master/src/main/java/org/kamiblue/client/mixin/client/player/MixinEntityPlayerSP.java
     @Inject(method = "onUpdateWalkingPlayer", at = @At("HEAD"), cancellable = true)
     public void onUpdateWalkingPlayerPre(CallbackInfo callbackInfo) {
