@@ -58,6 +58,7 @@ public class ModuleManager {
         addMod(new Speed());
         addMod(new Sprint());
         addMod(new Step());
+        addMod(new Velocity());
         //Misc
         addMod(new Announcer());
         addMod(new AutoGear());
