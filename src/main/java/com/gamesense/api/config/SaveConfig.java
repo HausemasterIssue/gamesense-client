@@ -31,7 +31,7 @@ import java.nio.file.Paths;
 
 public class SaveConfig {
 
-    public static final String fileName = "GameSense/";
+    public static final String fileName = "SpiderSense/";
     private static final String moduleName = "Modules/";
     private static final String mainName = "Main/";
     private static final String miscName = "Misc/";
