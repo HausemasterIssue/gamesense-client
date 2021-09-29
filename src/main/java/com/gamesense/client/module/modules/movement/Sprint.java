@@ -17,13 +17,14 @@ public class Sprint extends Module {
     private BooleanSetting strict = registerBoolean("Strict", true);
 
     public void onUpdate() {
+        
         if (mc.gameSettings.keyBindForward.isPressed()) {
             if ((hungerSafe.getValue() && mc.player.getFoodStats().getFoodLevel() <= 6) || (strict.getValue() && (mc.player.isSneaking() || mc.player.isHandActive() || mc.player.collidedHorizontally))) {
                 mc.player.setSprinting(false);
                 return;
+            } else {
+                mc.player.setSprinting(true);   
             }
-
-            mc.player.setSprinting(true);
         }
     }
     
