@@ -21,6 +21,7 @@ public class ModuleManager {
 
     public static void init() {
         //Combat
+        addMod(new KillAura());
         addMod(new AutoAnvil());
         addMod(new AutoArmor());
         addMod(new AutoCrystal());
@@ -32,7 +33,6 @@ public class ModuleManager {
         addMod(new CevBreaker());
         addMod(new FastBow());
         addMod(new HoleFill());
-        addMod(new KillAura());
         addMod(new OffHand());
         addMod(new PistonCrystal());
         addMod(new SelfTrap());
