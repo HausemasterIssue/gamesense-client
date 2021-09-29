@@ -175,7 +175,9 @@ public class KillAura extends Module {
     private void attack(Entity e) {
         if (mc.player.getCooledAttackStrength(0.0f) >= 1.0f) {
             isAttacking = true;
-            mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SPRINTING));
+            if (stopSprint.getValue()) {
+                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SPRINTING));
+            }
             mc.playerController.attackEntity(mc.player, e);
             mc.player.swingArm(EnumHand.MAIN_HAND);
             isAttacking = false;
