@@ -10,7 +10,7 @@ import me.zero.alpine.listener.Listener;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.network.play.server.SPacketExplosion;
 
-@Module.Declaration(name = "Velocity", category = Category.Combat)
+@Module.Declaration(name = "Velocity", category = Category.Movement)
 public class Velocity extends Module {
 	
 	BooleanSetting noPush = registerBoolean("No Push", true);
