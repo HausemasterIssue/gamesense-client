@@ -53,6 +53,7 @@ public class ModuleManager {
         addMod(new Anchor());
         addMod(new Blink());
         addMod(new HoleTP());
+        addMod(new NoSlow());
         addMod(new PlayerTweaks());
         addMod(new ReverseStep());
         addMod(new Speed());
