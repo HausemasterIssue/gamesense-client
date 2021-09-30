@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,5 +148,60 @@ public class InventoryUtil {
             }
         }
         return slots;
+    }
+    
+     public static int getHotbarItemSlot(Item item, boolean offhand) {
+        if (offhand && mc.player.getHeldItemOffhand().item == item) {
+            return 45;
+        }
+
+        for (int i = 0; i < 9; ++i) {
+            ItemStack stack = mc.player.inventory.getStackInSlot(i);
+            if (!stack.isEmpty && stack.item == item) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    
+    public static int getHotbarBlockSlot(Block block, boolean offhand) {
+        if (offhand && mc.player.getHeldItemOffhand().item instanceof ItemBlock && ((ItemBlock) mc.player.getHeldItemOffhand().item).getBlock() == block) {
+            return 45;
+        }
+
+        for (int i = 0; i < 9; ++i) {
+            ItemStack stack = mc.player.inventory.getStackInSlot(i);
+            if (!stack.isEmpty && stack.item instanceof ItemBlock && ((ItemBlock) stack.item).getBlock() == block) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    
+     public static int getHotbarBlockSlot(Class<? extends Block> block, boolean offhand) {
+        if (offhand && mc.player.getHeldItemOffhand().item instanceof ItemBlock && block.isInstance(((ItemBlock) mc.player.getHeldItemOffhand().item).getBlock())) {
+            return 45;
+        }
+
+        for (int i = 0; i < 9; ++i) {
+            ItemStack stack = mc.player.inventory.getStackInSlot(i);
+            if (!stack.isEmpty && stack.item instanceof ItemBlock && block.isInstance(((ItemBlock) stack.item).getBlock())) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    
+    public static void switchTo(int slot, boolean silent) {
+        if (silent) {
+            mc.player.connection.sendPacket(new CPacketHeldItemChange(slot));
+        } else {
+            mc.player.inventory.currentItem = slot;
+        }
+
+        mc.playerController.updateController();
     }
 }
