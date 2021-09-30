@@ -55,7 +55,6 @@ public class KillAura extends Module {
     BooleanSetting swordPriority = registerBoolean("Prioritise Sword", true);
     BooleanSetting caCheck = registerBoolean("AC Check", false);
     BooleanSetting rotation = registerBoolean("Rotation", true);
-    BooleanSetting stopSprint = registerBoolean("Stop Sprint" true);
     BooleanSetting autoSwitch = registerBoolean("Switch", false);
     DoubleSetting switchHealth = registerDouble("Min Switch Health", 0f, 0f, 20f);
     DoubleSetting range = registerDouble("Range", 5, 0, 10);
@@ -175,9 +174,6 @@ public class KillAura extends Module {
     private void attack(Entity e) {
         if (mc.player.getCooledAttackStrength(0.0f) >= 1.0f) {
             isAttacking = true;
-            if (stopSprint.getValue()) {
-                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SPRINTING));
-            }
             mc.playerController.attackEntity(mc.player, e);
             mc.player.swingArm(EnumHand.MAIN_HAND);
             isAttacking = false;
