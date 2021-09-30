@@ -55,7 +55,6 @@ public class ModuleManager {
         addMod(new HoleTP());
         addMod(new NoFall());
         addMod(new NoSlow());
-        addMod(new PlayerTweaks());
         addMod(new ReverseStep());
         addMod(new Speed());
         addMod(new Sprint());
