@@ -50,7 +50,19 @@ public class Criticals extends Module {
             }
         }
     );
-	
+	public String getHudInfo() {
+        String t = "";
+        if (critMode.getValue().equalsIgnoreCase("Packet")){
+            t = "[" + ChatFormatting.WHITE + critMode.getValue() + ChatFormatting.GRAY + "]";
+        } else if (critMode.getValue().equalsIgnoreCase("Jump")) {
+        	t = "[" + ChatFormatting.WHITE + critMode.getValue() + ChatFormatting.GRAY + "]";
+        } else if (critMode.getValue().equalsIgnoreCase("NCPStrict")) {
+        	t = "[" + ChatFormatting.WHITE + critMode.getValue() + ChatFormatting.GRAY + "]";
+        }
+
+        return t;
     }
+	
+}
 
 
