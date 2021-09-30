@@ -25,7 +25,7 @@ public class GameSense {
 
     public static final String MODNAME = "SpiderSense";
     public static final String MODID = "spidersense";
-    public static final String MODVER = "v2.3.2";
+    public static final String MODVER = "v2.3.3";
 
     public static final Logger LOGGER = LogManager.getLogger(MODNAME);
     public static final EventBus EVENT_BUS = new EventManager();
