@@ -1,9 +1,5 @@
 package com.gamesense.mixin.mixins;
 
-import com.gamesense.client.module.ModuleManager;
-import com.gamesense.client.module.modules.movement.PlayerTweaks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.MovementInputFromOptions;
@@ -20,13 +16,7 @@ public abstract class MixinMovementInputFromOptions extends MovementInput {
         int keyCode = keyBinding.getKeyCode();
 
         if (keyCode > 0 && keyCode < Keyboard.KEYBOARD_SIZE) {
-            PlayerTweaks playerTweaks = ModuleManager.getModule(PlayerTweaks.class);
-
-            if (playerTweaks.isEnabled() && playerTweaks.guiMove.getValue()
-                && Minecraft.getMinecraft().currentScreen != null
-                && !(Minecraft.getMinecraft().currentScreen instanceof GuiChat)) {
-                return Keyboard.isKeyDown(keyCode);
-            }
+            
         }
 
         return keyBinding.isKeyDown();
