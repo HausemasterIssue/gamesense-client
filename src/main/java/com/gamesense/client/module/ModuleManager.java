@@ -43,6 +43,7 @@ public class ModuleManager {
         //Exploits
         addMod(new FastBreak());
         addMod(new LiquidInteract());
+        addMod(new MultiTask());
         addMod(new NoInteract());
         addMod(new NoSwing());
         addMod(new Reach());
