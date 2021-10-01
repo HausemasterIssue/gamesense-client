@@ -12,20 +12,33 @@ import com.gamesense.client.module.Module;
 
 @Module.Declaration(name = "Sprint", category = Category.Movement)
 public class Sprint extends Module {
-
-    private BooleanSetting hungerSafe = registerBoolean("HungerSafe", true);
-    private BooleanSetting strict = registerBoolean("Strict", true);
+    
+    ModeSetting mode = registerMode("Mode", Arrays.asList("Legit", "Rage"), "Legit");
+    public BooleanSetting hungerSafe = registerBoolean("HungerSafe", true);
+    public BooleanSetting strict = registerBoolean("Strict", true);
 
     public void onUpdate() {
         
-        if (mc.gameSettings.keyBindForward.isPressed()) {
+        if (mode.getValue() == "Legit" && mc.gameSettings.keyBindForward.pressed || mode.getValue() == "Rage") {
             if ((hungerSafe.getValue() && mc.player.getFoodStats().getFoodLevel() <= 6) || (strict.getValue() && (mc.player.isSneaking() || mc.player.isHandActive() || mc.player.collidedHorizontally))) {
                 mc.player.setSprinting(false);
                 return;
-            } else {
-                mc.player.setSprinting(true);   
             }
+             
+            mc.player.setSprinting(true); 
         }
+        
+    }
+    
+    public String getHudInfo() {
+        String t = "";
+        if (mode.getValue().equalsIgnoreCase("Legit")){
+            t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
+        } else if (mode.getValue().equalsIgnoreCase("Rage")) {
+        	t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
+        }
+
+        return t;
     }
     
 }
