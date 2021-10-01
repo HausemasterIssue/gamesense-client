@@ -31,6 +31,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketAnimation;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.network.play.server.SPacketSoundEffect;
@@ -63,7 +64,8 @@ public class AutoCrystal extends Module {
     //BooleanSetting antiTotemPop = registerBoolean("Anti Totem Pop", true);
     BooleanSetting antiSuicide = registerBoolean("Anti Suicide", true);
     IntegerSetting antiSuicideValue = registerInteger("Min Health", 14, 1, 36);
-    BooleanSetting autoSwitch = registerBoolean("Switch", true);
+    //BooleanSetting autoSwitch = registerBoolean("Switch", true);
+    ModeSetting autoSwitch = registerMode("Switch", Arrays.asList("Normal", "Silent"), "Normal");
     BooleanSetting noGapSwitch = registerBoolean("No Gap Switch", false);
     public BooleanSetting endCrystalMode = registerBoolean("1.13 Place", false);
     BooleanSetting cancelCrystal = registerBoolean("Cancel Crystal", false);
@@ -258,12 +260,21 @@ public class AutoCrystal extends Module {
 
             // autoSwitch stuff
             if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
-                if (this.autoSwitch.getValue()) {
-                    if (!noGapSwitch.getValue() || !(mc.player.getHeldItemMainhand().getItem() == Items.GOLDEN_APPLE)) {
+                switch(autoSwitch.getValue()) {
+                case "Normal": {
+                	if (!noGapSwitch.getValue() || !(mc.player.getHeldItemMainhand().getItem() == Items.GOLDEN_APPLE)) {
                         mc.player.inventory.currentItem = crystalSlot;
                         rotating = false;
                         this.switchCooldown = true;
                     }
+                }
+                case "Silent": {
+                	if (!noGapSwitch.getValue() || !(mc.player.getHeldItemMainhand().getItem() == Items.GOLDEN_APPLE)) {
+                		mc.player.connection.sendPacket(new CPacketHeldItemChange(crystalSlot));
+                        rotating = false;
+                        this.switchCooldown = true;
+                    }
+                }
                 }
                 return false;
             }
