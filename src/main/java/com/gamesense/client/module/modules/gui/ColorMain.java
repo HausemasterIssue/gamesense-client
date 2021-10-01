@@ -13,7 +13,7 @@ import java.util.Arrays;
 @Module.Declaration(name = "Colors", category = Category.GUI, drawn = false)
 public class ColorMain extends Module {
 
-    public BooleanSetting customFont = registerBoolean("Custom Font", true);
+    public BooleanSetting customFont = registerBoolean("Custom Font", false);
     public BooleanSetting textFont = registerBoolean("Custom Text", false);
     public ModeSetting friendColor = registerMode("Friend Color", ColorUtil.colors, "Blue");
     public ModeSetting enemyColor = registerMode("Enemy Color", ColorUtil.colors, "Red");
