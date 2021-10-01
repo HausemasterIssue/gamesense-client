@@ -1,18 +1,24 @@
 package com.gamesense.client.module.modules.combat;
 
 import java.util.Arrays;
+
 import com.gamesense.api.event.events.PacketEvent;
 import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.client.module.Category;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
-import com.mojang.realmsclient.gui.ChatFormatting;
 import com.gamesense.client.module.Module;
+import com.mojang.realmsclient.gui.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketUseEntity;
+import net.minecraft.world.World;
+
 
 /*
  * @author hausemasterissue
+ * @credits sxmurai
  * @since 9/29/2021
  */
 
@@ -20,11 +26,15 @@ import net.minecraft.network.play.client.CPacketUseEntity;
 public class Criticals extends Module {
 	
 	ModeSetting critMode = registerMode("Mode", Arrays.asList("Packet", "Jump", "NCPStrict"), "NCPStrict");
-	
+
+	CPacketUseEntity packet;
+	final Minecraft mc = Minecraft.getMinecraft();
+
     @EventHandler
     private final Listener<PacketEvent.Send> listener = new Listener<>(event -> {
         if (event.getPacket() instanceof CPacketUseEntity) {
-            if (((CPacketUseEntity) event.getPacket()).getAction() == CPacketUseEntity.Action.ATTACK && mc.player.onGround) {
+            if (((CPacketUseEntity) event.getPacket()).getAction() == CPacketUseEntity.Action.ATTACK && packet.getEntityFromWorld((World)this.mc.world) instanceof EntityLivingBase &&
+            		mc.player.onGround && !mc.player.isInLava() && !mc.player.isInWater()) {
             	switch (critMode.getValue()) {
                 case "Jump": {
                     mc.player.jump();
@@ -51,7 +61,8 @@ public class Criticals extends Module {
             }
         }
     );
-	public String getHudInfo() {
+    
+    public String getHudInfo() {
         String t = "";
         if (critMode.getValue().equalsIgnoreCase("Packet")){
             t = "[" + ChatFormatting.WHITE + critMode.getValue() + ChatFormatting.GRAY + "]";
@@ -63,6 +74,7 @@ public class Criticals extends Module {
 
         return t;
     }
+    
 	
 }
 
