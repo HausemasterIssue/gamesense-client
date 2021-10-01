@@ -218,7 +218,10 @@ public class AutoCrystal extends Module {
     //    }
     private boolean placeCrystal(ACSettings settings) {
         // check to see if we are holding crystals or not
-        int crystalSlot = mc.player.getHeldItemMainhand().getItem()
+        int crystalSlot = mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL ? mc.player.inventory.currentItem : -1;
+        if (crystalSlot == -1) {
+            crystalSlot = InventoryUtil.findFirstItemSlot(ItemEndCrystal.class, 0, 8);
+        }
         
         boolean offhand = false;
         if (mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
