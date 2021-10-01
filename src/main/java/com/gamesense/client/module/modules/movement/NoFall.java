@@ -7,6 +7,7 @@ import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.api.util.player.InventoryUtil;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.block.BlockWeb;
 import net.minecraft.init.Items;
 import net.minecraft.network.play.client.CPacketPlayer;
