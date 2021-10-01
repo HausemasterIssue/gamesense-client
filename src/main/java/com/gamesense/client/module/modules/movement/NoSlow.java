@@ -4,6 +4,7 @@ import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
