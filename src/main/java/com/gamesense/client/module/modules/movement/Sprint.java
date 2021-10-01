@@ -5,6 +5,7 @@ import com.gamesense.api.setting.values.BooleanSetting;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
+import java.util.*;
 
 /*
  * @author hausemasterissue
@@ -21,7 +22,7 @@ public class Sprint extends Module {
 
     public void onUpdate() {
         
-        if (mode.getValue() == "Legit" && mc.gameSettings.keyBindForward.pressed || mode.getValue() == "Rage") {
+        if (mode.getValue() == "Legit" && mc.gameSettings.keyBindForward.isKeyDown() || mode.getValue() == "Rage") {
             if ((hungerSafe.getValue() && mc.player.getFoodStats().getFoodLevel() <= 6) || (strict.getValue() && (mc.player.isSneaking() || mc.player.isHandActive() || mc.player.collidedHorizontally))) {
                 mc.player.setSprinting(false);
                 return;
