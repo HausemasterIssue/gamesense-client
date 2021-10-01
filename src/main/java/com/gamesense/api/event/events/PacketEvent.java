@@ -5,38 +5,38 @@ import net.minecraft.network.Packet;
 
 public class PacketEvent extends GameSenseEvent {
 
-    private final Packet packet;
+    public static Packet<?> packet;
 
-    public PacketEvent(Packet packet) {
+    public PacketEvent(Packet<?> packet) {
         super();
-        this.packet = packet;
+        PacketEvent.packet = packet;
     }
 
-    public Packet getPacket() {
-        return this.packet;
+    public static Packet<?> getPacket() {
+        return packet;
     }
 
     public static class Receive extends PacketEvent {
 
-        public Receive(Packet packet) {
+        public Receive(Packet<?> packet) {
             super(packet);
         }
     }
 
     public static class Send extends PacketEvent {
-        public Send(Packet packet) {
+        public Send(Packet<?> packet) {
             super(packet);
         }
     }
 
     public static class PostReceive extends PacketEvent {
-        public PostReceive(Packet packet) {
+        public PostReceive(Packet<?> packet) {
             super(packet);
         }
     }
 
     public static class PostSend extends PacketEvent {
-        public PostSend(Packet packet) {
+        public PostSend(Packet<?> packet) {
             super(packet);
         }
     }
