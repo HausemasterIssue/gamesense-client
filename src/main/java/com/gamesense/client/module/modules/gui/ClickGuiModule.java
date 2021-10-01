@@ -20,8 +20,8 @@ public class ClickGuiModule extends Module {
 
     public IntegerSetting opacity = registerInteger("Opacity", 162, 50, 255);
     public IntegerSetting scrollSpeed = registerInteger("Scroll Speed", 10, 1, 20);
-    public ColorSetting outlineColor = registerColor("Outline", new GSColor(130, 0, 0, 255));
-    public ColorSetting enabledColor = registerColor("Enabled", new GSColor(130, 0, 0, 255));
+    public ColorSetting outlineColor = registerColor("Outline", new GSColor(0, 130, 0, 255));
+    public ColorSetting enabledColor = registerColor("Enabled", new GSColor(0, 130, 0, 255));
     public ColorSetting backgroundColor = registerColor("Background", new GSColor(0, 0, 0, 255));
     public ColorSetting  settingBackgroundColor = registerColor("Setting", new GSColor(30, 30, 30, 255));
     public ColorSetting fontColor = registerColor("Font", new GSColor(255, 255, 255, 255));
