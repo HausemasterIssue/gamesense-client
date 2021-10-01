@@ -91,13 +91,9 @@ public class NoSlow extends Module {
     
     public String getHudInfo() {
         String t = "";
-        if (mode.getValue().equalsIgnoreCase("Packet")){
+        if (mode.getValue().equalsIgnoreCase("Normal")){
             t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
-        } else if (mode.getValue().equalsIgnoreCase("Prevent")) {
-        	t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
-        } else if (mode.getValue().equalsIgnoreCase("WaterBucket")) {
-        	t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
-        } else if (mode.getValue().equalsIgnoreCase("Web")) {
+        } else if (mode.getValue().equalsIgnoreCase("Strict")) {
         	t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
         }
 
