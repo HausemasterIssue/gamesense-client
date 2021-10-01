@@ -30,7 +30,7 @@ public class NoSlow extends Module {
 	ModeSetting mode = registerMode("Mode", Arrays.asList("Normal", "Strict"), "Normal");
 	BooleanSetting inventoryMove = registerBoolean("InventoryMove", true);
 	
-	private boolean sneaking;
+	public boolean sneaking;
 	
 
     @Override
