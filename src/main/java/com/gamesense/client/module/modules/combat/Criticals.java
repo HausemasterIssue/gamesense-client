@@ -33,8 +33,7 @@ public class Criticals extends Module {
     @EventHandler
     private final Listener<PacketEvent.Send> listener = new Listener<>(event -> {
         if (event.getPacket() instanceof CPacketUseEntity) {
-            if (((CPacketUseEntity) event.getPacket()).getAction() == CPacketUseEntity.Action.ATTACK && packet.getEntityFromWorld((World)this.mc.world) instanceof EntityLivingBase &&
-            		mc.player.onGround && !mc.player.isInLava() && !mc.player.isInWater()) {
+            if (((CPacketUseEntity) event.getPacket()).getAction() == CPacketUseEntity.Action.ATTACK && packet.getEntityFromWorld((World)this.mc.world) instanceof EntityLivingBase && mc.player.onGround) {
             	switch (critMode.getValue()) {
                 case "Jump": {
                     mc.player.jump();
