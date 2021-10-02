@@ -9,12 +9,10 @@ import net.minecraft.item.ItemPotion;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.client.Minecraft;
 
 @Module.Declaration(name = "NoSlowBypass", category = Category.Movement)
-public class NoSlowBypass {
+public class NoSlowBypass extends Module {
 	
-	public static final Minecraft mc = Minecraft.getMinecraft();
 	private boolean sneaking;
 	
 	public void onUpdate() {
