@@ -20,22 +20,24 @@ import java.util.Arrays;
  * @author Crystallinqq/Auto for original code
  * @source https://github.com/Crystallinqq/Mercury-Client/blob/master/src/main/java/fail/mercury/client/client/modules/movement/Speed.java
  * @reworked by Hoosiers on 11/1/2020
+ * thanks to doogie13 for the help!
  */
 
 @Module.Declaration(name = "Speed", category = Category.Movement)
 public class Speed extends Module {
 
     ModeSetting mode = registerMode("Mode", Arrays.asList("Strafe", "Fake", "YPort"), "Strafe");
-    DoubleSetting yPortSpeed = registerDouble("Y Port Speed", 0.06, 0.01, 0.15);
+    DoubleSetting speed = registerDouble("Speed", 1.59, 0.01, 2.00);
     DoubleSetting jumpHeight = registerDouble("Jump Speed", 0.41, 0, 1);
     DoubleSetting timerVal = registerDouble("Timer Speed", 1.15, 1, 1.5);
+    DoubleSetting yPortSpeed = registerDouble("Y Port Speed", 0.06, 0.01, 0.15);
 
     private boolean slowDown;
     private double playerSpeed;
     private Timer timer = new Timer();
 
     public void onEnable() {
-        playerSpeed = MotionUtil.getBaseMoveSpeed();
+        playerSpeed = speed.getValue();
     }
 
     public void onDisable() {

@@ -58,7 +58,6 @@ public class ModuleManager {
         addMod(new HoleTP());
         addMod(new NoFall());
         addMod(new NoSlow());
-        addMod(new NoSlowBypass());
         addMod(new ReverseStep());
         addMod(new Speed());
         addMod(new Sprint());
