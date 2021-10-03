@@ -17,21 +17,19 @@ public class NoSlowBypass extends Module {
 	
 	public void onUpdate() {
 		if(mc.world != null) {
-			Item item = mc.player.getActiveItemStack().getItem();
-			if (sneaking && ((!mc.player.isHandActive() && item instanceof ItemFood || item instanceof ItemBow || item instanceof ItemPotion) || (!(item instanceof ItemFood) || !(item instanceof ItemBow) || !(item instanceof ItemPotion)))) {
-                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
-                sneaking = false;
-            }
-		}
+			if(!mc.player.isHandActive() && sneaking) {
+				mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
+				sneaking = false;
+			}
 	}
 	
-	@SubscribeEvent
-    public void onUseItem(LivingEntityUseItemEvent event) {
-        if (!sneaking) {
-            mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
-            sneaking = true;
-        }
-    }
+    	@SubscribeEvent
+    	public void onUseItem(LivingEntityUseItemEvent event) {
+		if(!sneaking) {
+			sneaking = true;
+			mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
+		}
+    	}
 	
 
 }
