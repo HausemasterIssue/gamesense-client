@@ -21,6 +21,7 @@ public class NoSlowBypass extends Module {
 				mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
 				sneaking = false;
 			}
+		}
 	}
 	
     	@SubscribeEvent
@@ -29,7 +30,7 @@ public class NoSlowBypass extends Module {
 			sneaking = true;
 			mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
 		}
-    	}
+    }
 	
 
 }
