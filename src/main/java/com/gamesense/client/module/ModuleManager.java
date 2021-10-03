@@ -25,6 +25,7 @@ public class ModuleManager {
         addMod(new AutoAnvil());
         addMod(new AutoArmor());
         addMod(new AutoCrystal());
+        addMod(new AutoClicker());
         addMod(new AutoSkull());
         addMod(new AutoTrap());
         addMod(new AutoTotem());
