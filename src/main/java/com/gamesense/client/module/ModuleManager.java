@@ -65,6 +65,7 @@ public class ModuleManager {
         addMod(new Velocity());
         //Misc
         addMod(new Announcer());
+        addMod(new AntiAFK());
         addMod(new AutoGear());
         addMod(new AutoGG());
         addMod(new AutoReply());
