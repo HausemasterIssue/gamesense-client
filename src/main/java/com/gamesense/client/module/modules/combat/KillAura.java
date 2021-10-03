@@ -44,7 +44,7 @@ import java.util.Optional;
  * @since 07/02/2021
  */
 
-@Module.Declaration(name = "Aura", category = Category.Combat)
+@Module.Declaration(name = "Killaura", category = Category.Combat)
 public class KillAura extends Module {
 
     BooleanSetting players = registerBoolean("Players", true);
