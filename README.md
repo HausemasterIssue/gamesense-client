@@ -1,7 +1,7 @@
 <!-- PROJECT TITLE -->
 ![text-1632850605421-removebg-preview](https://user-images.githubusercontent.com/90464553/135137515-6f79ff51-c026-43ca-a54e-1c1c6336996c.png)
 
-**This is a my own contiuation of the Legendary GameSense client, now called SpiderSense!**
+**no offense aestheticall but im still waiting on that pr, i'm trying to fix it myself but darn im retarded**
 
 <!-- INFORMATION -->
 ## Information
