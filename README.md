@@ -9,7 +9,7 @@ SpiderSense is my own personal fork/contiunation of the GameSense client player 
 
 #### Credits
 ***Check specific class files for full credits.***
-Huge thank's to the original GameSense developers and anyone who has helped along the way. Especially Cyber, Hoosiers, FINZ0, 086, Christallinqq and Sxmurai.
+Huge thank's to the original GameSense developers, Inferno and anyone who has helped along the way. Especially Cyber, Hoosiers, FINZ0, 086, Christallinqq and Aestheticall.
 
 <!-- INSTALLATION -->
 ## Installation
