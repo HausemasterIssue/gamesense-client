@@ -67,4 +67,8 @@ public class AutoTotem extends Module {
     public void onEnable() {
         totemSwtichDelay = 0;
     }
+    
+    public String getHudInfo() {
+        return "[" + ChatFormatting.WHITE + totems + ChatFormatting.GRAY + "]";
+    }
 }

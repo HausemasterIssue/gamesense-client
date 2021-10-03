@@ -15,6 +15,7 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import com.gamesense.client.module.ModuleManager;
 import com.gamesense.client.module.modules.misc.AutoGG;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -60,6 +61,7 @@ public class KillAura extends Module {
     DoubleSetting range = registerDouble("Range", 5, 0, 10);
 
     private boolean isAttacking = false;
+    private Entity renderEntity;
 
     public void onUpdate() {
         if (mc.player == null || !mc.player.isEntityAlive()) return;
@@ -192,5 +194,16 @@ public class KillAura extends Module {
         }
 
         return hostileMobs.getValue() && entity instanceof EntityMob;
+    }
+    
+    public String getHudInfo() {
+        String t = "";
+            if (renderEntity == null) {
+                t = "[" + ChatFormatting.WHITE + "None" + ChatFormatting.GRAY + "]";
+            } else {
+                t = "[" + ChatFormatting.WHITE + renderEntity.getName() + ChatFormatting.GRAY + "]";
+            }
+
+        return t;
     }
 }
