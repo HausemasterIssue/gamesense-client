@@ -21,15 +21,20 @@ public class Sprint extends Module {
     public BooleanSetting strict = registerBoolean("Strict", true);
 
     public void onUpdate() {
-        
-        if (mode.getValue() == "Legit" && mc.gameSettings.keyBindForward.isKeyDown() || mode.getValue() == "Rage") {
-            if ((hungerSafe.getValue() && mc.player.getFoodStats().getFoodLevel() <= 6) || (strict.getValue() && (mc.player.isSneaking() || mc.player.isHandActive() || mc.player.collidedHorizontally))) {
-                mc.player.setSprinting(false);
-                return;
-            }
+        if(mc.world != null) {
+            if (mode.getValue() == "Legit" && mc.gameSettings.keyBindForward.isKeyDown() || mode.getValue() == "Rage") {
+                if ((hungerSafe.getValue() && mc.player.getFoodStats().getFoodLevel() <= 6) || (strict.getValue() && (mc.player.isSneaking() || mc.player.isHandActive() || mc.player.collidedHorizontally))) {
+                    mc.player.setSprinting(false);
+                    return;
+                }
              
-            mc.player.setSprinting(true); 
+                mc.player.setSprinting(true); 
+            }
+            
+        } else if (mc.world == null) {
+            mc.player.setSprinting(false);   
         }
+        
         
     }
     
