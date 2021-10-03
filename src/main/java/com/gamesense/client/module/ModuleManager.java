@@ -58,6 +58,7 @@ public class ModuleManager {
         addMod(new NoFall());
         addMod(new NoSlow());
         addMod(new NoSlowBypass());
+        addMod(new NoPush());
         addMod(new ReverseStep());
         addMod(new Speed());
         addMod(new Sprint());
