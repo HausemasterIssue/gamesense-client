@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Module.Declaration(name = "NoSlowBypass", category = Category.Movement)
 public class NoSlowBypass extends Module {
 	
-	private boolean sneaking;
+	private boolean sneaking = false;
 	
 	public void onUpdate() {
 		if(mc.world != null) {
