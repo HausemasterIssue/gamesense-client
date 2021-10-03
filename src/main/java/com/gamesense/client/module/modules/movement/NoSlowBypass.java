@@ -17,7 +17,7 @@ public class NoSlowBypass extends Module {
 	
 	public void onUpdate() {
 		if(mc.world != null) {
-			if(!mc.player.isHandActive() && sneaking) {
+			if(!mc.player.isHandActive() && sneaking == true) {
 				mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
 				sneaking = false;
 			}
@@ -26,7 +26,7 @@ public class NoSlowBypass extends Module {
 	
     	@SubscribeEvent
     	public void onUseItem(LivingEntityUseItemEvent event) {
-		if(!sneaking) {
+		if(sneaking == false) {
 			sneaking = true;
 			mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
 		}
