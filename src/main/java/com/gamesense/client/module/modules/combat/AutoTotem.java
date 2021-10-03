@@ -2,6 +2,7 @@ package com.gamesense.client.module.modules.combat;
 
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.gui.GuiCommandBlock;
 import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.GuiHopper;
