@@ -1,8 +1,6 @@
 <!-- PROJECT TITLE -->
 ![text-1632850605421-removebg-preview](https://user-images.githubusercontent.com/90464553/135137515-6f79ff51-c026-43ca-a54e-1c1c6336996c.png)
 
-**no offense aestheticall but im still waiting on that pr, i'm trying to fix it myself but darn im retarded**
-
 <!-- INFORMATION -->
 ## Information
 
@@ -11,7 +9,7 @@ SpiderSense is my own personal fork/contiunation of the GameSense client player 
 
 #### Credits
 ***Check specific class files for full credits.***
-Huge thank's to the original GameSense developers and anyone who has helped along the way. Especially Cyber, Hoosiers, FINZ0, 086 and Sxmurai.
+Huge thank's to the original GameSense developers and anyone who has helped along the way. Especially Cyber, Hoosiers, FINZ0, 086, Christallinqq and Sxmurai.
 
 <!-- INSTALLATION -->
 ## Installation
