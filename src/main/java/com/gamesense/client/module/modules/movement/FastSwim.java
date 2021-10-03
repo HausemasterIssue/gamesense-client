@@ -7,6 +7,12 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.util.math.MathHelper;
 
+/*
+* @author hausemasterissue
+* @since 3/10/2021
+* creds to cousinware
+*/
+
 @Module.Declaration(name = "FastSwim", category = Category.Movement)
 public class FastSwim extends Module {
 	
