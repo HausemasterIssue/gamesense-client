@@ -124,7 +124,6 @@ jar {
 				'MixinConfigs': 'mixins.gamesense.json',
 				'tweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
 				'TweakOrder': 0,
-				'FMLCorePluginContainsFMLMod': 'true',
 				'FMLCorePlugin': 'com.gamesense.mixin.GameSenseMixinLoader',
 				'ForceLoadAsMod': 'true',
 				'FMLAT': 'gamesense_at.cfg'
