@@ -54,6 +54,7 @@ public class ModuleManager {
         //Movement
         addMod(new Anchor());
         addMod(new Blink());
+        addMod(new FastSwim());
         addMod(new HoleTP());
         addMod(new NoFall());
         addMod(new NoSlow());
