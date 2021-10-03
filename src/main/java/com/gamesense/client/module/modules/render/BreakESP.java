@@ -49,7 +49,7 @@ public class BreakESP extends Module {
 
                 if (blockPos.getDistance((int) mc.player.posX, (int) mc.player.posY, (int) mc.player.posZ) <= range.getValue()) {
 
-                    int progress = destroyBlockProgress.getPartialBlockDamage() / 10;
+                    int progress = destroyBlockProgress.getPartialBlockDamage();
                     AxisAlignedBB axisAlignedBB = mc.world.getBlockState(blockPos).getSelectedBoundingBox(mc.world, blockPos);
 
                     renderESP(axisAlignedBB, progress, color.getValue());
@@ -65,9 +65,9 @@ public class BreakESP extends Module {
         double centerX = axisAlignedBB.minX + ((axisAlignedBB.maxX - axisAlignedBB.minX) / 2);
         double centerY = axisAlignedBB.minY + ((axisAlignedBB.maxY - axisAlignedBB.minY) / 2);
         double centerZ = axisAlignedBB.minZ + ((axisAlignedBB.maxZ - axisAlignedBB.minZ) / 2);
-        double progressValX = progress * ((axisAlignedBB.maxX - centerX) / 10);
-        double progressValY = progress * ((axisAlignedBB.maxY - centerY) / 10);
-        double progressValZ = progress * ((axisAlignedBB.maxZ - centerZ) / 10);
+        double progressValX = progress * ((axisAlignedBB.maxX - centerX) / 100);
+        double progressValY = progress * ((axisAlignedBB.maxY - centerY) / 100);
+        double progressValZ = progress * ((axisAlignedBB.maxZ - centerZ) / 100);
 
         AxisAlignedBB axisAlignedBB1 = new AxisAlignedBB(centerX - progressValX, centerY - progressValY, centerZ - progressValZ, centerX + progressValX, centerY + progressValY, centerZ + progressValZ);
 
