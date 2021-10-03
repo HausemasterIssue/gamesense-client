@@ -49,6 +49,7 @@ public class ModuleManager {
         addMod(new NoSwing());
         addMod(new Reach());
         addMod(new PacketUse());
+        addMod(new AutoDupe());
         addMod(new PacketXP());
         addMod(new PortalGodmode());
         //Movement
