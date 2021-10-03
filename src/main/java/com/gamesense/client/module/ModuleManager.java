@@ -72,6 +72,7 @@ public class ModuleManager {
         addMod(new AutoRespawn());
         addMod(new AutoTool());
         addMod(new AutoMine());
+        addMod(new AutoWalk()); 
         addMod(new ChatModifier());
         addMod(new ChatSuffix());
         addMod(new CoordLeakerReal());
