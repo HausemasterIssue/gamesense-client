@@ -78,6 +78,7 @@ public class AutoCrystal extends Module {
     BooleanSetting rotate = registerBoolean("Rotate", true);
     BooleanSetting raytrace = registerBoolean("Raytrace", false);
     BooleanSetting showDamage = registerBoolean("Render Dmg", true);
+    BooleanSetting outline = registerBoolean("Outline", false);
     ModeSetting hudDisplay = registerMode("HUD", Arrays.asList("Mode", "Target", "None"), "Mode");
     ColorSetting color = registerColor("Color", new GSColor(0, 255, 0, 50));
 
@@ -327,7 +328,9 @@ public class AutoCrystal extends Module {
     public void onWorldRender(RenderEvent event) {
         if (this.render != null) {
             RenderUtil.drawBox(this.render,1, new GSColor(color.getValue(),50), 63);
-            RenderUtil.drawBoundingBox(this.render, 1, 1.00f, new GSColor(color.getValue(),255));
+            if(outline.getValue()) {
+                RenderUtil.drawBoundingBox(this.render, 1, 1.00f, new GSColor(color.getValue(),255));
+            }
         }
 
         if(showDamage.getValue()) {
