@@ -41,6 +41,7 @@ public class ModuleManager {
         addMod(new SelfWeb());
         addMod(new Surround());
         //Exploits
+        addMod(new AntiHunger());
         addMod(new FastBreak());
         addMod(new LiquidInteract());
         addMod(new MultiTask());
