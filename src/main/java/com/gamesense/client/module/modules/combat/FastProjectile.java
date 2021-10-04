@@ -12,6 +12,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+/*
+* @author hausemasterissue
+* @since 4/10/2021
+* pasted from cosmos
+*/
+
 @Module.Declaration(name = "FastProjectile", category = Category.Combat)
 public class FastProjectille extends Module {
 	
