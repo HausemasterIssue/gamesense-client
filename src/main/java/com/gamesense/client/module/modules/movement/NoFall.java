@@ -29,8 +29,7 @@ public class NoFall extends Module {
 	private int oldSlot = -1;
     private EnumHand hand;
     private float oldPitch = -1.0f;
-    private boolean packetLook = true;
-    
+
     @Override
     public void onDisable() {
         oldSlot = -1;
@@ -41,44 +40,53 @@ public class NoFall extends Module {
     @SubscribeEvent
     public void onUpdate() {
         if (mc.player.fallDistance > this.distance.getValue()) {
-            if (mode.getValue() == "Packet") {
-                mc.player.connection.sendPacket(new CPacketPlayer(true));
-            } else if (mode.getValue() == "WaterBucket" || mode.getValue() == "Web") {
-                int slot = mode.getValue() == "WaterBucket" ?
-                        InventoryUtil.getHotbarItemSlot(Items.WATER_BUCKET, true) :
-                        InventoryUtil.getHotbarBlockSlot(BlockWeb.class, true);
-
-                if (slot == -1) {
-                    return;
+            switch (mode.getValue()) {
+                case "Packet": {
+                    mc.player.connection.sendPacket(new CPacketPlayer(true));
+                    break;
                 }
 
-                if (slot == 45) {
-                    hand = EnumHand.OFF_HAND;
-                } else {
-                    hand = EnumHand.MAIN_HAND;
-                    oldSlot = mc.player.inventory.currentItem;
+                case "WaterBucket":
+                case "Web": {
+                    int slot = mode.getValue().equals("WaterBucket") ?
+                            InventoryUtil.getHotbarItemSlot(Items.WATER_BUCKET, true) :
+                            InventoryUtil.getHotbarBlockSlot(BlockWeb.class, true);
 
-                    InventoryUtil.switchTo(slot, false);
+                    if (slot == -1) {
+                        return;
+                    }
 
-                    dreamClutch();
-                } } else if (mode.getValue() == "Prevent") {
+                    if (slot == 45) {
+                        this.hand = EnumHand.OFF_HAND;
+                    } else {
+                        this.hand = EnumHand.MAIN_HAND;
+                        this.oldSlot = mc.player.inventory.currentItem;
+                        InventoryUtil.switchTo(slot, false);
+                    }
+
+                    this.dreamClutch();
+                    break;
+                }
+
+                case "Prevent": {
                     mc.player.fallDistance = 0;
-                    mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX +420420, mc.player.posY, mc.player.posZ, false));
+                    mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX + 420420, mc.player.posY, mc.player.posZ, false));
                     mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 1, mc.player.posZ, true));
-                
+                    break;
+                }
             }
         }
 
-        if (mc.player.onGround && (mode.getValue() == "WaterBucket" || mode.getValue() == "Web")) {
-            if (oldPitch != -1.0f) {
-                mc.player.rotationPitch = oldPitch;
-                oldPitch = -1.0f;
+        if (mc.player.onGround && (mode.getValue().equals("WaterBucket") || mode.getValue().equals("Web"))) {
+            if (this.oldPitch != -1.0f) {
+                mc.player.connection.sendPacket(new CPacketPlayer.Rotation(mc.player.rotationYaw, this.oldPitch, false));
+                this.oldPitch = -1.0f;
             }
 
-            if (oldSlot != -1) {
-                InventoryUtil.switchTo(oldSlot, false);
-                oldSlot = -1;
-                hand = null;
+            if (this.oldSlot != -1) {
+                InventoryUtil.switchTo(this.oldSlot, false);
+                this.oldSlot = -1;
+                this.hand = null;
             }
         }
     }
@@ -88,27 +96,11 @@ public class NoFall extends Module {
             oldPitch = mc.player.rotationPitch;
         }
 
-        if (packetLook == true) {
-            mc.player.connection.sendPacket(new CPacketPlayer.Rotation(mc.player.rotationYaw, 90.0f, false));
-        } else {
-            mc.player.rotationPitch = 90.0f;
-        }
-
+        mc.player.connection.sendPacket(new CPacketPlayer.Rotation(mc.player.rotationYaw, 90.0f, false));
         mc.playerController.processRightClick(mc.player, mc.world, this.hand);
     }
+
 	public String getHudInfo() {
-        String t = "";
-        if (mode.getValue().equalsIgnoreCase("Packet")){
-            t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
-        } else if (mode.getValue().equalsIgnoreCase("Prevent")) {
-        	t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
-        } else if (mode.getValue().equalsIgnoreCase("WaterBucket")) {
-        	t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
-        } else if (mode.getValue().equalsIgnoreCase("Web")) {
-        	t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
-        }
-
-        return t;
+        return "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
     }
-
 }
