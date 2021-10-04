@@ -4,6 +4,7 @@ import com.gamesense.client.module.modules.combat.OffHand;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockObsidian;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -207,5 +208,13 @@ public class InventoryUtil {
     
     public static boolean isHolding(Item item) {
         return mc.player.getHeldItemMainhand().getItem().equals(item) || mc.player.getHeldItemOffhand().getItem().equals(item);
+    }
+    
+    public static int getItemCount(Item item) {
+        return mc.player.inventory.mainInventory.stream().filter(itemStack -> itemStack.getItem() == item).mapToInt(ItemStack::getCount).sum();
+    }
+    
+    public static int getItemCount(EntityPlayer entityPlayer, Item item) {
+        return entityPlayer.inventory.mainInventory.stream().filter(itemStack -> itemStack.getItem() == item).mapToInt(ItemStack::getCount).sum();
     }
 }
