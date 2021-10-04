@@ -35,7 +35,6 @@ public class ModuleManager {
         addMod(new CevBreaker());
         addMod(new Criticals());
         addMod(new FastBow());
-        addMod(new FastProjectile());
         addMod(new HoleFill());
         addMod(new OffHand());
         addMod(new PistonCrystal());
@@ -55,6 +54,7 @@ public class ModuleManager {
         addMod(new PortalGodmode());
         //Movement
         addMod(new Anchor());
+        addMod(new AutoWalk());
         addMod(new Blink());
         addMod(new FastSwim());
         addMod(new HoleTP());
@@ -73,8 +73,7 @@ public class ModuleManager {
         addMod(new AutoReply());
         addMod(new AutoRespawn());
         addMod(new AutoTool());
-        addMod(new AutoMine());
-        addMod(new AutoWalk()); 
+        addMod(new AutoMine()); 
         addMod(new ChatModifier());
         addMod(new ChatSuffix());
         addMod(new CoordLeakerReal());
