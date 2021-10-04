@@ -49,7 +49,8 @@ public class BreakESP extends Module {
 
                 if (blockPos.getDistance((int) mc.player.posX, (int) mc.player.posY, (int) mc.player.posZ) <= range.getValue()) {
 
-                    int progress = destroyBlockProgress.getPartialBlockDamage();
+                    //int progress = destroyBlockProgress.getPartialBlockDamage();
+                    int progress = 100;
                     AxisAlignedBB axisAlignedBB = mc.world.getBlockState(blockPos).getSelectedBoundingBox(mc.world, blockPos);
 
                     renderESP(axisAlignedBB, progress, color.getValue());
