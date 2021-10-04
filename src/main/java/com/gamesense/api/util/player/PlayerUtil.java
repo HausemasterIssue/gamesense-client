@@ -2,8 +2,11 @@ package com.gamesense.api.util.player;
 
 import com.gamesense.api.util.world.BlockUtil;
 import com.gamesense.api.util.world.EntityUtil;
+import com.gamesense.client.module.Module;
+
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -165,5 +168,12 @@ public class PlayerUtil {
             mc.player.connection.sendPacket(new CPacketPlayer.Position(newX, mc.player.posY, newZ, true));
             mc.player.setPosition(newX, mc.player.posY, newZ);
         }
+    }
+    
+    public static void disconnectFromWorld(Module module) {
+        module.disable();
+        mc.world.sendQuittingDisconnectingPacket();
+        mc.loadWorld(null);
+        mc.displayGuiScreen(new GuiMainMenu());
     }
 }
