@@ -1,65 +1,65 @@
 package com.gamesense.client.module.modules.movement;
 
-import com.gamesense.api.setting.values.ModeSetting;
+import com.gamesense.api.event.events.PacketEvent;
+import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import net.minecraft.network.play.client.CPacketEntityAction;
+import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayerDigging;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.event.InputUpdateEvent;
-import java.util.Arrays;
-
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 
 /*
  * @author hausemasterissue
  * @since 9/30/2021
  */
-
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
 public class NoSlow extends Module {
-	
-	ModeSetting mode = registerMode("Mode", Arrays.asList("Normal", "Strict"), "Normal");
-	
+	BooleanSetting strict = registerBoolean("Strict", true);
+	BooleanSetting sneak = registerBoolean("Sneak", false);
+
 	private boolean sneaking;
-	
 
-    @Override
-    public void onUpdate() {
-        if (mode.getValue() == "Strict") {
-        	if(mc.world != null) {
-        		if(!mc.player.isHandActive() && sneaking == true) {
-    				mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
-    				sneaking = false;
-    			}
-    		}
-        }
-   }
-
-    
-    @EventHandler
-	private final Listener<InputUpdateEvent> eventListener = new Listener<>(event -> {
-			if(mc.player.isHandActive() && sneaking == false && mode.getValue() == "Strict") {
-				sneaking = true;
-				mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
-			} else if (mode.getValue() == "Normal" && mc.player.isHandActive() && !mc.player.isRiding()) {
-				event.getMovementInput().moveStrafe *= 5;
-                event.getMovementInput().moveForward *= 5;
-			}
-		
+	@Override
+	protected void onDisable() {
+		if (this.sneaking) {
+			mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
+			this.sneaking = false;
 		}
-	);
-    
-    
-    public String getHudInfo() {
-        String t = "";
-        if (mode.getValue().equalsIgnoreCase("Normal")){
-            t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
-        } else if (mode.getValue().equalsIgnoreCase("Strict")) {
-        	t = "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
-        }
+	}
 
-        return t;
-    }
+	@Override
+	public void onUpdate() {
+		if (this.sneak.getValue() && !mc.player.isHandActive() && this.sneaking) {
+			mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
+			this.sneaking = false;
+		}
+	}
 
+	@EventHandler
+	private final Listener<InputUpdateEvent> inputUpdateEventListener = new Listener<>(event -> {
+		if (mc.player.isHandActive() && !mc.player.isRiding()) {
+			event.getMovementInput().moveForward *= 5.0f;
+			event.getMovementInput().moveStrafe *= 5.0f;
+		}
+	});
+
+	@EventHandler
+	private final Listener<LivingEntityUseItemEvent.Tick> livingEntityUseItemEventTickListener = new Listener<>(event -> {
+		if (this.sneak.getValue() && !mc.player.isRiding() && event.getEntityLiving() == mc.player && !this.sneaking) {
+			mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
+			this.sneaking = true;
+		}
+	});
+
+	@EventHandler
+	private final Listener<PacketEvent.Send> packetSendListener = new Listener<>(event -> {
+		if (this.strict.getValue() && PacketEvent.getPacket() instanceof CPacketPlayer && mc.player.isHandActive() && !mc.player.isRiding()) {
+			mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, mc.player.getPosition(), EnumFacing.DOWN));
+		}
+	});
 }

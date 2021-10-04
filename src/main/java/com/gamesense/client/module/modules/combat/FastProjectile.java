@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 */
 
 @Module.Declaration(name = "FastProjectile", category = Category.Combat)
-public class FastProjectille extends Module {
+public class FastProjectile extends Module {
 	
 	@Override
     public void onUpdate() {

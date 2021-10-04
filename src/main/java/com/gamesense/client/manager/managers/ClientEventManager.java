@@ -56,6 +56,11 @@ public enum ClientEventManager implements Manager {
     }
 
     @SubscribeEvent
+    public void onLivingEntityUseItemTick(LivingEntityUseItemEvent.Tick event) {
+        GameSense.EVENT_BUS.post(event);
+    }
+
+    @SubscribeEvent
     public void onLivingEntityUseItemFinish(LivingEntityUseItemEvent.Finish event) {
         GameSense.EVENT_BUS.post(event);
     }

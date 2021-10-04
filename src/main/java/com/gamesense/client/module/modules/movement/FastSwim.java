@@ -12,7 +12,7 @@ import net.minecraft.util.math.MathHelper;
 * @since 3/10/2021
 * creds to cousinware
 */
-
+// @todo cleanup and fix more
 @Module.Declaration(name = "FastSwim", category = Category.Movement)
 public class FastSwim extends Module {
 	
@@ -33,9 +33,9 @@ public class FastSwim extends Module {
     @Override
     public void onUpdate() {
         delay++;
-            if (strict.getValue() == true) {
+            if (strict.getValue()) {
                 if (!mc.isSingleplayer()) {
-                    if (strict.getValue() == true) {
+                    if (strict.getValue()) {
 
                         if (sprint) {
                             if (mc.player.isInLava() || mc.player.isInWater()) {
@@ -81,81 +81,27 @@ public class FastSwim extends Module {
                     }
                 }
             }
-    
     }
-    
-    
+
     private float GetRotationYawForCalc() {
         float rotationYaw = mc.player.rotationYaw;
         if (mc.player.moveForward < 0.0f) {
             rotationYaw += 180.0f;
         }
-        float n = 1.0f;
+
+        float offset = 1.0f;
         if (mc.player.moveForward < 0.0f) {
-            n = -0.5f;
+            offset = -0.5f;
+        } else if (mc.player.moveForward > 0.0f) {
+            offset = 0.5f;
         }
-        else if (mc.player.moveForward > 0.0f) {
-            n = 0.5f;
-        }
+
         if (mc.player.moveStrafing > 0.0f) {
-            rotationYaw -= 90.0f * n;
+            rotationYaw -= 90.0f * offset;
+        } else if (mc.player.moveStrafing < 0.0f) {
+            rotationYaw += 90.0f * offset;
         }
-        if (mc.player.moveStrafing < 0.0f) {
-            rotationYaw += 90.0f * n;
-        }
+
         return rotationYaw * 0.017453292f;
-
     }
-{
-    
-    if (strict.getValue() != true) {
-        if (sprint) {
-            if (mc.player.isInLava() || mc.player.isInWater()) {
-                mc.player.setSprinting(true);
-            }
-        }
-
-        if (mc.player.isInWater() || mc.player.isInLava()) {
-            if (mc.gameSettings.keyBindJump.isKeyDown() && up) {
-                mc.player.motionY = .725 / divider;
-            }
-        }
-        if (mc.player.isInWater() && water) {
-            if (mc.gameSettings.keyBindForward.isKeyDown() || mc.gameSettings.keyBindBack.isKeyDown() || mc.gameSettings.keyBindLeft.isKeyDown() || mc.gameSettings.keyBindRight.isKeyDown()) {
-                final float yaw = GetRotationYawForCalc();
-            }
-        }
-
-        if (mc.player.isInLava() && lava && !mc.player.onGround) {
-            if (mc.gameSettings.keyBindForward.isKeyDown() || mc.gameSettings.keyBindBack.isKeyDown() || mc.gameSettings.keyBindLeft.isKeyDown() || mc.gameSettings.keyBindRight.isKeyDown()) {
-                final float yaw = GetRotationYawForCalc();
-                if (delay <= shiftTicks.getValue()) {
-                    mc.player.motionX -= MathHelper.sin(yaw) * speed.getValue() / 10;
-                    mc.player.motionZ += MathHelper.cos(yaw) * speed.getValue() / 10;
-                }
-                if (delay > shiftTicks.getValue()) {
-                    mc.player.motionX -= MathHelper.sin(yaw) * tickBoost.getValue() / 10;
-                    mc.player.motionZ += MathHelper.cos(yaw) * tickBoost.getValue() / 10;
-                    delay = 0;
-                }
-            }
-        }
-
-        if (mc.player.isInWater() && down && !mc.player.onGround) {
-            if (mc.gameSettings.keyBindSneak.isKeyDown()) {
-                int divider2 = divider * -1;
-                mc.player.motionY = 2.2 / divider2;
-            }
-        }
-        if (mc.player.isInLava() && down) {
-            if (mc.gameSettings.keyBindSneak.isKeyDown()) {
-                int divider2 = divider * -1;
-                mc.player.motionY = .91 / divider2;
-            }
-        }
-        if (!mc.player.isInWater() && !mc.player.isInLava()) {
-            // idfk do nothing i guess
-        }
-    }
-}
 }

@@ -15,38 +15,23 @@ import java.util.Scanner;
  * @author Hoosiers
  * @since 12/15/2020
  */
-
 public class VersionChecker {
+    private static final String URL_CHECKER = "https://gist.githubusercontent.com/Sxmurai/a2abe77730fd7ba2b28b16dd328e7d03/raw/f331763a4bae821b1b9b8905cfb61aa68cecc461/spidersense_version.txt";
 
-    public static void init() {
-        checkVersion(GameSense.MODVER);
-    }
-
-    private static void checkVersion(String version) {
-        boolean isLatest = true;
-        String newVersion = "null";
-
+    public static void init(String version) {
         if (version.startsWith("d")) {
             return;
         }
 
         try {
-            URL url = new URL("");
-            Scanner scanner = new Scanner(url.openStream());
-
+            Scanner scanner = new Scanner(new URL(URL_CHECKER).openStream());
             String grabbedVersion = scanner.next();
 
             if (!version.equalsIgnoreCase(grabbedVersion)) {
-                isLatest = false;
-                newVersion = grabbedVersion;
+                generatePopUp(grabbedVersion);
             }
         } catch (IOException e) {
             e.printStackTrace();
-            isLatest = true;
-        }
-
-        if (!isLatest) {
-            generatePopUp(newVersion);
         }
     }
 
@@ -56,22 +41,19 @@ public class VersionChecker {
         Font font = label.getFont();
 
         String style = "font-family:" + font.getFamily() + ";" + "font-weight:" + (font.isBold() ? "bold" : "normal") + ";" + "font-size:" + font.getSize() + "pt;";
-        JEditorPane editorPane = new JEditorPane("text/html", "<html><body style=\"" + style + "\">" + "Version outdated! Download the latest (" + newVersion + ") " + "<a href=\"https://github.com/IUDevman/gamesense-client/releases\">HERE</a>" + "!" + "</body></html>");
+        JEditorPane editorPane = new JEditorPane("text/html", "<html><body style=\"" + style + "\">" + "Version outdated! Download the latest (" + newVersion + ") " + "<a href=\"https://github.com/HausemasterIssue/spidersense/releases/\">HERE</a>" + "!" + "</body></html>");
 
-        editorPane.addHyperlinkListener(new HyperlinkListener() {
-
-            @Override
-            public void hyperlinkUpdate(HyperlinkEvent event) {
-
-                if (event.getEventType().equals(HyperlinkEvent.EventType.ACTIVATED)) {
-
-                    try {
-                        Desktop.getDesktop().browse(event.getURL().toURI());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (URISyntaxException e) {
-                        e.printStackTrace();
+        editorPane.addHyperlinkListener(event -> {
+            if (event.getEventType().equals(HyperlinkEvent.EventType.ACTIVATED)) {
+                try {
+                    Desktop desktop = Desktop.getDesktop();
+                    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+                        desktop.browse(event.getURL().toURI());
+                    } else {
+                        System.out.println("Couldn't open URL because of desktop not supporting the 'BROWSE' action.");
                     }
+                } catch (IOException | URISyntaxException e) {
+                    e.printStackTrace();
                 }
             }
         });
