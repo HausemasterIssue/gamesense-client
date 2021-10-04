@@ -35,6 +35,7 @@ public class ModuleManager {
         addMod(new CevBreaker());
         addMod(new Criticals());
         addMod(new FastBow());
+        addMod(new FastProjectile());
         addMod(new HoleFill());
         addMod(new OffHand());
         addMod(new PistonCrystal());
