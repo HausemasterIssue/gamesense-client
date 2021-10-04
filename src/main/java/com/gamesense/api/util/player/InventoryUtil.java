@@ -204,4 +204,8 @@ public class InventoryUtil {
 
         mc.playerController.updateController();
     }
+    
+    public static boolean isHolding(Item item) {
+        return mc.player.getHeldItemMainhand().getItem().equals(item) || mc.player.getHeldItemOffhand().getItem().equals(item);
+    }
 }
