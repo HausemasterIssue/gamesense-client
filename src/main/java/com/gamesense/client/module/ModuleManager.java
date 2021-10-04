@@ -74,7 +74,7 @@ public class ModuleManager {
         addMod(new AutoTool());
         addMod(new AutoMine());
         addMod(new AutoWalk()); 
-        addMod(new AutoUse());
+        addMod(new InventoryTweaks());
         addMod(new ChatModifier());
         addMod(new ChatSuffix());
         addMod(new CoordLeakerReal());
