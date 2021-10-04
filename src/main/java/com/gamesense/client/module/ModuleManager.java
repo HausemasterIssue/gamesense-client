@@ -107,6 +107,7 @@ public class ModuleManager {
         addMod(new RenderTweaks());
         addMod(new ShulkerViewer());
         addMod(new SkyColor());
+        addMod(new SmallShield());
         addMod(new Tracers());
         addMod(new ViewModel());
         addMod(new VoidESP());
