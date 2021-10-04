@@ -85,6 +85,7 @@ public class ModuleManager {
         addMod(new NoEntityTrace());
         addMod(new PhysicsSpammer());
         addMod(new PvPInfo());
+        addMod(new Scaffold());
         addMod(new SortInventory());
         addMod(new XCarry());
         //Render
