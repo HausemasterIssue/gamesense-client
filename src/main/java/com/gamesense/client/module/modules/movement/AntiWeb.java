@@ -5,11 +5,9 @@ import com.gamesense.api.event.events.AddCollisionBoxToListEvent;
 import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
-import com.gamesense.mixin.mixins.accessor.IEntity;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zero.alpine.listener.EventHandler;
-import me.zero.alpine.listener.Listener;
-import net.minecraft.init.Blocks;
+import me.zero.alpine.listener.Listener;;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 
@@ -30,7 +28,7 @@ public class AntiWeb extends Module {
             return;
 
 
-        if (((IEntity) mc.player).getIsInWeb()) {
+        if (mc.player.isInWeb) {
             delay++;
             if (downMode.getValue().equalsIgnoreCase("Strict")) {
                 mc.player.motionY = 1.1 / -5;
