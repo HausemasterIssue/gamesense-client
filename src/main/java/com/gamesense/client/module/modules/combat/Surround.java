@@ -106,7 +106,7 @@ public class Surround extends Module {
             return;
         }
 
-        if (!(mc.player.onGround) && !(mc.player.isInWeb)) {
+        if (!(mc.player.onGround) && !(mc.player.isInWeb) || surrounded == true) {
             switch (jumpMode.getValue()) {
                 case "Pause" : {
                     return;
@@ -121,10 +121,6 @@ public class Surround extends Module {
             }
         }
         
-        if(surrounded == true) {
-       	   disable();
-        }
-
         int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
 
         if ((outOfTargetBlock || targetBlockSlot == -1) && disableNoBlock.getValue()) {
