@@ -101,4 +101,25 @@ public class Freecam extends Module {
             event.cancel();
         }
     });
+    
+    public static double[] getRotationFromVec(Vec3d vec) {
+        double xz = Math.sqrt(vec.x * vec.x + vec.z * vec.z);
+        double yaw = normalizeAngle(Math.toDegrees(Math.atan2(vec.z, vec.x)) - 90.0);
+        double pitch = normalizeAngle(Math.toDegrees(-Math.atan2(vec.y, xz)));
+        return new double[]{yaw, pitch};
+    }
+    
+    public static double normalizeAngle(double angle) {
+        angle %= 360.0;
+        
+        if (angle >= 180.0) {
+            angle -= 360.0;
+        }
+        
+        if (angle < -180.0) {
+            angle += 360.0;
+        }
+        
+        return angle;
+    }
 }
