@@ -57,6 +57,7 @@ public class ModuleManager {
         addMod(new PortalGodmode());
         //Movement
         addMod(new Anchor());
+        addMod(new AntiWeb());
         addMod(new AutoWalk());
         addMod(new Blink());
         addMod(new EntityControl());
