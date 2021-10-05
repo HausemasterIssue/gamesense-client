@@ -38,6 +38,14 @@ public class PlacementUtil {
             }
         }
     }
+    
+    public static Block getBlock(BlockPos pos) {
+		try {
+			return mc.world.getBlockState(pos).getBlock();
+		} catch (NullPointerException e) {
+			return null;
+		}
+	}
 
     public static boolean placeBlock(BlockPos blockPos, EnumHand hand, boolean rotate, Class<? extends Block> blockToPlace) {
         int oldSlot = mc.player.inventory.currentItem;
