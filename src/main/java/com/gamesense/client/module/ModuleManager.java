@@ -33,6 +33,7 @@ public class ModuleManager {
         addMod(new AutoWeb());
         addMod(new BedAura());
         addMod(new Blocker());
+        addMod(new FastProjectile());
         addMod(new CevBreaker());
         addMod(new Criticals());
         addMod(new FastBow());
