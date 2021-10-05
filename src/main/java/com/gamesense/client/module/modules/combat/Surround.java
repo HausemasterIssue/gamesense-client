@@ -43,6 +43,7 @@ public class Surround extends Module {
 
     private final Timer delayTimer = new Timer();
     private Vec3d centeredBlock = Vec3d.ZERO;
+    private static boolean surrounded = false;
 
     private int oldSlot = -1;
     private int offsetSteps = 0;
@@ -117,6 +118,10 @@ public class Surround extends Module {
                     break;
                 }
             }
+        }
+        
+        if(surrounded == true) {
+        	return;
         }
 
         int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
@@ -217,4 +222,17 @@ public class Surround extends Module {
 
         return PlacementUtil.place(pos, handSwing, rotate.getValue(), true);
     }
+    
+    public static boolean isSurrounded(BlockPos p) {
+		BlockPos[] positions = {p.add(1, 0, 0), p.add(-1, 0, 0), p.add(0, 0, 1), p.add(0, 0, -1)};
+		
+ 		for (BlockPos pos : positions) {
+ 			if (PlacementUtil.getBlock(pos) != Blocks.OBSIDIAN && PlacementUtil.getBlock(pos) != Blocks.BEDROCK) {
+ 				return false;
+ 			}
+ 		}
+ 		
+ 		surrounded = true;
+ 		return true;
+	}
 }
