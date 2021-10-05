@@ -122,7 +122,7 @@ public class Surround extends Module {
         }
         
         if(surrounded == true) {
-        	return;
+       	   disable();
         }
 
         int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
