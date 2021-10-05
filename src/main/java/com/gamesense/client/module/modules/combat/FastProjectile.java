@@ -16,7 +16,7 @@ import net.minecraft.network.play.client.CPacketPlayerDigging;
 
 
 @Module.Declaration(name = "BowStrength", category = Category.Combat)
-public class FastProjectille extends Module {
+public class FastProjectile extends Module {
 	
     public void onPacketSend(PacketEvent.Send event) {
         if (event.getPacket() instanceof CPacketPlayerDigging && ((CPacketPlayerDigging) event.getPacket()).getAction().equals(CPacketPlayerDigging.Action.RELEASE_USE_ITEM)) {
