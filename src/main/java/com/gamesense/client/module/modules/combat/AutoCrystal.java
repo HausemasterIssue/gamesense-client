@@ -220,7 +220,7 @@ public class AutoCrystal extends Module {
     private boolean placeCrystal(ACSettings settings) {
         // check to see if we are holding crystals or not
         int crystalSlot = mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL ? mc.player.inventory.currentItem : -1;
-        if (crystalSlot == -1) {
+        if (crystalSlot == -1 && autoSwitch.getValue() != "Silent") {
             crystalSlot = InventoryUtil.findFirstItemSlot(ItemEndCrystal.class, 0, 8);
         }
         
@@ -275,7 +275,7 @@ public class AutoCrystal extends Module {
                     }
                 }
                 case "Silent": {
-                	if (!noGapSwitch.getValue() || !(mc.player.getHeldItemMainhand().getItem() == Items.GOLDEN_APPLE)) {
+                	if (!noGapSwitch.getValue()) {
                 		mc.player.connection.sendPacket(new CPacketHeldItemChange(crystalSlot));
                         rotating = false;
                         this.switchCooldown = true;
