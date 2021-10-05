@@ -60,6 +60,7 @@ public class ModuleManager {
         addMod(new Blink());
         addMod(new FastSwim());
         addMod(new HoleTP());
+        addMod(new IceSpeed();
         addMod(new NoFall());
         addMod(new NoSlow());
         addMod(new ReverseStep());
