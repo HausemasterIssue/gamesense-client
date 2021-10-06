@@ -37,6 +37,7 @@ public class AutoTotem extends Module {
             return;
         totems = mc.player.inventory.mainInventory.stream().filter(itemStack -> itemStack.getItem() == Items.TOTEM_OF_UNDYING).mapToInt(ItemStack::getCount).sum();
         totemsOffHand = mc.player.inventory.offHandInventory.stream().filter(itemStack -> itemStack.getItem() == Items.TOTEM_OF_UNDYING).mapToInt(ItemStack::getCount).sum();
+        totalTotems = totems + totemsOffHand;
 
         for (int i = 0; i < 45; i++) {
             if (totems + totemsOffHand > 0) {
@@ -68,6 +69,6 @@ public class AutoTotem extends Module {
     }
     
     public String getHudInfo() {
-        return "[" + ChatFormatting.WHITE + totems + ChatFormatting.GRAY + "]";
+        return "[" + ChatFormatting.WHITE + totalTotems + ChatFormatting.GRAY + "]";
     }
 }
