@@ -46,7 +46,6 @@ public class ModuleManager {
         //Exploits
         addMod(new AntiDesync());
         addMod(new AntiHunger());
-        addMod(new FastBreak());
         addMod(new LiquidInteract());
         addMod(new MultiTask());
         addMod(new NoInteract());
@@ -55,6 +54,7 @@ public class ModuleManager {
         addMod(new PacketUse());
         addMod(new PacketXP());
         addMod(new PortalGodmode());
+        addMod(new FastBreak());
         //Movement
         addMod(new Anchor());
         addMod(new AntiWeb());
