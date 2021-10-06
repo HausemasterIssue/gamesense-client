@@ -55,6 +55,7 @@ public class AutoCrystal extends Module {
     ModeSetting crystalPriority = registerMode("Prioritise", Arrays.asList("Damage", "Closest", "Health"), "Damage");
     BooleanSetting breakCrystal = registerBoolean("Break", true);
     BooleanSetting placeCrystal = registerBoolean("Place", true);
+    BooleanSetting sequential = registerBoolean("Sequential", true);
     IntegerSetting attackSpeed = registerInteger("Attack Speed", 16, 0, 20);
     public DoubleSetting breakRange = registerDouble("Hit Range", 4.4, 0.0, 10.0);
     public DoubleSetting placeRange = registerDouble("Place Range", 4.4, 0.0, 6.0);
@@ -390,7 +391,7 @@ public class AutoCrystal extends Module {
     @EventHandler
     private final Listener<PacketEvent.Receive> packetReceiveListener = new Listener<>(event -> {
         Packet<?> packet = event.getPacket();
-        if (packet instanceof SPacketSoundEffect) {
+        if (packet instanceof SPacketSoundEffect && sequential.getValue()) {
             final SPacketSoundEffect packetSoundEffect = (SPacketSoundEffect) packet;
             if (packetSoundEffect.getCategory() == SoundCategory.BLOCKS && packetSoundEffect.getSound() == SoundEvents.ENTITY_GENERIC_EXPLODE) {
                 for (Entity entity : new ArrayList<>(mc.world.loadedEntityList)) {
