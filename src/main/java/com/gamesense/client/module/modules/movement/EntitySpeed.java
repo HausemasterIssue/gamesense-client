@@ -20,6 +20,8 @@ public class EntitySpeed extends Module {
 	DoubleSetting speed = registerDouble("Speed", 0.5, 0.0, 10.0);
 	BooleanSetting antiStuck = registerBoolean("AntiStuck", true);
 	
+	double roundedSpeed = Math.round(speed.getValue() * 100) / 100;
+	
     @EventHandler
     private Listener<TravelEvent> onTravel = new Listener<>(event -> {
     	if (mc.player == null || mc.player.ridingEntity == null) {
@@ -58,7 +60,7 @@ public class EntitySpeed extends Module {
 	}
 	
 	public String getHudInfo() {
-        return "[" + ChatFormatting.WHITE + speed.getValue() + ChatFormatting.GRAY + "]";
+        return "[" + ChatFormatting.WHITE + roundedSpeed + ChatFormatting.GRAY + "]";
     }
     
 
