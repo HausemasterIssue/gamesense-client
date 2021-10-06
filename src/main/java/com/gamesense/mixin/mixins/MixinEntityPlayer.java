@@ -5,6 +5,7 @@ import com.gamesense.api.event.events.TravelEvent;
 import com.gamesense.api.event.events.WaterPushEvent;
 import com.gamesense.client.GameSense;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.EntityPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -42,6 +43,7 @@ public abstract class MixinEntityPlayer {
     	GameSense.EVENT_BUS.post(event);
     	
     	if (event.isCancelled()) {
+            move(MoverType.SELF, motionX, motionY, motionZ);
     		callbackInfo.cancel();
     	}
     }
