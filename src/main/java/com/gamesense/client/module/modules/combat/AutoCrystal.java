@@ -195,12 +195,14 @@ public class AutoCrystal extends Module {
                         rotating = rotate.getValue();
                         lastHitVec = crystal.getPositionVector();
 
-                        swingArm();
-                        for(int tries = 1; tries >= limit.getValue(); tries++) {
+                        
+                        for(int tries = 0; tries < limit.getValue(); tries++) {
                         	if(tries < limit.getValue()) {
                         		if (breakType.getValue().equalsIgnoreCase("Swing")) {
+                                    swingArm();
                                     mc.playerController.attackEntity(mc.player, crystal);
                                 } else {
+                                    swingArm();
                                     mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
                                 }
 
@@ -210,7 +212,7 @@ public class AutoCrystal extends Module {
                                     mc.world.getLoadedEntityList();
                                 }
                         	} else {
-                        		continue;
+                        		return false;
                         	}
                         }
                     }
