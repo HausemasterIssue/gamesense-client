@@ -71,6 +71,7 @@ public class AutoCrystal extends Module {
     public BooleanSetting endCrystalMode = registerBoolean("1.13 Place", false);
     BooleanSetting cancelCrystal = registerBoolean("Cancel Crystal", false);
     DoubleSetting minDmg = registerDouble("Min Damage", 5, 0, 36);
+    DoubleSetting limit = registerDouble("Limit", 1, 0, 10);
     DoubleSetting minBreakDmg = registerDouble("Min Break Dmg", 5, 0, 36.0);
     DoubleSetting maxSelfDmg = registerDouble("Max Self Dmg", 10, 1.0, 36.0);
     IntegerSetting facePlaceValue = registerInteger("FacePlace HP", 8, 0, 36);
