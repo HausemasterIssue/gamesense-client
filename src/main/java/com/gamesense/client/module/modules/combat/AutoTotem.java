@@ -50,7 +50,7 @@ public class AutoTotem extends Module {
                 if (mc.player.getHeldItemOffhand().isEmpty()) {
                     totemSwtichDelay++;
                         if (stacks.getItem() == itemTotem) {
-                            if (totemSwtichDelay >= delay.getValue() {
+                            if (totemSwtichDelay >= delay.getValue()) {
                                 mc.playerController.windowClick(0, i, 1, ClickType.PICKUP, mc.player);
                                 mc.playerController.windowClick(0, 45, 1, ClickType.PICKUP, mc.player);
                                 totemSwtichDelay = 0;
