@@ -196,16 +196,22 @@ public class AutoCrystal extends Module {
                         lastHitVec = crystal.getPositionVector();
 
                         swingArm();
-                        if (breakType.getValue().equalsIgnoreCase("Swing")) {
-                            mc.playerController.attackEntity(mc.player, crystal);
-                        } else {
-                            mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
-                        }
+                        for(int tries = 1; tries >= limit.getValue(); tries++) {
+                        	if(tries < limit.getValue()) {
+                        		if (breakType.getValue().equalsIgnoreCase("Swing")) {
+                                    mc.playerController.attackEntity(mc.player, crystal);
+                                } else {
+                                    mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
+                                }
 
-                        if (cancelCrystal.getValue()) {
-                            crystal.setDead();
-                            mc.world.removeAllEntities();
-                            mc.world.getLoadedEntityList();
+                                if (cancelCrystal.getValue()) {
+                                    crystal.setDead();
+                                    mc.world.removeAllEntities();
+                                    mc.world.getLoadedEntityList();
+                                }
+                        	} else {
+                        		continue;
+                        	}
                         }
                     }
                     return true;
