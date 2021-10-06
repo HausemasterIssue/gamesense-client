@@ -10,6 +10,8 @@ import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 
 @Module.Declaration(name = "AntiWeb", category = Category.Movement)
 public class AntiWeb extends Module {
