@@ -14,8 +14,7 @@ import net.minecraft.network.play.client.CPacketUseEntity;
 import java.util.Arrays;
 
 /*
- * @author hausemasterissue
- * @credits sxmurai
+ * @author hausemasterissue, sexmurai
  * @since 9/29/2021
  */
 
