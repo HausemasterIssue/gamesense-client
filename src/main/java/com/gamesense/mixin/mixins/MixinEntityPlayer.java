@@ -1,6 +1,7 @@
 package com.gamesense.mixin.mixins;
 
 import com.gamesense.api.event.events.PlayerJumpEvent;
+import com.gamesense.api.event.events.TravelEvent;
 import com.gamesense.api.event.events.WaterPushEvent;
 import com.gamesense.client.GameSense;
 import net.minecraft.client.Minecraft;
@@ -11,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
 
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer {
@@ -32,5 +34,15 @@ public abstract class MixinEntityPlayer {
         if (event.isCancelled()) {
             callbackInfoReturnable.setReturnValue(false);
         }
+    }
+    
+    @Inject(method = "travel", at = @At("HEAD"), cancellable = true)
+    public void travel(float strafe, float vertical, float forward, CallbackInfo callbackInfo) {
+    	TravelEvent event = new TravelEvent();
+    	GameSense.EVENT_BUS.post(event);
+    	
+    	if (event.isCancelled()) {
+    		callbackInfo.cancel();
+    	}
     }
 }
