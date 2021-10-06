@@ -23,6 +23,7 @@ public class AntiWeb extends Module {
     int time = 0;
     int delay = 0;
     public boolean getisInWeb;
+    public float speed = 1.0f;
     
     @Override
     public void onUpdate() {
@@ -48,15 +49,10 @@ public class AntiWeb extends Module {
             }
             if (downMode.getValue().equalsIgnoreCase("Timer")) {
                 if (!(mc.player.onGround)) {
-                    if (delay > 5) {
-                        mc.player.motionX *= .0001;
-                        mc.player.motionZ *= .0001;
-
-                    }
+                	mc.timer.tickLength = 50.0f / ((speed == 0.0f) ? 0.1f : speed);
                 } else {
-                    delay = 0;
+                	mc.timer.tickLength = 50.0f;
                 }
-
 
             }
         } else {
@@ -82,6 +78,7 @@ public class AntiWeb extends Module {
     
     @Override
     public void onEnable() {
+	speed = 4.0f;
         collided = false;
     }
     
