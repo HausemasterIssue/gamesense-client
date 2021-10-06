@@ -6,6 +6,7 @@ import com.gamesense.api.setting.values.DoubleSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import com.gamesense.client.module.modules.render.Freecam;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import net.minecraft.entity.Entity;
@@ -55,6 +56,10 @@ public class EntitySpeed extends Module {
     public static boolean isInputting() {
 		return mc.gameSettings.keyBindForward.isKeyDown() || mc.gameSettings.keyBindBack.isKeyDown() || mc.gameSettings.keyBindRight.isKeyDown() || mc.gameSettings.keyBindLeft.isKeyDown();
 	}
+	
+	public String getHudInfo() {
+        return "[" + ChatFormatting.WHITE + speed.getValue() + ChatFormatting.GRAY + "]";
+    }
     
 
 }
