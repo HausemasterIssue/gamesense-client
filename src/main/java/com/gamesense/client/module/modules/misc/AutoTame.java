@@ -14,6 +14,12 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.util.EnumHand;
 
+/*
+* @author hausemasterissue
+* @since 7/10/2021
+* creds to salhack
+*/
+
 @Module.Declaration(name = "AutoTame", category = Category.Misc)
 public class AutoTame extends Module {
 	
