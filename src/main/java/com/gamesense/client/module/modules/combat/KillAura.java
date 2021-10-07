@@ -63,7 +63,7 @@ public class KillAura extends Module {
     BooleanSetting vehicles = registerBoolean("Vehicles", true);
     DoubleSetting range = registerDouble("Range", 5, 0, 10);
     DoubleSetting wallsRange = registerDouble("WallsRange", 3.5, 0, 10);
-    ModeSetting itemUsed = registerMode("Item", Arrays.asList("Sword", "Axe", "Both", "All"), "Sword");
+    ModeSetting itemUsed = registerMode("Item", Arrays.asList("Sword", "Axe", "Both", "All"), "All");
     ModeSetting enemyPriority = registerMode("Priority", Arrays.asList("Closest", "Health"), "Closest");
     BooleanSetting swordPriority = registerBoolean("SwordPriority", true);
     BooleanSetting caCheck = registerBoolean("AC Check", false);
