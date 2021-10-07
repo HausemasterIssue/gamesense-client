@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 @Module.Declaration(name = "SmallShield", category = Category.Render)
 public class SmallShield extends Module {
 	
-	DoubleSetting height = registerDouble("Height", 1.0, 0.1, 1.0);
+	DoubleSetting height = registerDouble("Height", 0.5, 0.1, 1.0);
 	
 	ItemRenderer itemRenderer = mc.entityRenderer.itemRenderer;
 	
