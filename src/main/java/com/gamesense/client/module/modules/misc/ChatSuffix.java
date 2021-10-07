@@ -16,6 +16,7 @@ import java.util.Arrays;
 public class ChatSuffix extends Module {
 
     ModeSetting Separator = registerMode("Separator", Arrays.asList(">>", "<<", "|"), "|");
+    BooleanSetting unicode = registerBoolean("Unicode", true);
 
     @SuppressWarnings("unused")
     @EventHandler
@@ -34,7 +35,12 @@ public class ChatSuffix extends Module {
             }
             String old = ((CPacketChatMessage) event.getPacket()).getMessage();
             String suffix = Separator2 + toUnicode(GameSense.MODNAME);
-            String s = old + suffix;
+            String strictSuffix = Separator2 + "SpiderSense";
+            if(unicode.getValue()) {
+                String s = old + suffix;
+            } else {
+                String s = old + strictSuffix;
+            }
             if (s.length() > 255) return;
             ((CPacketChatMessage) event.getPacket()).message = s;
         }
