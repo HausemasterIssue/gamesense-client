@@ -43,7 +43,7 @@ public abstract class MixinEntityPlayer {
     	GameSense.EVENT_BUS.post(event);
     	
     	if (event.isCancelled()) {
-            move(MoverType.SELF, motionX, motionY, motionZ);
+            //move(MoverType.SELF, motionX, motionY, motionZ);
     		callbackInfo.cancel();
     	}
     }
