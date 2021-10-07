@@ -22,7 +22,7 @@ import net.minecraft.init.Blocks;
 @Module.Declaration(name = "AntiWeb", category = Category.Movement)
 public class AntiWeb extends Module {
 	
-	ModeSetting downMode = registerMode("Mode", Arrays.asList("Strict", "Packet", "Timer", "Float", "Other"), "Strict");
+	ModeSetting downMode = registerMode("Mode", Arrays.asList("Strict", "Packet", "Timer", "Float", "Other"), "Timer");
 	
 	private static final AxisAlignedBB webFloat = new AxisAlignedBB(0.D, 0.D, 0.D, 1.D, 0.999D, 1.D);
 	boolean collided;
