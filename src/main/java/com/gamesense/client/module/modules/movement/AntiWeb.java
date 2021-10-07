@@ -13,6 +13,12 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
+/*
+* @author hausemasterissue
+* @since 6/10/2021
+* creds to cousinware
+*/
+
 @Module.Declaration(name = "AntiWeb", category = Category.Movement)
 public class AntiWeb extends Module {
 	
