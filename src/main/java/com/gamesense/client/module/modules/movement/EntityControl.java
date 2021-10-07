@@ -7,6 +7,11 @@ import me.zero.alpine.listener.Listener;
 import com.gamesense.api.event.events.EntitySaddledEvent;
 import com.gamesense.api.event.events.SteerEntityEvent;
 
+/*
+* @author hausemasterissue
+* @since 4/10/2021
+*/
+
 @Module.Declaration(name = "EntityControl", category = Category.Movement)
 public class EntityControl extends Module {
 	
