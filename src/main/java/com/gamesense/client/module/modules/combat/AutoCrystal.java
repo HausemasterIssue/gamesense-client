@@ -49,16 +49,16 @@ import java.util.*;
 @Module.Declaration(name = "AutoCrystal", category = Category.Combat, priority = 100)
 public class AutoCrystal extends Module {
 
-    ModeSetting breakMode = registerMode("Target", Arrays.asList("All", "Smart", "Own"), "All");
+    ModeSetting breakMode = registerMode("Target", Arrays.asList("All", "Smart", "Own"), "Smart");
     ModeSetting handBreak = registerMode("Hand", Arrays.asList("Main", "Offhand", "Both"), "Main");
     ModeSetting breakType = registerMode("Type", Arrays.asList("Swing", "Packet"), "Swing");
     ModeSetting crystalPriority = registerMode("Prioritise", Arrays.asList("Damage", "Closest", "Health"), "Damage");
     BooleanSetting breakCrystal = registerBoolean("Break", true);
     BooleanSetting placeCrystal = registerBoolean("Place", true);
     BooleanSetting sequential = registerBoolean("Sequential", true);
-    IntegerSetting attackSpeed = registerInteger("Attack Speed", 16, 0, 20);
-    public DoubleSetting breakRange = registerDouble("Hit Range", 4.4, 0.0, 10.0);
-    public DoubleSetting placeRange = registerDouble("Place Range", 4.4, 0.0, 6.0);
+    IntegerSetting attackSpeed = registerInteger("Attack Speed", 19, 0, 20);
+    public DoubleSetting breakRange = registerDouble("Hit Range", 4.5, 0.0, 10.0);
+    public DoubleSetting placeRange = registerDouble("Place Range", 4.5, 0.0, 6.0);
     DoubleSetting wallsRange = registerDouble("Walls Range", 3.5, 0.0, 10.0);
     DoubleSetting enemyRange = registerDouble("Enemy Range", 6.0, 0.0, 16.0);
     BooleanSetting antiWeakness = registerBoolean("Anti Weakness", true);
@@ -67,26 +67,26 @@ public class AutoCrystal extends Module {
     IntegerSetting antiSuicideValue = registerInteger("Min Health", 14, 1, 36);
     //BooleanSetting autoSwitch = registerBoolean("Switch", true);
     ModeSetting autoSwitch = registerMode("Switch", Arrays.asList("Normal", "Silent"), "Normal");
-    BooleanSetting noGapSwitch = registerBoolean("No Gap Switch", false);
+    BooleanSetting noGapSwitch = registerBoolean("No Gap Switch", true);
     public BooleanSetting endCrystalMode = registerBoolean("1.13 Place", false);
     BooleanSetting cancelCrystal = registerBoolean("Cancel Crystal", false);
-    DoubleSetting minDmg = registerDouble("Min Damage", 5, 0, 36);
+    DoubleSetting minDmg = registerDouble("Min Damage", 4, 0, 36);
     IntegerSetting limit = registerInteger("Limit", 1, 0, 10);
-    DoubleSetting minBreakDmg = registerDouble("Min Break Dmg", 5, 0, 36.0);
+    DoubleSetting minBreakDmg = registerDouble("Min Break Dmg", 4, 0, 36.0);
     DoubleSetting maxSelfDmg = registerDouble("Max Self Dmg", 10, 1.0, 36.0);
     IntegerSetting facePlaceValue = registerInteger("FacePlace HP", 8, 0, 36);
-    IntegerSetting armourFacePlace = registerInteger("Armour Health%", 20, 0, 100);
+    IntegerSetting armourFacePlace = registerInteger("Armour Health%", 15, 0, 100);
     DoubleSetting minFacePlaceDmg = registerDouble("FacePlace Dmg", 2, 0, 10);
     BooleanSetting rotate = registerBoolean("Rotate", true);
     BooleanSetting raytrace = registerBoolean("Raytrace", false);
-    BooleanSetting showDamage = registerBoolean("Render Dmg", true);
+    BooleanSetting showDamage = registerBoolean("Render Dmg", false);
     BooleanSetting outline = registerBoolean("Outline", false);
     ModeSetting hudDisplay = registerMode("HUD", Arrays.asList("Mode", "Target", "None"), "Mode");
     ColorSetting color = registerColor("Color", new GSColor(0, 255, 0, 50));
 
     BooleanSetting wait = registerBoolean("Force Wait", true);
     IntegerSetting timeout = registerInteger("Timeout (ms)", 10, 1, 50);
-    IntegerSetting maxTargets = registerInteger("Max Targets", 2, 1, 5);
+    IntegerSetting maxTargets = registerInteger("Max Targets", 1, 1, 5);
 
     private boolean switchCooldown = false;
     public boolean isAttacking = false;
