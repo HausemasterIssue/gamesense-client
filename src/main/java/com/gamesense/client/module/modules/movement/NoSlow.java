@@ -20,7 +20,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
 public class NoSlow extends Module {
 	BooleanSetting strict = registerBoolean("Strict", true);
-	BooleanSetting sneak = registerBoolean("Sneak", false);
+	BooleanSetting sneak = registerBoolean("Sneak", true);
 
 	private boolean sneaking;
 
