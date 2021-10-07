@@ -214,7 +214,6 @@ public class AutoCrystal extends Module {
                                 }
                         	} else {
                         		return false;
-                                break;
                         	}
                         }
                     }
@@ -288,7 +287,7 @@ public class AutoCrystal extends Module {
                 }
                 case "Silent": {
                 	if (!noGapSwitch.getValue()) {
-                		InventoryUtil.switchTo(crystalslot, silent == true);
+                		InventoryUtil.switchTo(crystalSlot, silent == true);
                         rotating = false;
                         this.switchCooldown = true;
                     }
