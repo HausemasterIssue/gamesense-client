@@ -189,7 +189,7 @@ public class KillAura extends Module {
     }
 
     private void attack(Entity e) {
-        if (mc.player.getCooledAttackStrength(0.0f) >= 1.0f || pause.getValue()) {
+        if (mc.player.getCooledAttackStrength(0.0f) >= 1.0f || !pause.getValue()) {
             if(stopSprint.getValue()) {
             	 mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SPRINTING));
                  mc.player.setSprinting(false);
