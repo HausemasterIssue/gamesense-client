@@ -1,5 +1,6 @@
 package com.gamesense.client.module.modules.misc;
 
+import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.event.events.PacketEvent;
 import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.client.GameSense;
