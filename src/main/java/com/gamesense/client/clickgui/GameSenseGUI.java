@@ -73,12 +73,13 @@ public class GameSenseGUI extends MinecraftHUDGUI {
             @Override
             public void drawString(Point pos, String s, Color c) {
                 GLInterface.end();
+                String dots = "    ..."
                 int x = pos.x + 2, y = pos.y + 1;
                 if (!colorMain.customFont.getValue()) {
                     x += 1;
                     y += 1;
                 }
-                FontUtil.drawStringWithShadow(colorMain.customFont.getValue(), s, x, y, new GSColor(c));
+                FontUtil.drawStringWithShadow(colorMain.customFont.getValue(), s, dots, x, y, new GSColor(c));
                 GLInterface.begin();
             }
 
