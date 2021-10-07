@@ -59,9 +59,9 @@ public class ModuleManager {
         addMod(new Anchor());
         addMod(new AntiWeb());
         addMod(new AutoWalk());
-        addMod(new Blink());
         addMod(new EntityControl());
         addMod(new EntitySpeed());
+        addMod(new Blink());
         addMod(new FastSwim());
         addMod(new HoleTP());
         addMod(new IceSpeed());
