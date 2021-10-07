@@ -62,6 +62,7 @@ public class KillAura extends Module {
     BooleanSetting projectiles = registerBoolean("Projectiles", true);
     BooleanSetting vehicles = registerBoolean("Vehicles", true);
     DoubleSetting range = registerDouble("Range", 5, 0, 10);
+    DoubleSetting wallsRange = registerDouble("WallsRange", 3.5, 0, 10);
     ModeSetting itemUsed = registerMode("Item", Arrays.asList("Sword", "Axe", "Both", "All"), "Sword");
     ModeSetting enemyPriority = registerMode("Priority", Arrays.asList("Closest", "Health"), "Closest");
     BooleanSetting swordPriority = registerBoolean("SwordPriority", true);
@@ -78,10 +79,12 @@ public class KillAura extends Module {
         if (mc.player == null || !mc.player.isEntityAlive()) return;
 
         final double rangeSq = range.getValue() * range.getValue();
+        final double wallsRangeSq = wallsRange.getValue() * wallsRange.getValue();
         Optional<Entity> optionalTarget = mc.world.loadedEntityList.stream()
                 .filter(entity -> entity instanceof EntityLivingBase)
                 .filter(entity -> !EntityUtil.basicChecksEntity(entity))
                 .filter(entity -> mc.player.getDistanceSq(entity) <= rangeSq)
+                .filter(entity -> mc.player.getDistanceSq(entity) <= wallsRangeSq)
                 .filter(this::attackCheck)
                 .min(Comparator.comparing(e -> (enemyPriority.getValue().equals("Closest") ? mc.player.getDistanceSq(e) : ((EntityLivingBase) e).getHealth())));
 
