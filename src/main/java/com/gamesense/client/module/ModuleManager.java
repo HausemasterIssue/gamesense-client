@@ -79,6 +79,7 @@ public class ModuleManager {
         addMod(new AutoGG());
         addMod(new AutoReply());
         addMod(new AutoRespawn());
+        addMod(new AutoTame());
         addMod(new AutoTool());
         addMod(new AutoMine()); 
         addMod(new ChatModifier());
