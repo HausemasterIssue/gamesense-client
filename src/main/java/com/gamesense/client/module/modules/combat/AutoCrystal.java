@@ -71,7 +71,7 @@ public class AutoCrystal extends Module {
     public BooleanSetting endCrystalMode = registerBoolean("1.13 Place", false);
     BooleanSetting cancelCrystal = registerBoolean("Cancel Crystal", false);
     DoubleSetting minDmg = registerDouble("Min Damage", 5, 0, 36);
-    DoubleSetting limit = registerDouble("Limit", 1, 0, 10);
+    IntegerSetting limit = registerInteger("Limit", 1, 0, 10);
     DoubleSetting minBreakDmg = registerDouble("Min Break Dmg", 5, 0, 36.0);
     DoubleSetting maxSelfDmg = registerDouble("Max Self Dmg", 10, 1.0, 36.0);
     IntegerSetting facePlaceValue = registerInteger("FacePlace HP", 8, 0, 36);
@@ -94,7 +94,7 @@ public class AutoCrystal extends Module {
     private Entity renderEntity;
     private BlockPos render;
     Timer timer = new Timer();
-
+    int oldSlot = mc.player.inventory.currentItem;
     private Vec3d lastHitVec = Vec3d.ZERO;
     private boolean rotating = false;
 
@@ -201,6 +201,7 @@ public class AutoCrystal extends Module {
                         		if (breakType.getValue().equalsIgnoreCase("Swing")) {
                                     swingArm();
                                     mc.playerController.attackEntity(mc.player, crystal);
+                                    InventoryUtil.switchTo(oldSlot, silent == true);
                                 } else {
                                     swingArm();
                                     mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
@@ -213,6 +214,7 @@ public class AutoCrystal extends Module {
                                 }
                         	} else {
                         		return false;
+                                break;
                         	}
                         }
                     }
@@ -286,7 +288,7 @@ public class AutoCrystal extends Module {
                 }
                 case "Silent": {
                 	if (!noGapSwitch.getValue()) {
-                		mc.player.connection.sendPacket(new CPacketHeldItemChange(crystalSlot));
+                		InventoryUtil.switchTo(crystalslot, silent == true);
                         rotating = false;
                         this.switchCooldown = true;
                     }
