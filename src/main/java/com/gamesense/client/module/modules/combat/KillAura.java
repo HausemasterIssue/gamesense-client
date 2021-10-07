@@ -69,6 +69,7 @@ public class KillAura extends Module {
     BooleanSetting rotation = registerBoolean("Rotation", true);
     BooleanSetting autoSwitch = registerBoolean("Switch", false);
     BooleanSetting stopSprint = registerBoolean("StopSprint", true);
+    BooleanSetting delay = registerBoolean("HitDelay", true);
     DoubleSetting switchHealth = registerDouble("Min Switch Health", 0f, 0f, 20f);
 
     private Entity renderEntity;
@@ -185,7 +186,7 @@ public class KillAura extends Module {
     }
 
     private void attack(Entity e) {
-        if (mc.player.getCooledAttackStrength(0.0f) >= 1.0f) {
+        if (mc.player.getCooledAttackStrength(0.0f) >= 1.0f || pause.getValue()) {
             if(stopSprint.getValue()) {
             	 mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SPRINTING));
                  mc.player.setSprinting(false);
