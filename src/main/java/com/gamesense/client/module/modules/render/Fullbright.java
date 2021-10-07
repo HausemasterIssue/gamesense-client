@@ -34,4 +34,9 @@ public class Fullbright extends Module {
         mc.gameSettings.gammaSetting = oldGamma;
         mc.player.removePotionEffect(Potion.getPotionById(16));
     }
+    
+    
+	public String getHudInfo() {
+        return "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
+    }
 }
