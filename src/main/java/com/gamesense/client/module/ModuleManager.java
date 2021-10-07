@@ -46,6 +46,7 @@ public class ModuleManager {
         //Exploits
         addMod(new AntiDesync());
         addMod(new AntiHunger());
+        addMod(new EntityAlert());
         addMod(new LiquidInteract());
         addMod(new MultiTask());
         addMod(new NoInteract());
