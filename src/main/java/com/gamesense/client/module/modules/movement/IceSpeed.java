@@ -5,6 +5,11 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.init.Blocks;
 
+/*
+* @author hausemasterissue
+* @since 4/10/2021
+*/
+
 @Module.Declaration(name = "IceSpeed", category = Category.Movement)
 public class IceSpeed extends Module {
 		
