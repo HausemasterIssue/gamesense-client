@@ -15,9 +15,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /*
- * @author hausemasterissue
+ * @author hausemasterissue, sxmurai
  * @since 9/30/2021
- * HUGE HUGE HUGE thanks to aestheticall and inferno
  */
 
 @Module.Declaration(name = "NoFall", category = Category.Movement)
