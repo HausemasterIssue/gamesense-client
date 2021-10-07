@@ -94,7 +94,6 @@ public class AutoCrystal extends Module {
     private Entity renderEntity;
     private BlockPos render;
     Timer timer = new Timer();
-    int oldSlot = mc.player.inventory.currentItem;
     private Vec3d lastHitVec = Vec3d.ZERO;
     private boolean rotating = false;
 
@@ -195,6 +194,7 @@ public class AutoCrystal extends Module {
                         rotating = rotate.getValue();
                         lastHitVec = crystal.getPositionVector();
 
+                        int oldSlot = mc.player.inventory.currentItem;
                         
                         for(int tries = 0; tries < limit.getValue(); tries++) {
                         	if(tries < limit.getValue()) {
