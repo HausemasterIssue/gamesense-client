@@ -29,7 +29,7 @@ public class Speed extends Module {
     ModeSetting mode = registerMode("Mode", Arrays.asList("Strafe", "Fake", "YPort"), "Strafe");
     DoubleSetting speed = registerDouble("Speed", 1.59, 0.01, 2.00);
     DoubleSetting jumpHeight = registerDouble("Jump Speed", 0.41, 0, 1);
-    DoubleSetting timerVal = registerDouble("Timer Speed", 1.15, 1, 1.5);
+    DoubleSetting timerVal = registerDouble("Timer Speed", 1, 1, 1.5);
     DoubleSetting yPortSpeed = registerDouble("Y Port Speed", 0.06, 0.01, 0.15);
 
     private boolean slowDown;
