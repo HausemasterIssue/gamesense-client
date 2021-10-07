@@ -14,7 +14,7 @@ import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 
 /*
- * @author hausemasterissue
+ * @author hausemasterissue, sxmurai
  * @since 9/30/2021
  */
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
