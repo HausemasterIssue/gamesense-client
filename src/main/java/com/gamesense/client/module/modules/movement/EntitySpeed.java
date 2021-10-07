@@ -13,6 +13,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.util.math.Vec3d;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /*
 * @author hausemasterissue
@@ -26,7 +28,7 @@ public class EntitySpeed extends Module {
 	DoubleSetting speed = registerDouble("Speed", 0.5, 0.0, 10.0);
 	BooleanSetting antiStuck = registerBoolean("AntiStuck", true);
 	
-	double roundedSpeed = Math.round(speed.getValue() * 100) / 100;
+	double roundedSpeed = round(speed.getValue(), 2);
 	
     @EventHandler
     private Listener<TravelEvent> onTravel = new Listener<>(event -> {
@@ -63,6 +65,14 @@ public class EntitySpeed extends Module {
     
     public static boolean isInputting() {
 		return mc.gameSettings.keyBindForward.isKeyDown() || mc.gameSettings.keyBindBack.isKeyDown() || mc.gameSettings.keyBindRight.isKeyDown() || mc.gameSettings.keyBindLeft.isKeyDown();
+	}
+	
+    public static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bd = BigDecimal.valueOf(value);
+	    bd = bd.setScale(places, RoundingMode.HALF_UP);
+	    return bd.doubleValue();
 	}
 	
 	public String getHudInfo() {
