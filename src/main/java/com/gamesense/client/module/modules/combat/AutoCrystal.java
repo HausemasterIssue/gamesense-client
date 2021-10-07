@@ -96,6 +96,7 @@ public class AutoCrystal extends Module {
     Timer timer = new Timer();
     private Vec3d lastHitVec = Vec3d.ZERO;
     private boolean rotating = false;
+    public boolean silent;
 
     // Threading Stuff
     public List<CrystalInfo.PlaceInfo> targets = new ArrayList<>();
