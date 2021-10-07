@@ -32,6 +32,8 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityShulkerBullet;
+import net.minecraft.entity.item.EntityBoat;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
@@ -58,6 +60,7 @@ public class KillAura extends Module {
     BooleanSetting passiveMobs = registerBoolean("Animals", true);
     BooleanSetting neutralMobs = registerBoolean("Neutrals", true);
     BooleanSetting projectiles = registerBoolean("Projectiles", true);
+    BooleanSetting vehicles = registerBoolean("Vehicles", true);
     DoubleSetting range = registerDouble("Range", 5, 0, 10);
     ModeSetting itemUsed = registerMode("Item", Arrays.asList("Sword", "Axe", "Both", "All"), "Sword");
     ModeSetting enemyPriority = registerMode("Priority", Arrays.asList("Closest", "Health"), "Closest");
@@ -214,6 +217,10 @@ public class KillAura extends Module {
         
         if(projectiles.getValue() && entity instanceof EntityShulkerBullet || entity instanceof EntityFireball) {
         	return true;
+        }
+        
+        if(vehicles.getValue() && entity instanceof EntityBoat || entity instanceof EntityMinecart) {
+            return true;
         }
         
 
