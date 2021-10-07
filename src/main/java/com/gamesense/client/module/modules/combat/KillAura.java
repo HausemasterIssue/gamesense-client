@@ -28,6 +28,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityShulkerBullet;
@@ -202,7 +203,7 @@ public class KillAura extends Module {
             }
         }
 
-        if (passiveMobs.getValue() && entity instanceof EntityAnimal) {
+        if (passiveMobs.getValue() && entity instanceof EntityAnimal || entity instanceof EntitySquid) {
             return !(entity instanceof EntityTameable);
         }
         
