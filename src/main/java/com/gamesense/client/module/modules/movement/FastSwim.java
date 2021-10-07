@@ -16,10 +16,10 @@ import net.minecraft.util.math.MathHelper;
 @Module.Declaration(name = "FastSwim", category = Category.Movement)
 public class FastSwim extends Module {
 	
-	DoubleSetting speed = registerDouble("Speed", 0.75, 0.01, 2.00);
-	DoubleSetting tickBoost = registerDouble("BoostSpeed", 0.80, 0.01, 2.00);
-	IntegerSetting shiftTicks = registerInteger("ShiftTicks", 3, 1, 20);
-	BooleanSetting strict = registerBoolean("Strict", false);
+	DoubleSetting speed = registerDouble("Speed", 0.75, 0.00, 2.00);
+	DoubleSetting tickBoost = registerDouble("BoostSpeed", 0.00, 0.00, 2.00);
+	IntegerSetting shiftTicks = registerInteger("ShiftTicks", 0, 0, 20);
+	BooleanSetting strict = registerBoolean("Strict", true);
 	
 	int divider = 5;
     boolean only2b = false;
