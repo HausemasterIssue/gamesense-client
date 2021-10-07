@@ -14,6 +14,12 @@ import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.util.math.Vec3d;
 
+/*
+* @author hausemasterissue
+* @since 6/10/2021
+* thanks to cookie client
+*/
+
 @Module.Declaration(name = "EntitySpeed", category = Category.Movement)
 public class EntitySpeed extends Module {
 	
