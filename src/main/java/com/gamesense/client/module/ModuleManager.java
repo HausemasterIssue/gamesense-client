@@ -56,6 +56,7 @@ public class ModuleManager {
         addMod(new PacketXP());
         addMod(new PortalGodmode());
         addMod(new FastBreak());
+        addMod(new Timer());
         //Movement
         addMod(new Anchor());
         addMod(new AntiWeb());
