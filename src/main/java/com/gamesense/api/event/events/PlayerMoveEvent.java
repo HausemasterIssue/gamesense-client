@@ -5,17 +5,19 @@ import net.minecraft.entity.MoverType;
 
 public class PlayerMoveEvent extends GameSenseEvent {
 
-    private MoverType type;
-    private double x;
-    private double y;
-    private double z;
+	private MoverType type;
+    public double x;
+    public double y;
+    public double z;
+    protected boolean onGround;
 
-    public PlayerMoveEvent(MoverType moverType, double x, double y, double z) {
+    public PlayerMoveEvent(int stage, MoverType type, double x, double y, double z, final boolean pOnGround) {
         super();
-        this.type = moverType;
+        this.type = type;
         this.x = x;
         this.y = y;
         this.z = z;
+        this.onGround = pOnGround;
     }
 
     public MoverType getType() {
@@ -30,23 +32,28 @@ public class PlayerMoveEvent extends GameSenseEvent {
         return this.x;
     }
 
-    public double getY() {
-        return this.y;
-    }
-
-    public double getZ() {
-        return this.z;
-    }
-
     public void setX(double x) {
         this.x = x;
+    }
+
+    public double getY() {
+        return this.y;
     }
 
     public void setY(double y) {
         this.y = y;
     }
 
+    public double getZ() {
+        return this.z;
+    }
+
     public void setZ(double z) {
         this.z = z;
     }
+
+	 public void setOnGround(final boolean b) {
+        this.onGround = b;
+    }
+
 }
