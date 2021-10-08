@@ -436,7 +436,7 @@ public class AutoCrystal extends Module {
             t = "[" + ChatFormatting.WHITE + breakMode.getValue() + ChatFormatting.GRAY + "]";
         } else if (hudDisplay.getValue().equalsIgnoreCase("Target")) {
             if (renderEntity == null) {
-                t = "[" + ChatFormatting.WHITE + "None" + ChatFormatting.GRAY + "]";
+                t = "";
             } else {
                 t = "[" + ChatFormatting.WHITE + renderEntity.getName() + ChatFormatting.GRAY + "]";
             }
