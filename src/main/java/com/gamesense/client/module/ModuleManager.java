@@ -79,6 +79,7 @@ public class ModuleManager {
         //Misc
         addMod(new Announcer());
         addMod(new AntiAFK());
+        addMod(new AutoEat());
         addMod(new AutoGear());
         addMod(new AutoGG());
         addMod(new AutoReply());
