@@ -8,7 +8,6 @@ import com.gamesense.client.module.Module;
 import com.lukflug.panelstudio.hud.HUDList;
 import com.lukflug.panelstudio.hud.ListComponent;
 import com.lukflug.panelstudio.theme.Theme;
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -45,16 +44,16 @@ public class Coordinates extends HUDModule {
 
         int dimension = viewEntity.dimension;
 
-        coordinateString[0] = ChatFormatting.GRAY + "XYZ " + ChatFormatting.WHITE + getFormattedCoords(viewEntity.posX, viewEntity.posY, viewEntity.posZ) + ChatFormatting.RESET;
+        coordinateString[0] = "XYZ " + getFormattedCoords(viewEntity.posX, viewEntity.posY, viewEntity.posZ);
 
         switch (dimension) {
             case -1: // Nether
                 coordinateString[1] = "Overworld "
-                        + ChatFormatting.GRAY + "[" + ChatFormatting.WHITE + getFormattedCoords(viewEntity.posX * 8.0, viewEntity.posY, viewEntity.posZ * 8.0) + ChatFormatting.GRAY + "]" + ChatFormatting.RESET;
+                        + getFormattedCoords(viewEntity.posX * 8.0, viewEntity.posY, viewEntity.posZ * 8.0);
                 break;
             case 0: // Overworld
                 coordinateString[1] = "Nether "
-                        + ChatFormatting.GRAY + "[" = ChatFormatting.WHITE + getFormattedCoords(viewEntity.posX / 8.0, viewEntity.posY, viewEntity.posZ / 8.0) + ChatFormatting.GRAY + "]" + ChatFormatting.RESET;
+                        + getFormattedCoords(viewEntity.posX / 8.0, viewEntity.posY, viewEntity.posZ / 8.0);
                 break;
             default:
                 break;
@@ -62,7 +61,7 @@ public class Coordinates extends HUDModule {
     });
 
     private String getFormattedCoords(double x, double y, double z) {
-        return roundOrInt(x) + ChatFormatting.GRAY + ", " + ChatFormatting.WHITE + roundOrInt(y) + ChatFormatting.GRAY + ", " + ChatFormatting.WHITE + roundOrInt(z) + ChatFormatting.RESET;
+        return roundOrInt(x) + ", " + roundOrInt(y) + ", " + roundOrInt(z);
     }
 
     private String roundOrInt(double input) {
