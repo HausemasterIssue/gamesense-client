@@ -232,13 +232,6 @@ public class KillAura extends Module {
     }
     
     public String getHudInfo() {
-        String t = "";
-            if (renderEntity == null) {
-                t = "[" + ChatFormatting.WHITE + "None" + ChatFormatting.GRAY + "]";
-            } else {
-                t = "[" + ChatFormatting.WHITE + renderEntity.getName() + ChatFormatting.GRAY + "]";
-            }
-
-        return t;
+        return "[" + ChatFormatting.WHITE + itemUsed.getValue() + ChatFormatting.GRAY + "]";
     }
 }
