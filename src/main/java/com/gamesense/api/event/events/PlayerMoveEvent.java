@@ -12,7 +12,7 @@ public class PlayerMoveEvent extends GameSenseEvent {
 
     public PlayerMoveEvent(MoverType moverType, double x, double y, double z) {
         super();
-        this.type = moveType;
+        this.type = moverType;
         this.x = x;
         this.y = y;
         this.z = z;
