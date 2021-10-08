@@ -11,7 +11,7 @@ public class PlayerMoveEvent extends GameSenseEvent {
     public double z;
     protected boolean onGround;
 
-    public PlayerMoveEvent(int stage, MoverType type, double x, double y, double z, final boolean pOnGround) {
+    public PlayerMoveEvent(MoverType type, double x, double y, double z, final boolean pOnGround) {
         super();
         this.type = type;
         this.x = x;
