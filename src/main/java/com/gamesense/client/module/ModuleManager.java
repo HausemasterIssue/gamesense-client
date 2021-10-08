@@ -40,6 +40,7 @@ public class ModuleManager {
         addMod(new HoleFill());
         addMod(new OffHand());
         addMod(new PistonCrystal());
+        addMod(new Quiver());
         addMod(new SelfTrap());
         addMod(new SelfWeb());
         addMod(new Surround());
