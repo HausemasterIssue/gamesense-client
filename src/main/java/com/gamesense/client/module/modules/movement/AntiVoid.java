@@ -4,6 +4,7 @@ import java.util.Arrays;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import com.gamesense.api.setting.values.ModeSetting;
+import com.mojang.realmsclient.gui.ChatFormatting;
 
 @Module.Declaration(name = "AntiVoid", category = Category.Movement)
 public class AntiVoid extends Module {
@@ -41,5 +42,9 @@ public class AntiVoid extends Module {
 	public void onDisable() {
 		mc.timer.tickLength = 50f;
 	}
+	
+	public String getHudInfo() {
+        return "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
+    }
 
 }
