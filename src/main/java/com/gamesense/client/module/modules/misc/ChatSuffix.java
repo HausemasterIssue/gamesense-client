@@ -22,8 +22,8 @@ public class ChatSuffix extends Module {
     @SuppressWarnings("unused")
     @EventHandler
     private final Listener<PacketEvent.Send> listener = new Listener<>(event -> {
-        if (event.getPacket() instanceof CPacketChatMessage) {
-            if (((CPacketChatMessage) event.getPacket()).getMessage().startsWith("/") || ((CPacketChatMessage) event.getPacket()).getMessage().startsWith(CommandManager.getCommandPrefix()))
+        if (PacketEvent.getPacket() instanceof CPacketChatMessage) {
+            if (((CPacketChatMessage) PacketEvent.getPacket()).getMessage().startsWith("/") || ((CPacketChatMessage) PacketEvent.getPacket()).getMessage().startsWith(CommandManager.getCommandPrefix()))
                 return;
             String Separator2 = null;
             if (Separator.getValue().equalsIgnoreCase(">>")) {
@@ -34,16 +34,19 @@ public class ChatSuffix extends Module {
             } else if (Separator.getValue().equalsIgnoreCase("|")) {
                 Separator2 = " \u23D0 ";
             }
-            String old = ((CPacketChatMessage) event.getPacket()).getMessage();
+            String old = ((CPacketChatMessage) PacketEvent.getPacket()).getMessage();
             String suffix = Separator2 + toUnicode(GameSense.MODNAME);
             String strictSuffix = Separator2 + "SpiderSense";
             if(unicode.getValue()) {
                 String s = old + suffix;
+                if (s.length() > 255) return;
+                ((CPacketChatMessage) PacketEvent.getPacket()).message = s;
             } else {
                 String s = old + strictSuffix;
+                if (s.length() > 255) return;
+                ((CPacketChatMessage) PacketEvent.getPacket()).message = s;
             }
-            if (s.length() > 255) return;
-            ((CPacketChatMessage) event.getPacket()).message = s;
+            
         }
     });
 
