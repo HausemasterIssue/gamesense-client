@@ -5,6 +5,7 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import com.mojang.realmsclient.gui.ChatFormatting;
 
 import java.util.Arrays;
 
