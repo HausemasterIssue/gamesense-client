@@ -9,15 +9,13 @@ public class PlayerMoveEvent extends GameSenseEvent {
     public double x;
     public double y;
     public double z;
-    protected boolean onGround;
 
-    public PlayerMoveEvent(MoverType type, double x, double y, double z, final boolean pOnGround) {
+    public PlayerMoveEvent(int stage, MoverType type, double x, double y, double z, final boolean pOnGround) {
         super();
         this.type = type;
         this.x = x;
         this.y = y;
         this.z = z;
-        this.onGround = pOnGround;
     }
 
     public MoverType getType() {
@@ -50,10 +48,6 @@ public class PlayerMoveEvent extends GameSenseEvent {
 
     public void setZ(double z) {
         this.z = z;
-    }
-
-	 public void setOnGround(final boolean b) {
-        this.onGround = b;
     }
 
 }
