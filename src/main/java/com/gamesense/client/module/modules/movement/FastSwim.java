@@ -104,4 +104,13 @@ public class FastSwim extends Module {
 
         return rotationYaw * 0.017453292f;
     }
+	
+    public String getHudInfo() {
+	    if(strict.getValue()) {
+		  return "[" + ChatFormatting.WHITE + "Strict" + ChatFormatting.GRAY + "]"; 
+	    } else {
+		  return "[" + ChatFormatting.WHITE + "Normal" + ChatFormatting.GRAY + "]";
+	    }
+        
+    }
 }
