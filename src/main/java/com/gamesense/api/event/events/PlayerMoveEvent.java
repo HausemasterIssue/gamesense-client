@@ -5,14 +5,14 @@ import net.minecraft.entity.MoverType;
 
 public class PlayerMoveEvent extends GameSenseEvent {
 
-	private MoverType type;
+    private MoverType type;
     public double x;
     public double y;
     public double z;
 
-    public PlayerMoveEvent(int stage, MoverType type, double x, double y, double z, final boolean pOnGround) {
+    public PlayerMoveEvent(MoverType moverType, double x, double y, double z) {
         super();
-        this.type = type;
+        this.type = moveType;
         this.x = x;
         this.y = y;
         this.z = z;
