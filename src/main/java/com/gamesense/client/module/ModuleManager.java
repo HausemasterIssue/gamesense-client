@@ -61,6 +61,7 @@ public class ModuleManager {
         //Movement
         addMod(new Anchor());
         addMod(new AntiLevitation());
+        addMld(new AntiVoid());
         addMod(new AntiWeb());
         addMod(new AutoWalk());
         addMod(new EntityControl());
