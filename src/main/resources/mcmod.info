@@ -6,8 +6,8 @@
 	"version": "${version}",
 	"mcversion": "1.12.2",
 	"url": "https://github.com/HausemasterIssue/spidersense",
-	"authorList": ["HausemasterIssue", "Go_Hoosiers", "CyberTF2", "lukflug", "auburnhud2", "Techale", "Christallinqq"],
-	"credits": "The original GameSense developers, Aestheticall and anyone who helped along the way",
+	"authorList": ["HausemasterIssue", "Go_Hoosiers", "CyberTF2", "lukflug", "auburnhud2", "Techale", "Christallinqq", "Aestheticall"],
+	"credits": "The original GameSense developers, and all the clients I pasted from",
 	"logoFile": "assets/gamesense/spidersense.png",
 	"screenshots": [],
 	"dependencies": []
