@@ -217,4 +217,28 @@ public class InventoryUtil {
     public static int getItemCount(EntityPlayer entityPlayer, Item item) {
         return entityPlayer.inventory.mainInventory.stream().filter(itemStack -> itemStack.getItem() == item).mapToInt(ItemStack::getCount).sum();
     }
+    
+    public static
+    List <Integer> getItemInventory(Item item) {
+        ArrayList <Integer> ints = new ArrayList <>();
+        for (int i = 9; i < 36; ++ i) {
+            Item target = InventoryUtil.mc.player.inventory.getStackInSlot(i).getItem();
+            if (! (item instanceof ItemBlock) || ! ((ItemBlock) item).getBlock().equals(item)) continue;
+            ints.add(i);
+        }
+        if (ints.size() == 0) {
+            ints.add(- 1);
+        }
+        return ints;
+    }
+    
+    public static
+    int getItemHotbar(Item input) {
+        for (int i = 0; i < 9; ++ i) {
+            Item item = mc.player.inventory.getStackInSlot(i).getItem();
+            if (Item.getIdFromItem(item) != Item.getIdFromItem(input)) continue;
+            return i;
+        }
+        return - 1;
+    }
 }
