@@ -9,7 +9,7 @@ public class PacketEvent extends GameSenseEvent {
 
     public PacketEvent(Packet<?> packet) {
         super();
-        PacketEvent.packet = packet;
+        this.packet = packet;
     }
 
     public static Packet<?> getPacket() {

@@ -31,7 +31,7 @@ public class Sprint extends Module {
                 mc.player.setSprinting(true); 
             }
             
-        } else if (mc.world == null) {
+        } else if (mc.world == null || mc.player == null) {
             mc.player.setSprinting(false);   
         }
         
@@ -47,6 +47,10 @@ public class Sprint extends Module {
         }
 
         return t;
+    }
+    
+    public void onEnable() {
+        mc.player.setSprinting(false);   
     }
     
 }

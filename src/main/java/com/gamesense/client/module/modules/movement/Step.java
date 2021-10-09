@@ -19,7 +19,7 @@ public class Step extends Module {
 
     DoubleSetting height = registerDouble("Height", 2.5, 0.5, 2.5);
     BooleanSetting timer = registerBoolean("Timer", false);
-    BooleanSetting reverse = registerBoolean("Reverse", false);
+    BooleanSetting reverse = registerBoolean("Reverse", true);
     ModeSetting mode = registerMode("Modes", Arrays.asList("Normal", "Vanilla"), "Normal");
 
     private int ticks = 0;

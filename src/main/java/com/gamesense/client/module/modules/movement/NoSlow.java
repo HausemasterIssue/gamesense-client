@@ -14,13 +14,13 @@ import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 
 /*
- * @author hausemasterissue
+ * @author hausemasterissue, sxmurai
  * @since 9/30/2021
  */
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
 public class NoSlow extends Module {
 	BooleanSetting strict = registerBoolean("Strict", true);
-	BooleanSetting sneak = registerBoolean("Sneak", false);
+	BooleanSetting sneak = registerBoolean("Sneak", true);
 
 	private boolean sneaking;
 

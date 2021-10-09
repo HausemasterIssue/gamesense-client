@@ -3,7 +3,7 @@ package com.gamesense.api.util.player;
 import com.gamesense.api.util.world.BlockUtil;
 import com.gamesense.api.util.world.EntityUtil;
 import com.gamesense.client.module.Module;
-
+import net.minecraft.item.ItemFood;
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -175,5 +175,9 @@ public class PlayerUtil {
         mc.world.sendQuittingDisconnectingPacket();
         mc.loadWorld(null);
         mc.displayGuiScreen(new GuiMainMenu());
+    }
+    
+    public static boolean IsEating() {
+        return mc.player != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemFood && mc.player.isHandActive();
     }
 }

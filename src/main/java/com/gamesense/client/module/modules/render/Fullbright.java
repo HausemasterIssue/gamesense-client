@@ -5,6 +5,7 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import com.mojang.realmsclient.gui.ChatFormatting;
 
 import java.util.Arrays;
 
@@ -33,5 +34,10 @@ public class Fullbright extends Module {
     public void onDisable() {
         mc.gameSettings.gammaSetting = oldGamma;
         mc.player.removePotionEffect(Potion.getPotionById(16));
+    }
+    
+    
+	public String getHudInfo() {
+        return "[" + ChatFormatting.WHITE + mode.getValue() + ChatFormatting.GRAY + "]";
     }
 }

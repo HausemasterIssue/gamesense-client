@@ -14,6 +14,7 @@ import com.gamesense.api.util.misc.Offsets;
 import net.minecraft.block.BlockObsidian;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.util.EnumHand;
@@ -31,18 +32,19 @@ import java.util.Arrays;
 @Module.Declaration(name = "Surround", category = Category.Combat)
 public class Surround extends Module {
 
-    ModeSetting jumpMode = registerMode("Jump", Arrays.asList("Continue", "Pause", "Disable"), "Continue");
+    ModeSetting jumpMode = registerMode("Jump", Arrays.asList("Continue", "Pause", "Disable"), "Disable");
     ModeSetting offsetMode = registerMode("Pattern", Arrays.asList("Normal", "Anti City"), "Normal");
     IntegerSetting delayTicks = registerInteger("Tick Delay", 3, 0, 10);
     IntegerSetting blocksPerTick = registerInteger("Blocks Per Tick", 4, 0, 8);
     BooleanSetting rotate = registerBoolean("Rotate", true);
-    BooleanSetting centerPlayer = registerBoolean("Center Player", false);
+    BooleanSetting centerPlayer = registerBoolean("Center Player", true);
     BooleanSetting sneakOnly = registerBoolean("Sneak Only", false);
     BooleanSetting disableNoBlock = registerBoolean("Disable No Obby", true);
     BooleanSetting offhandObby = registerBoolean("Offhand Obby", false);
 
     private final Timer delayTimer = new Timer();
     private Vec3d centeredBlock = Vec3d.ZERO;
+    private static boolean surrounded = false;
 
     private int oldSlot = -1;
     private int offsetSteps = 0;
@@ -104,7 +106,7 @@ public class Surround extends Module {
             return;
         }
 
-        if (!(mc.player.onGround) && !(mc.player.isInWeb)) {
+        if (!(mc.player.onGround) && !(mc.player.isInWeb) || surrounded == true) {
             switch (jumpMode.getValue()) {
                 case "Pause" : {
                     return;
@@ -118,7 +120,7 @@ public class Surround extends Module {
                 }
             }
         }
-
+        
         int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
 
         if ((outOfTargetBlock || targetBlockSlot == -1) && disableNoBlock.getValue()) {
@@ -217,4 +219,17 @@ public class Surround extends Module {
 
         return PlacementUtil.place(pos, handSwing, rotate.getValue(), true);
     }
+    
+    public static boolean isSurrounded(BlockPos p) {
+		BlockPos[] positions = {p.add(1, 0, 0), p.add(-1, 0, 0), p.add(0, 0, 1), p.add(0, 0, -1)};
+		
+ 		for (BlockPos pos : positions) {
+ 			if (PlacementUtil.getBlock(pos) != Blocks.OBSIDIAN && PlacementUtil.getBlock(pos) != Blocks.BEDROCK) {
+ 				return false;
+ 			}
+ 		}
+ 		
+ 		surrounded = true;
+ 		return true;
+	}
 }

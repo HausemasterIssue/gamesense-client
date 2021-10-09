@@ -33,19 +33,21 @@ public class ModuleManager {
         addMod(new AutoWeb());
         addMod(new BedAura());
         addMod(new Blocker());
+        addMod(new FastProjectile());
         addMod(new CevBreaker());
         addMod(new Criticals());
         addMod(new FastBow());
         addMod(new HoleFill());
         addMod(new OffHand());
         addMod(new PistonCrystal());
+        addMod(new Quiver());
         addMod(new SelfTrap());
         addMod(new SelfWeb());
         addMod(new Surround());
         //Exploits
         addMod(new AntiDesync());
         addMod(new AntiHunger());
-        addMod(new FastBreak());
+        addMod(new EntityAlert());
         addMod(new LiquidInteract());
         addMod(new MultiTask());
         addMod(new NoInteract());
@@ -54,12 +56,20 @@ public class ModuleManager {
         addMod(new PacketUse());
         addMod(new PacketXP());
         addMod(new PortalGodmode());
+        addMod(new FastBreak());
+        addMod(new Timer());
         //Movement
         addMod(new Anchor());
+        addMod(new AntiLevitation());
+        addMod(new AntiVoid());
+        addMod(new AntiWeb());
         addMod(new AutoWalk());
+        addMod(new EntityControl());
+        addMod(new EntitySpeed());
         addMod(new Blink());
         addMod(new FastSwim());
         addMod(new HoleTP());
+        addMod(new IceSpeed());
         addMod(new NoFall());
         addMod(new NoSlow());
         addMod(new ReverseStep());
@@ -70,10 +80,12 @@ public class ModuleManager {
         //Misc
         addMod(new Announcer());
         addMod(new AntiAFK());
+        addMod(new AutoEat());
         addMod(new AutoGear());
         addMod(new AutoGG());
         addMod(new AutoReply());
         addMod(new AutoRespawn());
+        addMod(new AutoTame());
         addMod(new AutoTool());
         addMod(new AutoMine()); 
         addMod(new ChatModifier());

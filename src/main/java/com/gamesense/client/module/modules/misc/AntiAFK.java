@@ -57,7 +57,7 @@ public class AntiAFK extends Module {
             }
         }
 
-        if (timer.passedS(delay.getValue() + RNG.nextInt(randomDelay.getValue()))) {
+        if (timer.passedS(delay.getValue() * 1000 + RNG.nextInt(randomDelay.getValue()) * 1000)) {
             timer.reset();
 
             int action = random(1, 5);

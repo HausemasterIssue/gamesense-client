@@ -8,6 +8,7 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -101,4 +102,25 @@ public class Freecam extends Module {
             event.cancel();
         }
     });
+    
+    public static double[] getRotationFromVec(Vec3d vec) {
+        double xz = Math.sqrt(vec.x * vec.x + vec.z * vec.z);
+        double yaw = normalizeAngle(Math.toDegrees(Math.atan2(vec.z, vec.x)) - 90.0);
+        double pitch = normalizeAngle(Math.toDegrees(-Math.atan2(vec.y, xz)));
+        return new double[]{yaw, pitch};
+    }
+    
+    public static double normalizeAngle(double angle) {
+        angle %= 360.0;
+        
+        if (angle >= 180.0) {
+            angle -= 360.0;
+        }
+        
+        if (angle < -180.0) {
+            angle += 360.0;
+        }
+        
+        return angle;
+    }
 }

@@ -17,9 +17,10 @@ public class FastPlace extends Module {
 
 	IntegerSetting delay = registerInteger("Delay", 0, 0, 20);
     IntegerSetting speed = registerInteger("Speed", 0, 0, 4);
-    BooleanSetting exp = registerBoolean("XP", false);
+    BooleanSetting exp = registerBoolean("XP", true);
     BooleanSetting crystals = registerBoolean("Crystals", false);
     BooleanSetting fireworks = registerBoolean("Fireworks", false);
+    BooleanSetting everything = registerBoolean("Everything", false);
     
     private int ticks = 0;
 
@@ -42,8 +43,12 @@ public class FastPlace extends Module {
         }
         
         if (exp.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.FIREWORKS|| mc.player.getHeldItemOffhand().getItem() == Items.FIREWORKS) {
-       	 mc.rightClickDelayTimer = this.speed.getValue();
-       }
+       	 	 mc.rightClickDelayTimer = this.speed.getValue();
+        }
+	    
+	if(everything.getValue()) {
+		 mc.rightClickDelayTimer = this.speed.getValue();
+	}
 
 
     }

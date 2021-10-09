@@ -23,8 +23,8 @@ import net.minecraft.util.math.BlockPos;
 @Module.Declaration(name = "AntiDesync", category = Category.Misc)
 public class AntiDesync extends Module {
 	
-	BooleanSetting crystals = registerBoolean("Crystals", false);
-	BooleanSetting destroyedBlocks = registerBoolean("Blocks", false);
+	BooleanSetting crystals = registerBoolean("Crystals", true);
+	BooleanSetting destroyedBlocks = registerBoolean("Blocks", true);
 	
 	private boolean destroy;
     private BlockPos pos;

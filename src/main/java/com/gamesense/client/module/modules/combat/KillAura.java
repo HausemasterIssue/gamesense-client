@@ -1,6 +1,5 @@
 package com.gamesense.client.module.modules.combat;
 
-import com.gamesense.api.event.events.PacketEvent;
 import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.setting.values.DoubleSetting;
 import com.gamesense.api.setting.values.ModeSetting;
@@ -16,32 +15,40 @@ import com.gamesense.client.module.Module;
 import com.gamesense.client.module.ModuleManager;
 import com.gamesense.client.module.modules.misc.AutoGG;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import me.zero.alpine.listener.EventHandler;
-import me.zero.alpine.listener.Listener;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntityPigZombie;
+import net.minecraft.entity.monster.EntityPolarBear;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.projectile.EntityShulkerBullet;
+import net.minecraft.entity.item.EntityBoat;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.network.play.client.CPacketUseEntity;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.Vec2f;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * @author 0b00101010
+ * @author 0b00101010, hausemasterissue
  * @since 07/02/2021
  */
 
@@ -49,28 +56,35 @@ import java.util.Optional;
 public class KillAura extends Module {
 
     BooleanSetting players = registerBoolean("Players", true);
-    BooleanSetting hostileMobs = registerBoolean("Monsters", false);
-    BooleanSetting passiveMobs = registerBoolean("Animals", false);
-    ModeSetting itemUsed = registerMode("Item used", Arrays.asList("Sword", "Axe", "Both", "All"), "Sword");
-    ModeSetting enemyPriority = registerMode("Enemy Priority", Arrays.asList("Closest", "Health"), "Closest");
-    BooleanSetting swordPriority = registerBoolean("Prioritise Sword", true);
+    BooleanSetting hostileMobs = registerBoolean("Monsters", true);
+    BooleanSetting passiveMobs = registerBoolean("Animals", true);
+    BooleanSetting neutralMobs = registerBoolean("Neutrals", true);
+    BooleanSetting projectiles = registerBoolean("Projectiles", true);
+    BooleanSetting vehicles = registerBoolean("Vehicles", true);
+    DoubleSetting range = registerDouble("Range", 5, 0, 10);
+    DoubleSetting wallsRange = registerDouble("WallsRange", 3.5, 0, 10);
+    ModeSetting itemUsed = registerMode("Item", Arrays.asList("Sword", "Axe", "Both", "All"), "All");
+    ModeSetting enemyPriority = registerMode("Priority", Arrays.asList("Closest", "Health"), "Closest");
+    BooleanSetting swordPriority = registerBoolean("SwordPriority", true);
     BooleanSetting caCheck = registerBoolean("AC Check", false);
     BooleanSetting rotation = registerBoolean("Rotation", true);
     BooleanSetting autoSwitch = registerBoolean("Switch", false);
+    BooleanSetting stopSprint = registerBoolean("StopSprint", true);
+    BooleanSetting delay = registerBoolean("HitDelay", true);
     DoubleSetting switchHealth = registerDouble("Min Switch Health", 0f, 0f, 20f);
-    DoubleSetting range = registerDouble("Range", 5, 0, 10);
 
-    private boolean isAttacking = false;
     private Entity renderEntity;
 
     public void onUpdate() {
         if (mc.player == null || !mc.player.isEntityAlive()) return;
 
         final double rangeSq = range.getValue() * range.getValue();
+        final double wallsRangeSq = wallsRange.getValue() * wallsRange.getValue();
         Optional<Entity> optionalTarget = mc.world.loadedEntityList.stream()
                 .filter(entity -> entity instanceof EntityLivingBase)
                 .filter(entity -> !EntityUtil.basicChecksEntity(entity))
                 .filter(entity -> mc.player.getDistanceSq(entity) <= rangeSq)
+                .filter(entity -> mc.player.getDistanceSq(entity) <= wallsRangeSq)
                 .filter(this::attackCheck)
                 .min(Comparator.comparing(e -> (enemyPriority.getValue().equals("Closest") ? mc.player.getDistanceSq(e) : ((EntityLivingBase) e).getHealth())));
 
@@ -118,6 +132,7 @@ public class KillAura extends Module {
             }
         }
     }
+
 
     private Pair<Float, Integer> findSwordSlot() {
         List<Integer> items = InventoryUtil.findAllItemSlots(ItemSword.class);
@@ -174,11 +189,17 @@ public class KillAura extends Module {
     }
 
     private void attack(Entity e) {
-        if (mc.player.getCooledAttackStrength(0.0f) >= 1.0f) {
-            isAttacking = true;
+        if (mc.player.getCooledAttackStrength(0.0f) >= 1.0f || !delay.getValue()) {
+            if(stopSprint.getValue()) {
+            	 mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SPRINTING));
+                 mc.player.setSprinting(false);
+            }
             mc.playerController.attackEntity(mc.player, e);
             mc.player.swingArm(EnumHand.MAIN_HAND);
-            isAttacking = false;
+            if(stopSprint.getValue()) {
+            	mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SPRINTING));
+            	mc.player.setSprinting(true);
+            }
         }
     }
 
@@ -189,21 +210,28 @@ public class KillAura extends Module {
             }
         }
 
-        if (passiveMobs.getValue() && entity instanceof EntityAnimal) {
+        if (passiveMobs.getValue() && entity instanceof EntityAnimal || entity instanceof EntitySquid) {
             return !(entity instanceof EntityTameable);
         }
+        
+        if (neutralMobs.getValue() && entity instanceof EntityPigZombie || entity instanceof EntityWolf ||
+        		entity instanceof EntityEnderman || entity instanceof EntityIronGolem || entity instanceof EntityLlama || entity instanceof EntityPolarBear) {
+            return true;
+        }
+        
+        if(projectiles.getValue() && entity instanceof EntityShulkerBullet || entity instanceof EntityFireball) {
+        	return true;
+        }
+        
+        if(vehicles.getValue() && entity instanceof EntityBoat || entity instanceof EntityMinecart) {
+            return true;
+        }
+        
 
         return hostileMobs.getValue() && entity instanceof EntityMob;
     }
     
     public String getHudInfo() {
-        String t = "";
-            if (renderEntity == null) {
-                t = "[" + ChatFormatting.WHITE + "None" + ChatFormatting.GRAY + "]";
-            } else {
-                t = "[" + ChatFormatting.WHITE + renderEntity.getName() + ChatFormatting.GRAY + "]";
-            }
-
-        return t;
+        return "[" + ChatFormatting.WHITE + itemUsed.getValue() + ChatFormatting.GRAY + "]";
     }
 }

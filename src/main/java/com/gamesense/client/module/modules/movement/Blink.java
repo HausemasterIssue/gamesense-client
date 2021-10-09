@@ -16,7 +16,7 @@ import net.minecraft.network.play.client.CPacketPlayer;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-@Module.Declaration(name = "Blink", category = Category.Movement)
+@Module.Declaration(name = "FakeLag", category = Category.Movement)
 public class Blink extends Module {
 
     private BooleanSetting ghostPlayer = registerBoolean("Ghost Player", true);

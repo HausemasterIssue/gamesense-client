@@ -2,6 +2,7 @@ package com.gamesense.client.module.modules.combat;
 
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
+import com.gamesense.api.setting.values.IntegerSetting;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.gui.GuiCommandBlock;
 import net.minecraft.client.gui.GuiEnchantment;
@@ -21,16 +22,13 @@ import net.minecraft.item.ItemStack;
 
 @Module.Declaration(name = "AutoTotem", category = Category.Combat)
 public class AutoTotem extends Module {
-
-    /**
-     * @author Ace________/Ace_#1233
-     */
-
-
-    int delay = 0;
+    
+    IntegerSetting delay = registerInteger("Delay", 0, 0, 200);
+    
     int totems;
     int totemsOffHand;
     int totemSwtichDelay = 0;
+    int totalTotems;
 
 
     @Override
@@ -39,6 +37,7 @@ public class AutoTotem extends Module {
             return;
         totems = mc.player.inventory.mainInventory.stream().filter(itemStack -> itemStack.getItem() == Items.TOTEM_OF_UNDYING).mapToInt(ItemStack::getCount).sum();
         totemsOffHand = mc.player.inventory.offHandInventory.stream().filter(itemStack -> itemStack.getItem() == Items.TOTEM_OF_UNDYING).mapToInt(ItemStack::getCount).sum();
+        totalTotems = totems + totemsOffHand;
 
         for (int i = 0; i < 45; i++) {
             if (totems + totemsOffHand > 0) {
@@ -51,7 +50,7 @@ public class AutoTotem extends Module {
                 if (mc.player.getHeldItemOffhand().isEmpty()) {
                     totemSwtichDelay++;
                         if (stacks.getItem() == itemTotem) {
-                            if (totemSwtichDelay >= delay) {
+                            if (totemSwtichDelay >= delay.getValue()) {
                                 mc.playerController.windowClick(0, i, 1, ClickType.PICKUP, mc.player);
                                 mc.playerController.windowClick(0, 45, 1, ClickType.PICKUP, mc.player);
                                 totemSwtichDelay = 0;
@@ -70,6 +69,6 @@ public class AutoTotem extends Module {
     }
     
     public String getHudInfo() {
-        return "[" + ChatFormatting.WHITE + totems + ChatFormatting.GRAY + "]";
+        return "[" + ChatFormatting.WHITE + totalTotems + ChatFormatting.GRAY + "]";
     }
 }

@@ -27,7 +27,7 @@ public class FakePlayer extends Module {
             new ItemStack(Items.DIAMOND_HELMET)
     };
 
-    BooleanSetting playerStacked = registerBoolean("Player Stacked", false);
+    BooleanSetting playerStacked = registerBoolean("Player Stacked", true);
 
     public void onEnable() {
         if (mc.player == null || mc.player.isDead) {
