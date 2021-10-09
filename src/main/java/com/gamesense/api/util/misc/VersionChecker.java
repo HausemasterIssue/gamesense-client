@@ -16,7 +16,7 @@ import java.util.Scanner;
  * @since 12/15/2020
  */
 public class VersionChecker {
-    private static final String URL_CHECKER = "https://gist.githubusercontent.com/Sxmurai/a2abe77730fd7ba2b28b16dd328e7d03/raw/f331763a4bae821b1b9b8905cfb61aa68cecc461/spidersense_version.txt";
+    private static final String URL_CHECKER = "https://gist.githubusercontent.com/Sxmurai/a2abe77730fd7ba2b28b16dd328e7d03/raw/267195534c1df19455aeea19afbb331a3e39b577/spidersense_version.txt";
 
     public static void init(String version) {
         if (version.startsWith("d")) {
