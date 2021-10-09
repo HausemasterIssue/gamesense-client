@@ -6,6 +6,7 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 
 /*
  * @author hausemasterissue
@@ -20,6 +21,7 @@ public class FastUse extends Module {
     BooleanSetting exp = registerBoolean("XP", true);
     BooleanSetting crystals = registerBoolean("Crystals", false);
     BooleanSetting fireworks = registerBoolean("Fireworks", false);
+    BooleanSetting blocks = registerBoolean("Blocks", false);
 
     private int ticks = 0;
 
@@ -43,6 +45,10 @@ public class FastUse extends Module {
             }
 
             if (this.isHolding(Items.FIREWORKS) && this.fireworks.getValue()) {
+                mc.rightClickDelayTimer = this.speed.getValue();
+            }
+
+            if (mc.player.getActiveItemStack().getItem() instanceof ItemBlock && this.blocks.getValue()) {
                 mc.rightClickDelayTimer = this.speed.getValue();
             }
         } else {
