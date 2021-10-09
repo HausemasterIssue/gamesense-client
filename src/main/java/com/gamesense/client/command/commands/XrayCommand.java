@@ -8,7 +8,7 @@ import net.minecraft.block.Block;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Command.Declaration(name = "Xray", syntax = "xray [block]", alias = {"x", "xra", "xrayblocks"})
+@Command.Declaration(name = "Xray", syntax = "xray [block]", alias = {"xray", "x", "xra", "xrayblocks"})
 public class XrayCommand extends Command {
     @Override
     public void onCommand(String command, String[] message) {
