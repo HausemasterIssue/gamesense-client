@@ -5,8 +5,10 @@
   "refmap": "mixins.gamesense.refmap.json",
   "mixins": [
     "MixinAbstractClientPlayer",
+    "MixinBlock",
     "MixinBlockLiquid",
     "MixinBlockSoulSand",
+    "MixinBlockStateImplementation",
     "MixinEntity",
     "MixinEntityPlayer",
     "MixinEntityPlayerSP",

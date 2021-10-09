@@ -13,17 +13,22 @@ import com.gamesense.client.module.ModuleManager;
 import com.gamesense.client.module.modules.misc.AutoGG;
 import com.gamesense.client.module.modules.misc.AutoReply;
 import com.gamesense.client.module.modules.misc.AutoRespawn;
+import com.gamesense.client.module.modules.render.Xray;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 /**
  * @author Hoosiers
@@ -52,6 +57,7 @@ public class LoadConfig {
             loadAutoGG();
             loadAutoReply();
             loadAutoRespawn();
+            loadXrayBlocks();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -388,5 +394,50 @@ public class LoadConfig {
         }
 
         inputStream.close();
+    }
+
+    private static void loadXrayBlocks() throws IOException {
+        String fileLocation = fileName + miscName;
+
+        Path xrayBlocksFile = Paths.get(fileLocation + "Xray_Blocks.json");
+        if (!Files.exists(xrayBlocksFile)) {
+            // add default blocks
+            Xray.blocks.addAll(Arrays.asList(
+                    Blocks.COAL_ORE,
+                    Blocks.IRON_ORE,
+                    Blocks.GOLD_ORE,
+                    Blocks.REDSTONE_ORE,
+                    Blocks.LAPIS_ORE,
+                    Blocks.DIAMOND_ORE,
+
+                    Blocks.COAL_BLOCK,
+                    Blocks.IRON_BLOCK,
+                    Blocks.GOLD_BLOCK,
+                    Blocks.REDSTONE_BLOCK,
+                    Blocks.LAPIS_BLOCK,
+                    Blocks.DIAMOND_BLOCK,
+
+                    Blocks.OBSIDIAN,
+                    Blocks.WATERLILY,
+                    Blocks.WATER,
+                    Blocks.FLOWING_WATER,
+                    Blocks.LAVA,
+                    Blocks.FLOWING_LAVA
+            ));
+
+            return;
+        }
+
+        InputStream stream = Files.newInputStream(xrayBlocksFile);
+        JsonArray object = new JsonParser().parse(new InputStreamReader(stream)).getAsJsonArray();
+
+        for (int i = 0; i < object.size(); ++i) {
+            Block block = Block.getBlockFromName(object.get(i).getAsString());
+            if (block == null) {
+                continue;
+            }
+
+            Xray.blocks.add(block);
+        }
     }
 }
