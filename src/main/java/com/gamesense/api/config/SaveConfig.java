@@ -321,7 +321,7 @@ public class SaveConfig {
         registerFiles(miscName, "Xray_Blocks");
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileName + mainName + "Xray_Blocks.json"), StandardCharsets.UTF_8);
+        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileName + miscName + "Xray_Blocks.json"), StandardCharsets.UTF_8);
         JsonArray array = new JsonArray();
 
         for (Block block : Xray.blocks) {
