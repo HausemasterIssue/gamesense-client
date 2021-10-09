@@ -91,7 +91,7 @@ public class ModuleManager {
         addMod(new ChatModifier());
         addMod(new ChatSuffix());
         addMod(new CoordLeakerReal());
-        addMod(new FastPlace());
+        addMod(new FastUse());
         addMod(new FakePlayer());
         addMod(new HotbarRefill());
         addMod(new MCF());
