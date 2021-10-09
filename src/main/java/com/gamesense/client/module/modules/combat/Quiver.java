@@ -4,7 +4,7 @@ package com.gamesense.client.module.modules.combat;
 import java.util.List;
 import java.util.Objects;
 import com.gamesense.api.setting.values.BooleanSetting;
-import com.gamesense.api.setting.values.DoubleSetting;
+import com.gamesense.api.setting.values.IntegerSetting;
 import com.gamesense.api.util.player.InventoryUtil;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
@@ -25,7 +25,7 @@ public class Quiver extends Module {
 	
 	BooleanSetting speed = registerBoolean("Speed", true);
 	BooleanSetting strength = registerBoolean("Strength", true);
-	DoubleSetting tickDelay = registerDouble("TickDelay", 3, 0, 20);
+	IntegerSetting tickDelay = registerInteger("TickDelay", 3, 0, 20);
 	
 	@Override
     public
