@@ -123,6 +123,7 @@ public class ModuleManager {
         addMod(new Tracers());
         addMod(new ViewModel());
         addMod(new VoidESP());
+        addMod(new Xray());
         //HUD
         addMod(new ArmorHUD());
         addMod(new ArrayListModule());

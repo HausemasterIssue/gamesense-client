@@ -14,7 +14,9 @@ import com.gamesense.client.module.ModuleManager;
 import com.gamesense.client.module.modules.misc.AutoGG;
 import com.gamesense.client.module.modules.misc.AutoReply;
 import com.gamesense.client.module.modules.misc.AutoRespawn;
+import com.gamesense.client.module.modules.render.Xray;
 import com.google.gson.*;
+import net.minecraft.block.Block;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -313,5 +315,20 @@ public class SaveConfig {
         String jsonString = gson.toJson(new JsonParser().parse(mainObject.toString()));
         fileOutputStreamWriter.write(jsonString);
         fileOutputStreamWriter.close();
+    }
+
+    private static void saveXrayBlocks() throws IOException {
+        registerFiles(miscName, "Xray_Blocks");
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileName + mainName + "Xray_Blocks.json"), StandardCharsets.UTF_8);
+        JsonArray array = new JsonArray();
+
+        for (Block block : Xray.blocks) {
+            array.add(String.valueOf(block.getRegistryName()));
+        }
+
+        writer.write(gson.toJson(new JsonParser().parse(array.toString())));
+        writer.close();
     }
 }

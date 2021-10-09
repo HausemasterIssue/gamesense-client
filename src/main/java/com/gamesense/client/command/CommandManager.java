@@ -36,6 +36,7 @@ public class CommandManager {
         addCommand(new SaveConfigCommand());
         addCommand(new SetCommand());
         addCommand(new ToggleCommand());
+        addCommand(new XrayCommand());
     }
 
     public static void addCommand(Command command) {
