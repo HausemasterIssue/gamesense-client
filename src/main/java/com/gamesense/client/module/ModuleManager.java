@@ -59,6 +59,7 @@ public class ModuleManager {
         addMod(new FastBreak());
         addMod(new Timer());
         //Movement
+        addMod(new AirJump());
         addMod(new Anchor());
         addMod(new AntiLevitation());
         addMod(new AntiVoid());
