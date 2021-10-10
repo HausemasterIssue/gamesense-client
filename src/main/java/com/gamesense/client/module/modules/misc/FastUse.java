@@ -9,9 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
 /*
- * @author hausemasterissue
+ * @author hausemasterissue, sxmurai
  * @since 9/29/2021
- * creds to inferno lol
  */
 @Module.Declaration(name = "FastUse", category = Category.Misc)
 public class FastUse extends Module {
