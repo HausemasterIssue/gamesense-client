@@ -2,8 +2,6 @@ package com.gamesense.client.module.modules.movement;
 
 import com.gamesense.api.event.events.PacketEvent;
 import com.gamesense.api.setting.values.BooleanSetting;
-import com.gamesense.api.event.events.SoulSandEvent;
-import com.gamesense.api.event.events.SlimeEvent;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import me.zero.alpine.listener.EventHandler;
