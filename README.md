@@ -26,7 +26,7 @@ gradlew setupDecompWorkspace
 gradlew clean
 gradlew build
 ```
-For Mac in these commands
+For Mac type in these commands
 ```
 ./gradlew setupDecompWorkspace
 ./gradlew clean
