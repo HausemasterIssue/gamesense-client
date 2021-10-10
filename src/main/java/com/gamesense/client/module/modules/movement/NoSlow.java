@@ -3,6 +3,7 @@ package com.gamesense.client.module.modules.movement;
 import com.gamesense.api.event.events.PacketEvent;
 import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.event.events.SoulSandEvent;
+import com.gamesense.api.event.events.SlimeEvent;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import me.zero.alpine.listener.EventHandler;
@@ -22,9 +23,10 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
 public class NoSlow extends Module {
 	
+	BooleanSetting slime = registerBoolean("Slime", true);
 	BooleanSetting soulSand = registerBoolean("SoulSand", true);
-	BooleanSetting sneak = registerBoolean("AirStrict", true);
-	BooleanSetting strict = registerBoolean("NCP Strict", true);
+	BooleanSetting sneak = registerBoolean("AirStrict", false);
+	BooleanSetting strict = registerBoolean("NCP Strict", false);
 
 	private boolean sneaking;
 
@@ -69,5 +71,9 @@ public class NoSlow extends Module {
 	
     	public void onSoulSand(SoulSandEvent event) {
         	event.setCanceled(soulSand.getValue());
-    	}		
+    	}
+	
+	public void onSlime(SlimeEvent event) {
+        	event.setCanceled(slime.getValue());
+    	}
 }
