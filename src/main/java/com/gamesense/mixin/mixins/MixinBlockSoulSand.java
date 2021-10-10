@@ -1,7 +1,7 @@
 package com.gamesense.mixin.mixins;
 
 import com.gamesense.client.module.ModuleManager;
-import com.gamesense.client.module.modules.movement.PlayerTweaks;
+import com.gamesense.client.module.modules.movement.NoSlow;
 import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -17,9 +17,9 @@ public class MixinBlockSoulSand {
 
     @Inject(method = "onEntityCollision", at = @At("HEAD"), cancellable = true)
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn, CallbackInfo callbackInfo) {
-        PlayerTweaks playerTweaks = ModuleManager.getModule(PlayerTweaks.class);
+        NoSlow noSlow = ModuleManager.getModule(NoSlow.class);
 
-        if (playerTweaks.isEnabled() && playerTweaks.noSlow.getValue()) {
+        if (noSlow.isEnabled()) {
             callbackInfo.cancel();
         }
     }
