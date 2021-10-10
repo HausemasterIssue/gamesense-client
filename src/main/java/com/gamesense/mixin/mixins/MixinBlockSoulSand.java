@@ -19,7 +19,7 @@ public class MixinBlockSoulSand {
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn, CallbackInfo callbackInfo) {
         NoSlow noSlow = ModuleManager.getModule(NoSlow.class);
 
-        if (noSlow.isEnabled()) {
+        if (noSlow.isEnabled() && noSlow.soulSand.getValue()) {
             callbackInfo.cancel();
         }
     }
