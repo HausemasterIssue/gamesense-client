@@ -2,6 +2,7 @@ package com.gamesense.client.module.modules.movement;
 
 import com.gamesense.api.event.events.PacketEvent;
 import com.gamesense.api.setting.values.BooleanSetting;
+import com.gamesense.api.event.events.SoulSandEvent;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import me.zero.alpine.listener.EventHandler;
@@ -19,8 +20,10 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
  */
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
 public class NoSlow extends Module {
-	BooleanSetting strict = registerBoolean("Strict", true);
-	BooleanSetting sneak = registerBoolean("Sneak", true);
+	
+	BooleanSetting sneak = registerBoolean("SoulSand", true);
+	BooleanSetting sneak = registerBoolean("AirStrict", true);
+	BooleanSetting strict = registerBoolean("NCP Strict", true);
 
 	private boolean sneaking;
 
@@ -59,7 +62,7 @@ public class NoSlow extends Module {
 	@EventHandler
 	private final Listener<PacketEvent.Send> packetSendListener = new Listener<>(event -> {
 		if (this.strict.getValue() && PacketEvent.getPacket() instanceof CPacketPlayer && mc.player.isHandActive() && !mc.player.isRiding()) {
-			mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, mc.player.getPosition(), EnumFacing.DOWN));
+			mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ)), EnumFacing.DOWN));
 		}
 	});
 }
