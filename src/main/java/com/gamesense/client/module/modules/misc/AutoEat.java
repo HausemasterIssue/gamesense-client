@@ -52,7 +52,7 @@ public class AutoEat extends Module {
 	                    break;
 	                }
 
-	                if (mc.currentScreen == null)
+	                if (mc.currentScreen != null)
 	                	KeyBinding.setKeyBindState(mc.gameSettings.keyBindUseItem.getKeyCode(), true);
 	                else
 	                    mc.playerController.processRightClick(mc.player, mc.world, EnumHand.MAIN_HAND);
@@ -84,7 +84,7 @@ public class AutoEat extends Module {
 
 	            if (l_CanEat)
 	            {
-	                if (mc.currentScreen == null)
+	                if (mc.currentScreen != null)
 	                	KeyBinding.setKeyBindState(mc.gameSettings.keyBindUseItem.getKeyCode(), true);
 	                else
 	                    mc.playerController.processRightClick(mc.player, mc.world, EnumHand.MAIN_HAND);
