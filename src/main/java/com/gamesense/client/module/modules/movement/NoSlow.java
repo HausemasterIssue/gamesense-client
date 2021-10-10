@@ -21,6 +21,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
 public class NoSlow extends Module {
 	
+	BooleanSetting soulSand = registerBoolean("SoulSand", true);
 	BooleanSetting sneak = registerBoolean("Sneak", false);
 	BooleanSetting strict = registerBoolean("NCP Strict", false);
 
