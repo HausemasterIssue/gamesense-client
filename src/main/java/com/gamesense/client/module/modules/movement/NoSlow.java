@@ -22,7 +22,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
 public class NoSlow extends Module {
 	
-	BooleanSetting sneak = registerBoolean("SoulSand", true);
+	BooleanSetting soulSand = registerBoolean("SoulSand", true);
 	BooleanSetting sneak = registerBoolean("AirStrict", true);
 	BooleanSetting strict = registerBoolean("NCP Strict", true);
 
@@ -66,4 +66,8 @@ public class NoSlow extends Module {
 			mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ)), EnumFacing.DOWN));
 		}
 	});
+	
+    	public void onSoulSand(SoulSandEvent event) {
+        	event.setCanceled(soulSand.getValue());
+    	}		
 }
