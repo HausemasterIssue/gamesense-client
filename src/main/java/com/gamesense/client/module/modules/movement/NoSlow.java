@@ -23,9 +23,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
 public class NoSlow extends Module {
 	
-	BooleanSetting slime = registerBoolean("Slime", true);
-	BooleanSetting soulSand = registerBoolean("SoulSand", true);
-	BooleanSetting sneak = registerBoolean("AirStrict", false);
+	BooleanSetting sneak = registerBoolean("Sneak", false);
 	BooleanSetting strict = registerBoolean("NCP Strict", false);
 
 	private boolean sneaking;
@@ -69,11 +67,4 @@ public class NoSlow extends Module {
 		}
 	});
 	
-    	public void onSoulSand(SoulSandEvent event) {
-        	event.setCanceled(soulSand.getValue());
-    	}
-	
-	public void onSlime(SlimeEvent event) {
-        	event.setCanceled(slime.getValue());
-    	}
 }
