@@ -18,7 +18,6 @@ public class FastUse extends Module {
 	
     IntegerSetting delay = registerInteger("Delay", 0, 0, 20);
     IntegerSetting speed = registerInteger("Speed", 0, 0, 4);
-    BooleanSetting everything = registerBoolean("Everything", false);
     BooleanSetting exp = registerBoolean("XP", true);
     BooleanSetting crystals = registerBoolean("Crystals", false);
     BooleanSetting fireworks = registerBoolean("Fireworks", false);
@@ -35,9 +34,8 @@ public class FastUse extends Module {
 
             ticks = 0;
         }
-
-    	if (!everything.getValue()) {
-            if (exp.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.EXPERIENCE_BOTTLE || mc.player.getHeldItemOffhand().getItem() == Items.EXPERIENCE_BOTTLE) {
+	    
+	    if (exp.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.EXPERIENCE_BOTTLE || mc.player.getHeldItemOffhand().getItem() == Items.EXPERIENCE_BOTTLE) {
         	 mc.rightClickDelayTimer = this.speed.getValue();
             }
 
@@ -50,10 +48,7 @@ public class FastUse extends Module {
             }
 
             if (blocks.getValue() && mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock || mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock) {
-      	 	 mc.rightClickDelayTimer = this.speed.getValue();
-            } else {
-		mc.rightClickDelayTimer = this.speed.getValue();    
+      	 	 mc.rightClickDelayTimer = this.speed.getValue()
 	    }
-	}
     }
 }
