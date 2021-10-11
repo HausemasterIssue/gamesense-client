@@ -12,9 +12,9 @@ import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.lwjgl.input.Mouse;
 
 public class PlayerUtil {
 
@@ -180,4 +180,13 @@ public class PlayerUtil {
     public static boolean IsEating() {
         return mc.player != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemFood && mc.player.isHandActive();
     }
+    
+    public static boolean isMining() {
+		return mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_PICKAXE && mc.playerController.getIsHittingBlock();
+	}
+	
+	public static boolean isMending() {
+		return mc.player.getHeldItemMainhand().getItem() == Items.EXPERIENCE_BOTTLE && Mouse.isButtonDown(1);
+	}
+
 }
