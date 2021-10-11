@@ -45,7 +45,7 @@ public class FastUse extends Module {
         	 mc.rightClickDelayTimer = this.speed.getValue();
             }
 
-            if (fireworks.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.FIREWORKS|| mc.player.getHeldItemOffhand().getItem() == Items.FIREWORKS) {
+            if (fireworks.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.FIREWORKS || mc.player.getHeldItemOffhand().getItem() == Items.FIREWORKS) {
        	 	 mc.rightClickDelayTimer = this.speed.getValue();
             }
 
