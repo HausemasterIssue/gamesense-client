@@ -8,6 +8,7 @@ import com.gamesense.api.setting.values.*;
 import com.gamesense.api.util.misc.Timer;
 import com.gamesense.api.util.player.InventoryUtil;
 import com.gamesense.api.util.player.PlayerPacket;
+import com.gamesense.api.util.player.PlayerUtil;
 import com.gamesense.api.util.player.RotationUtil;
 import com.gamesense.api.util.render.GSColor;
 import com.gamesense.api.util.render.RenderUtil;
@@ -43,8 +44,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
 import java.util.*;
+import org.lwjgl.input.Mouse;
 
 @Module.Declaration(name = "AutoCrystal", category = Category.Combat, priority = 100)
 public class AutoCrystal extends Module {
@@ -67,7 +68,10 @@ public class AutoCrystal extends Module {
     IntegerSetting antiSuicideValue = registerInteger("Min Health", 14, 1, 36);
     //BooleanSetting autoSwitch = registerBoolean("Switch", true);
     ModeSetting autoSwitch = registerMode("Switch", Arrays.asList("Normal", "Silent"), "Normal");
-    BooleanSetting noGapSwitch = registerBoolean("No Gap Switch", true);
+    BooleanSetting switchPause = registerBoolean("Switch Pause", true);
+    BooleanSetting noGapSwitch = registerBoolean("Eating", true);
+    BooleanSetting noMiningSwitch = registerBoolean("Mining", true);
+    BooleanSetting noMendingSwitch = registerBoolean("Mending", true);
     public BooleanSetting endCrystalMode = registerBoolean("1.13 Place", false);
     BooleanSetting cancelCrystal = registerBoolean("Cancel Crystal", false);
     DoubleSetting minDmg = registerDouble("Min Damage", 4, 0, 36);
@@ -275,20 +279,22 @@ public class AutoCrystal extends Module {
             CrystalInfo.PlaceInfo crystal = possiblePlacements.last();
             this.render = crystal.crystal;
             this.renderEntity = crystal.target.entity;
-
+            
             // autoSwitch stuff
             if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
                 switch(autoSwitch.getValue()) {
                 case "Normal": {
-                	if (!noGapSwitch.getValue() || !(mc.player.getHeldItemMainhand().getItem() == Items.GOLDEN_APPLE)) {
+                	if (!noGapSwitch.getValue() && !switchPause.getValue() && !PlayerUtil.IsEating() || !noMiningSwitch.getValue() && !switchPause.getValue() && !(mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_PICKAXE) && !mc.playerController.getIsHittingBlock()
+                			|| !noMendingSwitch.getValue() && !switchPause.getValue() && !(mc.player.getHeldItemMainhand().getItem() == Items.EXPERIENCE_BOTTLE) && !Mouse.isButtonDown(1)) {
                         mc.player.inventory.currentItem = crystalSlot;
                         rotating = false;
                         this.switchCooldown = true;
                     }
                 }
                 case "Silent": {
-                	if (!noGapSwitch.getValue()) {
-                		InventoryUtil.switchTo(crystalSlot, silent == true);
+                	if (!noGapSwitch.getValue() && !switchPause.getValue() && !PlayerUtil.IsEating() || !noMiningSwitch.getValue() && !switchPause.getValue() && !(mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_PICKAXE) && !mc.playerController.getIsHittingBlock()
+                			|| !noMendingSwitch.getValue() && !switchPause.getValue() && !(mc.player.getHeldItemMainhand().getItem() == Items.EXPERIENCE_BOTTLE) && !Mouse.isButtonDown(1)) {
+                		InventoryUtil.switchTo(crystalSlot, true);
                         rotating = false;
                         this.switchCooldown = true;
                     }
