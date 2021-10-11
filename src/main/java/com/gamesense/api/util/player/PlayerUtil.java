@@ -4,6 +4,7 @@ import com.gamesense.api.util.world.BlockUtil;
 import com.gamesense.api.util.world.EntityUtil;
 import com.gamesense.client.module.Module;
 import net.minecraft.item.ItemFood;
+import net.minecraft.init.Items;
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
