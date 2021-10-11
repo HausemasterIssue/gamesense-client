@@ -54,5 +54,6 @@ public class FastUse extends Module {
             } else {
 		mc.rightClickDelayTimer = this.speed.getValue();    
 	    }
+	}
     }
 }
