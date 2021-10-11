@@ -68,10 +68,9 @@ public class AutoCrystal extends Module {
     IntegerSetting antiSuicideValue = registerInteger("Min Health", 14, 1, 36);
     //BooleanSetting autoSwitch = registerBoolean("Switch", true);
     ModeSetting autoSwitch = registerMode("Switch", Arrays.asList("Normal", "Silent"), "Normal");
-    BooleanSetting switchPause = registerBoolean("Switch Pause", true);
-    BooleanSetting noGapSwitch = registerBoolean("Eating", true);
-    BooleanSetting noMiningSwitch = registerBoolean("Mining", true);
-    BooleanSetting noMendingSwitch = registerBoolean("Mending", true);
+    BooleanSetting noGapSwitch = registerBoolean("NoEatingSwitch", true);
+    BooleanSetting noMiningSwitch = registerBoolean("NoMiningSwitch", true);
+    BooleanSetting noMendingSwitch = registerBoolean("NoMendingSwitch", true);
     public BooleanSetting endCrystalMode = registerBoolean("1.13 Place", false);
     BooleanSetting cancelCrystal = registerBoolean("Cancel Crystal", false);
     DoubleSetting minDmg = registerDouble("Min Damage", 4, 0, 36);
@@ -284,16 +283,16 @@ public class AutoCrystal extends Module {
             if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
                 switch(autoSwitch.getValue()) {
                 case "Normal": {
-                	if (!noGapSwitch.getValue() && !switchPause.getValue() && !PlayerUtil.IsEating() || !noMiningSwitch.getValue() && !switchPause.getValue() && !(mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_PICKAXE) && !mc.playerController.getIsHittingBlock()
-                			|| !noMendingSwitch.getValue() && !switchPause.getValue() && !(mc.player.getHeldItemMainhand().getItem() == Items.EXPERIENCE_BOTTLE) && !Mouse.isButtonDown(1)) {
+                	if (!noGapSwitch.getValue() && !PlayerUtil.IsEating() || !noMiningSwitch.getValue() && !PlayerUtil.isMining()
+                			|| !noMendingSwitch.getValue() && !PlayerUtil.isMending()) {
                         mc.player.inventory.currentItem = crystalSlot;
                         rotating = false;
                         this.switchCooldown = true;
                     }
                 }
                 case "Silent": {
-                	if (!noGapSwitch.getValue() && !switchPause.getValue() && !PlayerUtil.IsEating() || !noMiningSwitch.getValue() && !switchPause.getValue() && !(mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_PICKAXE) && !mc.playerController.getIsHittingBlock()
-                			|| !noMendingSwitch.getValue() && !switchPause.getValue() && !(mc.player.getHeldItemMainhand().getItem() == Items.EXPERIENCE_BOTTLE) && !Mouse.isButtonDown(1)) {
+                	if (!noGapSwitch.getValue() && !PlayerUtil.IsEating() || !noMiningSwitch.getValue() && !PlayerUtil.isMining()
+                			|| !noMendingSwitch.getValue() && !PlayerUtil.isMending()) {
                 		InventoryUtil.switchTo(crystalSlot, true);
                         rotating = false;
                         this.switchCooldown = true;
