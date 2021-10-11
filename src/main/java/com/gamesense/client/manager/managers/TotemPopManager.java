@@ -74,12 +74,12 @@ public enum TotemPopManager implements Manager {
 
         if (playerPopCount.get(entityName) == null) {
             playerPopCount.put(entityName, 1);
-            if(sendMsgs) MessageBus.sendClientPrefixMessage(chatFormatting + entityName + " popped " + ChatFormatting.RED + 1 + chatFormatting + " totem!");
+            if(sendMsgs) MessageBus.sendClientPrefixMessage(chatFormatting + entityName + " popped " + ChatFormatting.GREEN + 1 + chatFormatting + " totem!");
         } else {
             int popCounter = playerPopCount.get(entityName) + 1;
 
             playerPopCount.put(entityName, popCounter);
-            if(sendMsgs) MessageBus.sendClientPrefixMessage(chatFormatting + entityName + " popped " + ChatFormatting.RED + popCounter + chatFormatting + " totems!");
+            if(sendMsgs) MessageBus.sendClientPrefixMessage(chatFormatting + entityName + " popped " + ChatFormatting.GREEN + popCounter + chatFormatting + " totems!");
         }
     });
 
