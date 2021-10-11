@@ -27,6 +27,12 @@ import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+* @author hausemasterissue
+* @since 11/10/2021
+* pasted from legacy src leak
+*/
+
 @Module.Declaration(name = "SelfFill", category = Category.Combat)
 public class SelfFill extends Module {
 	
