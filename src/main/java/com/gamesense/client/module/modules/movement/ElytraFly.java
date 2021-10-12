@@ -37,7 +37,16 @@ public class ElytraFly extends Module {
     	
     	if (mc.player.movementInput.moveStrafe != 0f || mc.player.movementInput.moveForward != 0f) {
     		mc.player.motionX = dir[0];
+    		mc.player.motionY = -(glideSpeed.getValue() / 10000f);
     		mc.player.motionZ = dir[1];
+    	}
+    	
+    	if(mc.gameSettings.keyBindJump.isKeyDown()) {
+    		mc.player.motionY = upSpeed.getValue();
+    	}
+    	
+    	if(mc.gameSettings.keyBindSneak.isKeyDown()) {
+    		mc.player.motionY = downSpeed.getValue();
     	}
     	
     	event.cancel();
