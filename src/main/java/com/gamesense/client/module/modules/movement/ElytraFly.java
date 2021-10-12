@@ -1,6 +1,7 @@
 package com.gamesense.client.module.modules.movement;
 
 import com.gamesense.api.event.events.PlayerMoveEvent;
+import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.setting.values.DoubleSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
@@ -12,12 +13,13 @@ import net.minecraft.network.play.client.CPacketEntityAction;
 @Module.Declaration(name = "ElytraFly", category = Category.Movement)
 public class ElytraFly extends Module {
 	
+	BooleanSetting packet = registerBoolean("Packet", false);
 	DoubleSetting glideSpeed = registerDouble("GlideSpeed", 2.5, 0.0, 5.0);
 	DoubleSetting upSpeed = registerDouble("UpSpeed", 1.0, 0, 5.0);
 	DoubleSetting downSpeed = registerDouble("DownSpeed", 1.0, 0, 5.0);
 	
 	public void onEnable() {
-		if(!mc.player.onGround && mc.player.isElytraFlying()) {
+		if(mc.player.isElytraFlying() && packet.getValue()) {
 			mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
 		}
 	}
@@ -38,19 +40,27 @@ public class ElytraFly extends Module {
     			mc.player.motionY -= downSpeed.getValue();
     		}
     		
-    		if(mc.gameSettings.keyBindRight.isKeyDown() || mc.gameSettings.keyBindLeft.isKeyDown()) {
+    		if(mc.gameSettings.keyBindRight.isKeyDown()) {
     			mc.player.motionZ = glideSpeed.getValue();
     		}
     		
-    		if(mc.gameSettings.keyBindForward.isKeyDown() || mc.gameSettings.keyBindBack.isKeyDown()) {
+    		if(mc.gameSettings.keyBindLeft.isKeyDown()) {
+    			mc.player.motionZ -= glideSpeed.getValue();
+    		}
+    		
+    		if(mc.gameSettings.keyBindForward.isKeyDown()) {
     			mc.player.motionX = glideSpeed.getValue();
+    		}
+    		
+    		if(mc.gameSettings.keyBindBack.isKeyDown()) {
+    			mc.player.motionX -= glideSpeed.getValue();
     		}
     	}
     	
     });
 	
 	public void onDisable() {
-		if(mc.player.isElytraFlying()) {
+		if(mc.player.isElytraFlying() && packet.getValue()) {
 			mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
 		}
 	}
