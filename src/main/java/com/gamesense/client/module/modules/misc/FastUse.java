@@ -50,9 +50,5 @@ public class FastUse extends Module {
             if (blocks.getValue() && mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock || mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock) {
       	 	 mc.rightClickDelayTimer = this.speed.getValue();
 	    }
-	    
-	    if (!mc.player.isHandActive()) {
-		mc.rightClickDelayTimer = 4;    
-	    }
     }
 }
