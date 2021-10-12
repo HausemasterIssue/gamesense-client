@@ -35,41 +35,16 @@ public class ElytraFly extends Module {
 
     	final double[] dir = MotionUtil.forward(glideSpeed.getValue());
     	
-    	if(mc.player.isElytraFlying()) {
-    		if(mc.gameSettings.keyBindJump.isKeyDown()) {
-    			mc.player.motionY += upSpeed.getValue();
-    		} else {
-    			noMotion();
-    		}
-    		
-    		if(mc.gameSettings.keyBindSneak.isKeyDown()) {
-    			mc.player.motionY -= downSpeed.getValue();
-    		}
-    		
-    		if(mc.gameSettings.keyBindRight.isKeyDown()) {
-    			mc.player.motionZ = dir[1];
-    		} else {
-    			noMotion();
-    		}
-    		
-    		if(mc.gameSettings.keyBindLeft.isKeyDown()) {
-    			mc.player.motionZ = dir[1];
-    		} else {
-    			noMotion();
-    		}
-    		
-    		if(mc.gameSettings.keyBindForward.isKeyDown()) {
-    			mc.player.motionX = dir[0];
-    		} else {
-    			noMotion();
-    		}
-    		
-    		if(mc.gameSettings.keyBindBack.isKeyDown()) {
-    			mc.player.motionX = dir[0];;
-    		} else {
-    			noMotion();
-    		}
+    	if (mc.player.movementInput.moveStrafe != 0f || mc.player.movementInput.moveForward != 0f) {
+    		mc.player.motionX = dir[0];
+    		mc.player.motionZ = dir[1];
     	}
+    	
+    	event.cancel();
+    	
+    	mc.player.prevLimbSwingAmount = 0f;
+        mc.player.limbSwingAmount = 0f;
+        mc.player.limbSwing = 0f;
     	
     });
 	
