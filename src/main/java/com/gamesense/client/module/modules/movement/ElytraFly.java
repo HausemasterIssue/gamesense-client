@@ -3,12 +3,18 @@ package com.gamesense.client.module.modules.movement;
 import com.gamesense.api.event.events.PlayerMoveEvent;
 import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.setting.values.DoubleSetting;
+import com.gamesense.api.util.world.MotionUtil;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketEntityAction;
+
+/*
+* @author hausemasterissue
+* @since 12/10/2021
+*/
 
 @Module.Declaration(name = "ElytraFly", category = Category.Movement)
 public class ElytraFly extends Module {
@@ -27,13 +33,13 @@ public class ElytraFly extends Module {
 	@EventHandler
     private final Listener<PlayerMoveEvent> playerMoveEvent = new Listener<>(event -> {
 
-    	mc.player.motionY = 0.0;
-    	mc.player.motionX = 0.0;
-    	mc.player.motionY = 0.0;
+    	final double[] dir = MotionUtil.forward(glideSpeed.getValue());
     	
     	if(mc.player.isElytraFlying()) {
     		if(mc.gameSettings.keyBindJump.isKeyDown()) {
     			mc.player.motionY += upSpeed.getValue();
+    		} else {
+    			noMotion();
     		}
     		
     		if(mc.gameSettings.keyBindSneak.isKeyDown()) {
@@ -41,19 +47,27 @@ public class ElytraFly extends Module {
     		}
     		
     		if(mc.gameSettings.keyBindRight.isKeyDown()) {
-    			mc.player.motionZ = glideSpeed.getValue();
+    			mc.player.motionZ = dir[1];
+    		} else {
+    			noMotion();
     		}
     		
     		if(mc.gameSettings.keyBindLeft.isKeyDown()) {
-    			mc.player.motionZ -= glideSpeed.getValue();
+    			mc.player.motionZ = dir[1];
+    		} else {
+    			noMotion();
     		}
     		
     		if(mc.gameSettings.keyBindForward.isKeyDown()) {
-    			mc.player.motionX = glideSpeed.getValue();
+    			mc.player.motionX = dir[0];
+    		} else {
+    			noMotion();
     		}
     		
     		if(mc.gameSettings.keyBindBack.isKeyDown()) {
-    			mc.player.motionX -= glideSpeed.getValue();
+    			mc.player.motionX = dir[0];;
+    		} else {
+    			noMotion();
     		}
     	}
     	
@@ -63,6 +77,12 @@ public class ElytraFly extends Module {
 		if(mc.player.isElytraFlying() && packet.getValue()) {
 			mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
 		}
+	}
+	
+	public static void noMotion() {
+		mc.player.motionY = 0.0;
+    		mc.player.motionX = 0.0;
+    		mc.player.motionY = 0.0;
 	}
 
 }
