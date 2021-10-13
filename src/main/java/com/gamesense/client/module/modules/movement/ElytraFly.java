@@ -20,12 +20,13 @@ import net.minecraft.network.play.client.CPacketEntityAction;
 public class ElytraFly extends Module {
 	
 	BooleanSetting packet = registerBoolean("Packet", false);
-	DoubleSetting glideSpeed = registerDouble("GlideSpeed", 2.5, 0.0, 5.0);
+	DoubleSetting glideSpeed = registerDouble("GlideSpeed", 1.5, 0.0, 5.0);
 	DoubleSetting upSpeed = registerDouble("UpSpeed", 1.0, 0, 5.0);
 	DoubleSetting downSpeed = registerDouble("DownSpeed", 1.0, 0, 5.0);
+	DoubleSetting fallSpeed = registerDouble("FallSpeed", 1.5, 0.0, 5.0);
 	
 	public void onEnable() {
-		if(mc.player.isElytraFlying() && packet.getValue()) {
+		if(!mc.player.onGround && mc.player.isElytraFlying() && packet.getValue()) {
 			mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
 		}
 	}
@@ -33,21 +34,29 @@ public class ElytraFly extends Module {
 	@EventHandler
     private final Listener<PlayerMoveEvent> playerMoveEvent = new Listener<>(event -> {
 
+    	noMotion();
+    	
     	final double[] dir = MotionUtil.forward(glideSpeed.getValue());
+    	
     	
     	if (mc.player.movementInput.moveStrafe != 0f || mc.player.movementInput.moveForward != 0f) {
     		mc.player.motionX = dir[0];
-    		mc.player.motionY = -(glideSpeed.getValue() / 10000f);
+    		mc.player.motionY = -(fallSpeed.getValue() / 2500f);
     		mc.player.motionZ = dir[1];
     	}
     	
     	if(mc.gameSettings.keyBindJump.isKeyDown()) {
+    		mc.player.motionX = 0;
     		mc.player.motionY = upSpeed.getValue();
+    		mc.player.motionZ = 0;
     	}
     	
     	if(mc.gameSettings.keyBindSneak.isKeyDown()) {
-    		mc.player.motionY = downSpeed.getValue();
+    		mc.player.motionX = 0;
+    		mc.player.motionY -= downSpeed.getValue();
+    		mc.player.motionZ = 0;
     	}
+    	
     	
     	event.cancel();
     	
@@ -58,7 +67,7 @@ public class ElytraFly extends Module {
     });
 	
 	public void onDisable() {
-		if(mc.player.isElytraFlying() && packet.getValue()) {
+		if(!mc.player.onGround && mc.player.isElytraFlying() && packet.getValue()) {
 			mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
 		}
 	}
