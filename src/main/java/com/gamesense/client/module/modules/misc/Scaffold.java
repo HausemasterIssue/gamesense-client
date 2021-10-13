@@ -4,6 +4,7 @@ import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.util.player.InventoryUtil;
 import com.gamesense.api.util.player.PlacementUtil;
 import com.gamesense.api.util.world.BlockUtil;
+import com.gamesense.api.util.misc.Timer;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.item.ItemBlock;
@@ -16,9 +17,10 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * @author aesthetical
+ * @author aesthetical, hausemasterissue
  * Taken from my client, Inferno.
  */
+
 @Module.Declaration(name = "Scaffold", category = Category.Misc)
 public class Scaffold extends Module {
     private static final BlockPos[] DIRECTION_OFFSETS = new BlockPos[] {
@@ -29,10 +31,12 @@ public class Scaffold extends Module {
             new BlockPos(0, 0, 1)
     };
 
+    BooleanSetting tower = registerBoolean("Tower", true);
     BooleanSetting silent = registerBoolean("Silent", false);
     BooleanSetting rotate = registerBoolean("Rotate", true);
     BooleanSetting roundRotation = registerBoolean("RoundRotation", false);
 
+    private final Timer timer = new Timer();
     private final Queue<BlockPos> blocks = new ConcurrentLinkedQueue<>();
 
     @Override
@@ -63,6 +67,16 @@ public class Scaffold extends Module {
                 if (mc.player.getDistance(pos.x, pos.y, pos.z) > 4.5) {
                     continue;
                 }
+                
+                if (tower.getValue() && mc.gameSettings.keyBindJump.isKeyDown()) {
+                    mc.player.motionX *= 0.3;
+                    mc.player.motionZ *= 0.3;
+                    mc.player.jump();
+                    if (timer.passedMs(1500L)) {
+                        mc.player.motionY = -0.28;
+                        timer.reset();
+                    }
+                }
 
                 if (this.rotate.getValue()) {
                     BlockUtil.faceVectorPacketInstant(new Vec3d(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5), this.roundRotation.getValue());
@@ -73,6 +87,7 @@ public class Scaffold extends Module {
 
             InventoryUtil.switchTo(oldSlot, this.silent.getValue());
         }
+        
     }
 
     private void updateBlocks(BlockPos base) {
