@@ -13,7 +13,7 @@ import net.minecraft.network.play.client.CPacketEntityAction;
 
 /*
 * @author hausemasterissue
-* @since 12/10/2021
+* @since 13/10/2021
 */
 
 @Module.Declaration(name = "ElytraFly", category = Category.Movement)
@@ -24,10 +24,24 @@ public class ElytraFly extends Module {
 	DoubleSetting upSpeed = registerDouble("UpSpeed", 1.0, 0, 5.0);
 	DoubleSetting downSpeed = registerDouble("DownSpeed", 1.0, 0, 5.0);
 	DoubleSetting fallSpeed = registerDouble("FallSpeed", 1.5, 0.0, 5.0);
+	BooleanSetting autoTakeoff = registerBoolean("AutoTakeoff", false);
+	BooleanSetting noLiquid = registerBoolean("LiquidDisable", true);
+	BooleanSetting groundDisable = registerBoolean("GroundDisable", false);
+	BooleanSetting ncpStrict = registerBoolean("NCP Strict", true);
+	DoubleSetting strictPitch = registerDouble("StrictPitch", 30.0, 0, 90.0);
 	
 	public void onEnable() {
-		if(!mc.player.onGround && mc.player.isElytraFlying() && packet.getValue()) {
+		if(!mc.player.onGround && packet.getValue() && !autoTakeoff.getValue()) {
 			mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
+		}
+		
+		if(autoTakeoff.getValue()) {
+			mc.timer.tickLength = ((float)(50.0 / 10));
+			mc.player.jump();
+			if(!mc.player.onGround) {
+				mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
+			}
+			mc.timer.tickLength = 50f;
 		}
 	}
 	
@@ -45,18 +59,44 @@ public class ElytraFly extends Module {
     		mc.player.motionZ = dir[1];
     	}
     	
-    	if(mc.gameSettings.keyBindJump.isKeyDown()) {
-    		mc.player.motionX = 0;
-    		mc.player.motionY = upSpeed.getValue();
-    		mc.player.motionZ = 0;
+    	if(!ncpStrict.getValue()) {
+    		if(mc.gameSettings.keyBindJump.isKeyDown()) {
+        		mc.player.motionX = 0;
+        		mc.player.motionY = upSpeed.getValue();
+        		mc.player.motionZ = 0;
+        	}
+        	
+        	if(mc.gameSettings.keyBindSneak.isKeyDown()) {
+        		mc.player.motionX = 0;
+        		mc.player.motionY -= downSpeed.getValue();
+        		mc.player.motionZ = 0;
+        	}
+    	} else {
+    		if (mc.gameSettings.keyBindJump.isKeyDown()) {
+                mc.player.rotationPitch = (float) -strictPitch.getValue();
+                mc.player.motionY = upSpeed.getValue();
+            }
+
+            else if (mc.gameSettings.keyBindSneak.isKeyDown()) {
+                mc.player.rotationPitch = (float) ((double) strictPitch.getValue());
+                mc.player.motionY = downSpeed.getValue();
+            }
     	}
     	
-    	if(mc.gameSettings.keyBindSneak.isKeyDown()) {
-    		mc.player.motionX = 0;
-    		mc.player.motionY -= downSpeed.getValue();
-    		mc.player.motionZ = 0;
+    	if(mc.player.isInLava() && noLiquid.getValue()|| mc.player.isInWater() && noLiquid.getValue()) {
+    		disable();
     	}
     	
+    	if(groundDisable.getValue() && !mc.player.isElytraFlying() && mc.player.onGround) {
+    		disable();
+    	}
+    	
+    	if(!mc.gameSettings.keyBindJump.isKeyDown() && !mc.gameSettings.keyBindSneak.isKeyDown() && !mc.gameSettings.keyBindForward.isKeyDown() ||
+    		!mc.gameSettings.keyBindBack.isKeyDown() && !mc.gameSettings.keyBindLeft.isKeyDown() && ! mc.gameSettings.keyBindRight.isKeyDown()) {
+    		mc.player.motionY = 0.0;
+        	mc.player.motionX = -(fallSpeed.getValue() / 2500f);
+        	mc.player.motionY = 0.0;
+    	}
     	
     	event.cancel();
     	
@@ -70,12 +110,15 @@ public class ElytraFly extends Module {
 		if(!mc.player.onGround && mc.player.isElytraFlying() && packet.getValue()) {
 			mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
 		}
+		
+		mc.timer.tickLength = 50f;
 	}
 	
 	public static void noMotion() {
 		mc.player.motionY = 0.0;
     		mc.player.motionX = 0.0;
-    		mc.player.motionY = 0.0;
+    		mc.player.motionZ = 0.0;
 	}
+	
 
 }
