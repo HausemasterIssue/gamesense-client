@@ -12,6 +12,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.network.play.client.CPacketPlayer;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -88,7 +90,8 @@ public class Scaffold extends Module {
                 }
 
                 if (this.rotate.getValue()) {
-                    BlockUtil.faceVectorPacketInstant(new Vec3d(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5), this.roundRotation.getValue());
+					float[] angle = calcAngle(mc.player.getPositionEyes(mc.getRenderPartialTicks()), new Vec3d((float) pos.x + 0.5f, (float) pos.y - 0.5f, (float) pos.z + 0.5f));
+					mc.player.connection.sendPacket(new CPacketPlayer.Rotation(angle[0], (float) MathHelper.normalizeAngle((int) angle[1], 360), mc.player.onGround));
                 }
 
                 PlacementUtil.place(pos, EnumHand.MAIN_HAND, false);
@@ -124,4 +127,13 @@ public class Scaffold extends Module {
             }
         }
     }
+	
+	public static float[] calcAngle(Vec3d from, Vec3d to) {
+	        double difX = to.x - from.x;
+	        double difY = (to.y - from.y) * -1.0;
+	        double difZ = to.z - from.z;
+	        double dist = MathHelper.sqrt(difX * difX + difZ * difZ);
+	        return new float[]{(float) MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difZ, difX)) - 90.0), (float) MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difY, dist)))};
+	 }
 }
+=
