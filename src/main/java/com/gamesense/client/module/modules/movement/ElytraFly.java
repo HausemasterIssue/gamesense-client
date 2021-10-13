@@ -27,6 +27,7 @@ public class ElytraFly extends Module {
 	BooleanSetting autoTakeoff = registerBoolean("AutoTakeoff", false);
 	BooleanSetting noLiquid = registerBoolean("LiquidDisable", true);
 	BooleanSetting groundDisable = registerBoolean("GroundDisable", false);
+	BooleanSetting antiKick = registerBoolean("AntiKick", true);
 	BooleanSetting ncpStrict = registerBoolean("NCP Strict", true);
 	DoubleSetting strictPitch = registerDouble("StrictPitch", 30.0, 0, 90.0);
 	
@@ -45,6 +46,10 @@ public class ElytraFly extends Module {
 		}
 	}
 	
+	public void onUpdate() {
+		disable();	
+	}
+	
 	@EventHandler
     private final Listener<PlayerMoveEvent> playerMoveEvent = new Listener<>(event -> {
 
@@ -55,7 +60,11 @@ public class ElytraFly extends Module {
     	
     	if (mc.player.movementInput.moveStrafe != 0f || mc.player.movementInput.moveForward != 0f) {
     		mc.player.motionX = dir[0];
-    		mc.player.motionY = -(fallSpeed.getValue() / 2500f);
+		if(antiKick.getValue()) {
+			mc.player.motionY = -(fallSpeed.getValue() / 2500f);
+		} else {
+			mc.player.motionY = 0f;	
+		}
     		mc.player.motionZ = dir[1];
     	}
     	
@@ -79,24 +88,9 @@ public class ElytraFly extends Module {
 
             else if (mc.gameSettings.keyBindSneak.isKeyDown()) {
                 mc.player.rotationPitch = (float) ((double) strictPitch.getValue());
-                mc.player.motionY = downSpeed.getValue();
+                mc.player.motionY -= downSpeed.getValue();
             }
-    	}
-    	
-    	if(mc.player.isInLava() && noLiquid.getValue()|| mc.player.isInWater() && noLiquid.getValue()) {
-    		disable();
-    	}
-    	
-    	if(groundDisable.getValue() && !mc.player.isElytraFlying() && mc.player.onGround) {
-    		disable();
-    	}
-    	
-    	if(!mc.gameSettings.keyBindJump.isKeyDown() && !mc.gameSettings.keyBindSneak.isKeyDown() && !mc.gameSettings.keyBindForward.isKeyDown() ||
-    		!mc.gameSettings.keyBindBack.isKeyDown() && !mc.gameSettings.keyBindLeft.isKeyDown() && ! mc.gameSettings.keyBindRight.isKeyDown()) {
-    		mc.player.motionY = 0.0;
-        	mc.player.motionX = -(fallSpeed.getValue() / 2500f);
-        	mc.player.motionY = 0.0;
-    	}
+	}
     	
     	event.cancel();
     	
@@ -107,10 +101,6 @@ public class ElytraFly extends Module {
     });
 	
 	public void onDisable() {
-		if(!mc.player.onGround && mc.player.isElytraFlying() && packet.getValue()) {
-			mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
-		}
-		
 		mc.timer.tickLength = 50f;
 	}
 	
