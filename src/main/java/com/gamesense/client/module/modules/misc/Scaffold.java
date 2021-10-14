@@ -136,4 +136,3 @@ public class Scaffold extends Module {
 	        return new float[]{(float) MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difZ, difX)) - 90.0), (float) MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difY, dist)))};
 	 }
 }
-=
