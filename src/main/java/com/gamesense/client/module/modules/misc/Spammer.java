@@ -24,7 +24,7 @@ public class Spammer extends Module {
 	}
 	
 	public void OnUpdate() {
-        if (timer.passedS(random(minDelay.getValue(), maxDelay.getValue()))) {
+        if (timer.passedS(random(RNG.nextInt(minDelay.getValue()), RNG.nextInt(maxDelay.getValue())))) {
             timer.reset();
             
             int messagesToxic = random(1, 26);
