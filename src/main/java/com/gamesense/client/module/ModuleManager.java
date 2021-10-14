@@ -70,6 +70,7 @@ public class ModuleManager {
         addMod(new AntiVoid());
         addMod(new AntiWeb());
         addMod(new AutoWalk());
+        addMod(new BoatFly());
         addMod(new ElytraFly());
         addMod(new EntityControl());
         addMod(new EntitySpeed());
