@@ -37,7 +37,7 @@ public class ElytraFly extends Module {
 		}
 		
 		if(autoTakeoff.getValue()) {
-			mc.timer.tickLength = ((float)(50.0 / 10));
+			mc.timer.tickLength = ((float)(50.0 * 10));
 			mc.player.jump();
 			if(!mc.player.onGround) {
 				mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
