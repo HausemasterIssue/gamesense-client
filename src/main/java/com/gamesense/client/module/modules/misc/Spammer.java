@@ -20,7 +20,7 @@ public class Spammer extends Module {
     IntegerSetting minDelay = registerInteger("Min Delay", 5, 1, 100);
     IntegerSetting maxDelay = registerInteger("Max Delay", 5, 1, 100);
 
-    public PhysicsSpammer() {
+    public Spammer() {
         updateTimes();
     }
 
