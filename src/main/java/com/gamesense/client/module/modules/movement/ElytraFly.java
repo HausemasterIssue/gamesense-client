@@ -47,7 +47,10 @@ public class ElytraFly extends Module {
 	}
 	
 	public void onUpdate() {
-		disable();	
+		if(mc.player.onGround) {
+			disable();
+		}
+			
 	}
 	
 	@EventHandler
