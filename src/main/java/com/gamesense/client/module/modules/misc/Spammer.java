@@ -8,6 +8,11 @@ import com.gamesense.client.module.Module;
 import java.util.Arrays;
 import java.util.Random;
 
+/*
+* @author hausemasterissue
+* @since 14/10/2021
+*/
+
 @Module.Declaration(name = "Spammer", category = Category.Misc)
 public class Spammer extends Module {
 
