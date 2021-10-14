@@ -49,6 +49,7 @@ public class ModuleManager {
         //Exploits
         addMod(new AntiDesync());
         addMod(new AntiHunger());
+        addMod(new BowBomb());
         addMod(new FastProjectile());
         addMod(new ChorusNotify());
         addMod(new EntityAlert());
