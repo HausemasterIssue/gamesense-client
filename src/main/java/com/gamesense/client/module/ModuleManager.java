@@ -35,7 +35,6 @@ public class ModuleManager {
         addMod(new BedAura());
         addMod(new Blocker());
         addMod(new BowAim());
-        addMod(new FastProjectile());
         addMod(new CevBreaker());
         addMod(new Criticals());
         addMod(new FastBow());
@@ -50,6 +49,7 @@ public class ModuleManager {
         //Exploits
         addMod(new AntiDesync());
         addMod(new AntiHunger());
+        addMod(new FastProjectile());
         addMod(new ChorusNotify());
         addMod(new EntityAlert());
         addMod(new LiquidInteract());
