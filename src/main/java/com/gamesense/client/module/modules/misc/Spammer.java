@@ -3,7 +3,6 @@ package com.gamesense.client.module.modules.misc;
 import com.gamesense.api.setting.values.IntegerSetting;
 import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.api.util.misc.MessageBus;
-import com.gamesense.api.util.misc.Timer;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import java.util.Arrays;
@@ -11,23 +10,27 @@ import java.util.Random;
 
 @Module.Declaration(name = "Spammer", category = Category.Misc)
 public class Spammer extends Module {
-	
+
 	ModeSetting mode = registerMode("Mode", Arrays.asList("Toxic", "Advertise", "AntiRacist", "Clients"), "Toxic");
-	IntegerSetting minDelay = registerInteger("MinDelay", 1, 0, 30);
-	IntegerSetting maxDelay = registerInteger("MaxDelay", 10, 0, 30);
-	
-	private static final Random RNG = new Random();
-	private final Timer timer = new Timer();
-	
-	public void onDisable() {
-		timer.reset();
-	}
-	
-	public void OnUpdate() {
-        if (timer.passedS(random(RNG.nextInt(minDelay.getValue()), RNG.nextInt(maxDelay.getValue())))) {
-            timer.reset();
-            
-            int messagesToxic = random(1, 26);
+    IntegerSetting minDelay = registerInteger("Min Delay", 5, 1, 100);
+    IntegerSetting maxDelay = registerInteger("Max Delay", 5, 1, 100);
+
+    public PhysicsSpammer() {
+        updateTimes();
+    }
+
+    private long lastTime, delay;
+    private Random random = new Random(System.currentTimeMillis());
+    private static final Random RNG = new Random();
+
+    public void onUpdate() {
+        if (delay > Math.max(minDelay.getValue(), maxDelay.getValue()))
+            delay = Math.max(minDelay.getValue(), maxDelay.getValue());
+        else if (delay < Math.min(minDelay.getValue(), maxDelay.getValue()))
+            delay = Math.min(minDelay.getValue(), maxDelay.getValue());
+        if (System.currentTimeMillis() >= lastTime + 1000 * delay) {
+        	
+        	int messagesToxic = random(1, 26);
             int messagesAdvertise = random(1, 16);
             int messagesAntiRacist = random(1, 14);
             int messagesClients = random(1, 19);
@@ -350,14 +353,17 @@ public class Spammer extends Module {
             	}
             }
             
-            }      
-            
+            }
         }
     }
-	
-	private int random(int min, int max) {
+
+    private void updateTimes() {
+        lastTime = System.currentTimeMillis();
+        int bound = Math.abs(maxDelay.getValue() - minDelay.getValue());
+        delay = (bound == 0 ? 0 : random.nextInt(bound)) + Math.min(maxDelay.getValue(), minDelay.getValue());
+    }
+    
+    private int random(int min, int max) {
         return RNG.nextInt(max + min) - min;
     }
-	
-    
 }
