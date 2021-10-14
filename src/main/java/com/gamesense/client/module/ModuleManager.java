@@ -110,6 +110,7 @@ public class ModuleManager {
         addMod(new PvPInfo());
         addMod(new Scaffold());
         addMod(new SortInventory());
+        addMod(new Spammer());
         addMod(new XCarry());
         //Render
         addMod(new BlockHighlight());
