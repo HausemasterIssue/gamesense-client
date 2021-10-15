@@ -1,5 +1,6 @@
 package com.gamesense.client.module.modules.combat;
 
+import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.util.player.social.SocialManager;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
@@ -20,6 +21,8 @@ import net.minecraft.util.math.Vec3d;
 @Module.Declaration(name = "BowAim", category = Category.Combat)
 public class BowAim extends Module {
 	
+	BooleanSetting packet = registerBoolean("Packet", true);
+	
 	@Override
     public void onUpdate() {
         if (mc.player.getHeldItemMainhand().getItem() instanceof ItemBow && mc.player.isHandActive() && mc.player.getItemInUseMaxCount() >= 3) {
@@ -34,7 +37,13 @@ public class BowAim extends Module {
             if (player != null) {
                 Vec3d pos = interpolateEntity(player, mc.getRenderPartialTicks());
                 float[] angels = calcAngle(interpolateEntity((Entity)mc.player, mc.getRenderPartialTicks()), pos);
-                mc.player.connection.sendPacket((Packet<?>) new CPacketPlayer.Rotation(angels[0], angels[1], mc.player.onGround));
+                if(packet.getValue()) {
+                	mc.player.connection.sendPacket((Packet<?>) new CPacketPlayer.Rotation(angels[0], angels[1], mc.player.onGround));
+                } else {
+                	mc.player.rotationYaw = angels[0];
+                	mc.player.rotationPitch = angels[1];
+                }
+                
             }
         }
     }
