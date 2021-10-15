@@ -24,7 +24,7 @@ public class AutoMount extends Module {
 	BooleanSetting pigs = registerBoolean("Pigs", true);
 	BooleanSetting llamas = registerBoolean("Llamas", true);
 	BooleanSetting eat = registerBoolean("Eat", true);
-	IntegerSetting range = registerInteger("Delay", 4, 0, 15);
+	IntegerSetting range = registerInteger("Range", 4, 0, 15);
 	IntegerSetting delay = registerInteger("Delay", 1, 0, 30);
 	
 	private Timer timer = new Timer();
