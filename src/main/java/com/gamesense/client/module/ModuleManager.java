@@ -97,6 +97,7 @@ public class ModuleManager {
         addMod(new AutoTame());
         addMod(new AutoTool());
         addMod(new AutoMine()); 
+        addMod(new AutoMount());
         addMod(new ChatModifier());
         addMod(new ChatSuffix());
         addMod(new CoordLeakerReal());
