@@ -6,9 +6,16 @@ import com.gamesense.client.module.Module;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBow;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+
+/*
+* @author hausemasterissue
+* @since 15/10/2021
+*/
 
 @Module.Declaration(name = "BowAim", category = Category.Combat)
 public class BowAim extends Module {
@@ -27,8 +34,7 @@ public class BowAim extends Module {
             if (player != null) {
                 Vec3d pos = interpolateEntity(player, mc.getRenderPartialTicks());
                 float[] angels = calcAngle(interpolateEntity((Entity)mc.player, mc.getRenderPartialTicks()), pos);
-                mc.player.rotationYaw = angels[0];
-                mc.player.rotationPitch = angels[1];
+                mc.player.connection.sendPacket((Packet<?>) new CPacketPlayer.Rotation(angels[0], angels[1], mc.player.onGround));
             }
         }
     }
