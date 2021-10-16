@@ -122,17 +122,12 @@ public class AutoWeb extends Module {
                 int maxSteps;
                 Vec3d[] offsetPattern;
 
-                switch (offsetMode.getValue()) {
-                    case "Double" : {
-                        offsetPattern = Offsets.BURROW_DOUBLE;
-                        maxSteps = Offsets.BURROW_DOUBLE.length;
-                        break;
-                    }
-                    default: {
-                        offsetPattern = Offsets.BURROW;
-                        maxSteps = Offsets.BURROW.length;
-                        break;
-                    }
+                if ("Double".equals(offsetMode.getValue())) {
+                    offsetPattern = Offsets.BURROW_DOUBLE;
+                    maxSteps = Offsets.BURROW_DOUBLE.length;
+                } else {
+                    offsetPattern = Offsets.BURROW;
+                    maxSteps = Offsets.BURROW.length;
                 }
 
                 if (offsetSteps >= maxSteps) {

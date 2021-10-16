@@ -3,18 +3,18 @@ package com.gamesense.client.module.modules.combat;
 import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.setting.values.IntegerSetting;
 import com.gamesense.api.setting.values.ModeSetting;
+import com.gamesense.api.util.misc.Offsets;
 import com.gamesense.api.util.misc.Timer;
 import com.gamesense.api.util.player.InventoryUtil;
 import com.gamesense.api.util.player.PlacementUtil;
 import com.gamesense.api.util.player.PlayerUtil;
 import com.gamesense.api.util.world.BlockUtil;
+import com.gamesense.api.util.world.HoleUtil;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
-import com.gamesense.api.util.misc.Offsets;
 import net.minecraft.block.BlockObsidian;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.util.EnumHand;
@@ -44,7 +44,7 @@ public class Surround extends Module {
 
     private final Timer delayTimer = new Timer();
     private Vec3d centeredBlock = Vec3d.ZERO;
-    private static boolean surrounded = false;
+    private static final boolean surrounded = false;
 
     private int oldSlot = -1;
     private int offsetSteps = 0;
@@ -60,6 +60,7 @@ public class Surround extends Module {
         }
 
         if (centerPlayer.getValue() && mc.player.onGround) {
+            if (this.isSafeHole()) return;
             mc.player.motionX = 0;
             mc.player.motionZ = 0;
         }
@@ -67,6 +68,11 @@ public class Surround extends Module {
         centeredBlock = BlockUtil.getCenterOfBlock(mc.player.posX, mc.player.posY, mc.player.posY);
 
         oldSlot = mc.player.inventory.currentItem;
+    }
+
+    private boolean isSafeHole() {
+        BlockPos blockPos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
+        return HoleUtil.isHole(blockPos, true, false).getType() != HoleUtil.HoleType.NONE;
     }
 
     public void onDisable() {
@@ -132,6 +138,7 @@ public class Surround extends Module {
         activedOff = true;
 
         if (centerPlayer.getValue() && centeredBlock != Vec3d.ZERO && mc.player.onGround) {
+            if (this.isSafeHole()) return;
             PlayerUtil.centerPlayer(centeredBlock);
         }
 
@@ -144,17 +151,12 @@ public class Surround extends Module {
                 int maxSteps;
                 Vec3d[] offsetPattern;
 
-                switch (offsetMode.getValue()) {
-                    case "Anti City" : {
-                        offsetPattern = Offsets.SURROUND_CITY;
-                        maxSteps = Offsets.SURROUND_CITY.length;
-                        break;
-                    }
-                    default: {
-                        offsetPattern = Offsets.SURROUND;
-                        maxSteps = Offsets.SURROUND.length;
-                        break;
-                    }
+                if ("Anti City".equals(offsetMode.getValue())) {
+                    offsetPattern = Offsets.SURROUND_CITY;
+                    maxSteps = Offsets.SURROUND_CITY.length;
+                } else {
+                    offsetPattern = Offsets.SURROUND;
+                    maxSteps = Offsets.SURROUND.length;
                 }
 
                 if (offsetSteps >= maxSteps) {
@@ -219,17 +221,5 @@ public class Surround extends Module {
 
         return PlacementUtil.place(pos, handSwing, rotate.getValue(), true);
     }
-    
-    public static boolean isSurrounded(BlockPos p) {
-		BlockPos[] positions = {p.add(1, 0, 0), p.add(-1, 0, 0), p.add(0, 0, 1), p.add(0, 0, -1)};
-		
- 		for (BlockPos pos : positions) {
- 			if (PlacementUtil.getBlock(pos) != Blocks.OBSIDIAN && PlacementUtil.getBlock(pos) != Blocks.BEDROCK) {
- 				return false;
- 			}
- 		}
- 		
- 		surrounded = true;
- 		return true;
-	}
+
 }
