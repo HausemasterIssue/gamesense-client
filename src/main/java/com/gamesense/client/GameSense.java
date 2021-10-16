@@ -51,8 +51,8 @@ public class GameSense {
     public GameSenseGUI gameSenseGUI;
 
     private void startClient() {
-        VersionChecker.init(MODVER);
-        LOGGER.info("Version checked!");
+//        VersionChecker.init(MODVER);
+//        LOGGER.info("Version checked!");
 
         cFontRenderer = new CFontRenderer(new Font("Verdana", Font.PLAIN, 18), true, true); // no custom font on startup
         LOGGER.info("Custom font initialized!");
