@@ -29,7 +29,7 @@ public class TextRadar extends HUDModule {
     BooleanSetting sortRight = registerBoolean("Sort Right", false);
     IntegerSetting range = registerInteger("Range", 100, 1, 260);
 
-    private PlayerList list = new PlayerList();
+    private final PlayerList list = new PlayerList();
 
     @Override
     public void populate(Theme theme) {

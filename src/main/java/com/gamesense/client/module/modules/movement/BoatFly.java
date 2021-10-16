@@ -7,7 +7,6 @@ import com.gamesense.api.setting.values.IntegerSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.entity.item.EntityBoat;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketConfirmTeleport;
 import net.minecraft.network.play.client.CPacketInput;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -26,17 +25,17 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Module.Declaration(name = "BoatFly", category = Category.Movement)
 public class BoatFly extends Module {
-	
+
 	DoubleSetting speed = registerDouble("Speed", 3.0, 0.0, 10.0);
 	DoubleSetting verticalSpeed = registerDouble("UpSpeed", 3.0, 0.0, 10.0);
 	BooleanSetting noKick = registerBoolean("AntiKick", true);
 	BooleanSetting packet = registerBoolean("Packet", true);
 	IntegerSetting packets = registerInteger("Packets", 3, 1, 5);
 	IntegerSetting interact = registerInteger("Delay", 2, 1, 20);
-	
+
 	private EntityBoat target;
     private int teleportID;
-	
+
 	 @Override
 	    public void onUpdate() {
 	        if (mc.player == null) {
@@ -77,7 +76,7 @@ public class BoatFly extends Module {
 	        }
 	        handlePackets(mc.player.getRidingEntity().motionX, mc.player.getRidingEntity().motionY, mc.player.getRidingEntity().motionZ);
 	    }
-	 
+
 	 	public void handlePackets(double x, double y, double z) {
 	        if (packet.getValue()) {
 	            Vec3d vec = new Vec3d(x, y, z);
@@ -88,11 +87,11 @@ public class BoatFly extends Module {
 	            BoatFly.mc.player.getRidingEntity().setPosition(position.x, position.y, position.z);
 	            BoatFly.mc.player.connection.sendPacket(new CPacketVehicleMove(BoatFly.mc.player.getRidingEntity()));
 	            for (int i = 0; i < packets.getValue(); ++i) {
-	                BoatFly.mc.player.connection.sendPacket((Packet<?>) new CPacketConfirmTeleport(teleportID++));
+	                BoatFly.mc.player.connection.sendPacket(new CPacketConfirmTeleport(teleportID++));
 	            }
 	        }
 	    }
-	 	
+
 
 	    @SubscribeEvent
 	    public void onSendPacket(PacketEvent.Send event) {
@@ -113,7 +112,7 @@ public class BoatFly extends Module {
 	            teleportID = ((SPacketPlayerPosLook) PacketEvent.getPacket()).teleportId;
 	        }
 	    }
-	 
+
 	 	private double[] directionSpeed(double speed) {
 	        float forward = BoatFly.mc.player.movementInput.moveForward;
 	        float side = BoatFly.mc.player.movementInput.moveStrafe;

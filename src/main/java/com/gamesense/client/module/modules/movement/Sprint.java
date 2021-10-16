@@ -1,11 +1,13 @@
 package com.gamesense.client.module.modules.movement;
 
-import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.api.setting.values.BooleanSetting;
-import com.mojang.realmsclient.gui.ChatFormatting;
+import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
-import java.util.*;
+import com.mojang.realmsclient.gui.ChatFormatting;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 /*
  * @author hausemasterissue

@@ -1,9 +1,9 @@
 package com.gamesense.client.module.modules.movement;
 
 import com.gamesense.api.event.events.PlayerMoveEvent;
+import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.setting.values.DoubleSetting;
 import com.gamesense.api.setting.values.ModeSetting;
-import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.util.misc.Timer;
 import com.gamesense.api.util.world.EntityUtil;
 import com.gamesense.api.util.world.MotionUtil;
@@ -35,7 +35,7 @@ public class Speed extends Module {
 
     private boolean slowDown;
     private double playerSpeed;
-    private Timer timer = new Timer();
+    private final Timer timer = new Timer();
 
     public void onEnable() {
         playerSpeed = MotionUtil.getBaseMoveSpeed();
@@ -97,7 +97,7 @@ public class Speed extends Module {
             } else {
                 EntityUtil.resetTimer();
                 if (slowDown || mc.player.collidedHorizontally) {
-                    playerSpeed -= (EntityUtil.isColliding(0, -0.8, 0) instanceof BlockLiquid && EntityUtil.isInLiquid()) ? 0.4 : 0.7 * (playerSpeed = MotionUtil.getBaseMoveSpeed());
+                    playerSpeed -= (EntityUtil.isColliding(0, -0.8, 0) instanceof BlockLiquid && EntityUtil.isInLiquid()) ? 0.4 : 0.7 * MotionUtil.getBaseMoveSpeed();
                     slowDown = false;
                 } else {
                     playerSpeed -= playerSpeed / 159.0;

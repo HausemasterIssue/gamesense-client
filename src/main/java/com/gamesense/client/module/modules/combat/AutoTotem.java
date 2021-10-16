@@ -1,8 +1,8 @@
 package com.gamesense.client.module.modules.combat;
 
+import com.gamesense.api.setting.values.IntegerSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
-import com.gamesense.api.setting.values.IntegerSetting;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.gui.GuiCommandBlock;
 import net.minecraft.client.gui.GuiEnchantment;

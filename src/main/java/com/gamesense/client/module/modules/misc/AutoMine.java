@@ -7,7 +7,6 @@ package com.gamesense.client.module.modules.misc;
 
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
-
 import net.minecraft.client.settings.KeyBinding;
 
 @Module.Declaration(name = "AutoMine", category = Category.Misc)

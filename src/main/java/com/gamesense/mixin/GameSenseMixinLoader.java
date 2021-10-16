@@ -13,8 +13,6 @@ import java.util.Map;
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 public class GameSenseMixinLoader implements IFMLLoadingPlugin {
 
-    private static boolean isObfuscatedEnvironment = false;
-
     public GameSenseMixinLoader() {
         GameSense.LOGGER.info("Mixins initialized");
         MixinBootstrap.init();
@@ -41,7 +39,7 @@ public class GameSenseMixinLoader implements IFMLLoadingPlugin {
 
     @Override
     public void injectData(Map<String, Object> data) {
-        isObfuscatedEnvironment = (boolean) data.get("runtimeDeobfuscationEnabled");
+        data.get("runtimeDeobfuscationEnabled");
     }
 
     @Override

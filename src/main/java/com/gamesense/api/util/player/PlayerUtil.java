@@ -3,19 +3,20 @@ package com.gamesense.api.util.player;
 import com.gamesense.api.util.world.BlockUtil;
 import com.gamesense.api.util.world.EntityUtil;
 import com.gamesense.client.module.Module;
-import net.minecraft.item.ItemFood;
-import net.minecraft.init.Items;
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemFood;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import org.lwjgl.input.Mouse;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.lwjgl.input.Mouse;
 
 public class PlayerUtil {
 

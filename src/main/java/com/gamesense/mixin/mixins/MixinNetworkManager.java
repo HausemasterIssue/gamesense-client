@@ -53,7 +53,7 @@ public class MixinNetworkManager {
         }
     }
 
-    @Inject(method = "exceptionCaught", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "exceptionCaught", at = @At("HEAD"))
     private void exceptionCaught(ChannelHandlerContext p_exceptionCaught_1_, Throwable p_exceptionCaught_2_, CallbackInfo callbackInfo) {
         
     }

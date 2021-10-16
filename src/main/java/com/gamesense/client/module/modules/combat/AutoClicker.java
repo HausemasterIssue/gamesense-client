@@ -7,9 +7,8 @@ package com.gamesense.client.module.modules.combat;
 
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
-
-import org.lwjgl.input.Mouse;
 import net.minecraft.client.settings.KeyBinding;
+import org.lwjgl.input.Mouse;
 
 @Module.Declaration(name = "AutoClicker", category = Category.Combat)
 public class AutoClicker extends Module {

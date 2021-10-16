@@ -1,11 +1,11 @@
 package com.gamesense.client.module.modules.combat;
 
-import com.gamesense.client.module.Module;
-import net.minecraft.init.Items;
-import net.minecraft.util.text.TextComponentString;
 import com.gamesense.api.setting.values.IntegerSetting;
 import com.gamesense.api.util.player.InventoryUtil;
 import com.gamesense.client.module.Category;
+import com.gamesense.client.module.Module;
+import net.minecraft.init.Items;
+import net.minecraft.util.text.TextComponentString;
 
 /*
 * @author hausemasterissue
