@@ -6,6 +6,7 @@ import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import com.gamesense.api.event.events.EntitySaddledEvent;
 import com.gamesense.api.event.events.SteerEntityEvent;
+import me.zero.alpine.type.Cancellable;
 
 /*
 * @author hausemasterissue
@@ -16,13 +17,9 @@ import com.gamesense.api.event.events.SteerEntityEvent;
 public class EntityControl extends Module {
 	
 	@EventHandler
-    private Listener<SteerEntityEvent> onSteerEntity = new Listener<>(event -> {
-    	event.cancel();
-    });
+    private Listener<SteerEntityEvent> onSteerEntity = new Listener<>(Cancellable::cancel);
 
     @EventHandler
-    private Listener<EntitySaddledEvent> onEntitySaddled = new Listener<>(event -> {
-        event.cancel();
-    });
+    private Listener<EntitySaddledEvent> onEntitySaddled = new Listener<>(Cancellable::cancel);
     
 }

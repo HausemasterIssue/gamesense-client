@@ -43,7 +43,7 @@ public class ArrayListModule extends HUDModule {
 
     private class ModuleList implements HUDList {
 
-        public List<Module> activeModules = new ArrayList<Module>();
+        public List<Module> activeModules = new ArrayList <>();
 
         @Override
         public int getSize() {

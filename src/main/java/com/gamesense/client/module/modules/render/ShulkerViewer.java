@@ -38,6 +38,7 @@ public class ShulkerViewer extends Module {
         GlStateManager.enableDepth();
 
         NonNullList<ItemStack> contentItems = NonNullList.withSize(27, ItemStack.EMPTY);
+        assert itemStack.getTagCompound() != null;
         ItemStackHelper.loadAllItems(itemStack.getTagCompound().getCompoundTag("BlockEntityTag"), contentItems);
 
         for (int i = 0; i < contentItems.size(); i++) {

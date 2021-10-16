@@ -6,7 +6,6 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class PhysicsSpammer extends Module {
         updateTimes();
     }
 
-    private List<String> cache = new LinkedList<String>();
+    private List<String> cache = new LinkedList <>();
     private long lastTime, delay;
     private Random random = new Random(System.currentTimeMillis());
 
@@ -54,8 +53,7 @@ public class PhysicsSpammer extends Module {
                         }
                     }
                     scanner.close();
-                } catch (MalformedURLException e) {
-                } catch (IOException e) {
+                } catch (IOException ignored) {
                 }
             }
             if (cache.size() == 0) cache.add("Error! :(");

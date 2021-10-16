@@ -14,7 +14,6 @@ import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -40,8 +39,8 @@ public class AutoGG extends Module {
                 this.targetedPlayers = new ConcurrentHashMap();
             }
 
-            if (event.getPacket() instanceof CPacketUseEntity) {
-                CPacketUseEntity cPacketUseEntity = (CPacketUseEntity) event.getPacket();
+            if (PacketEvent.getPacket() instanceof CPacketUseEntity) {
+                CPacketUseEntity cPacketUseEntity = (CPacketUseEntity) PacketEvent.getPacket();
                 if (cPacketUseEntity.getAction().equals(CPacketUseEntity.Action.ATTACK)) {
                     Entity targetEntity = cPacketUseEntity.getEntityFromWorld(mc.world);
                     if (targetEntity instanceof EntityPlayer) {
@@ -88,10 +87,7 @@ public class AutoGG extends Module {
             this.targetedPlayers = new ConcurrentHashMap();
         }
 
-        Iterator var1 = mc.world.getLoadedEntityList().iterator();
-
-        while (var1.hasNext()) {
-            Entity entity = (Entity) var1.next();
+        for (Entity entity : mc.world.getLoadedEntityList()) {
             if (entity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entity;
                 if (player.getHealth() <= 0.0F) {

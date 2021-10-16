@@ -40,7 +40,7 @@ public class EntityUtil {
     public static boolean isInLiquid() {
         if (mc.player != null) {
             if (mc.player.fallDistance >= 3.0f) {
-                return false;
+                return true;
             }
             boolean inLiquid = false;
             final AxisAlignedBB bb = mc.player.getRidingEntity() != null ? mc.player.getRidingEntity().getEntityBoundingBox() : mc.player.getEntityBoundingBox();
@@ -50,15 +50,15 @@ public class EntityUtil {
                     final Block block = mc.world.getBlockState(new BlockPos(x, y, z)).getBlock();
                     if (!(block instanceof BlockAir)) {
                         if (!(block instanceof BlockLiquid)) {
-                            return false;
+                            return true;
                         }
                         inLiquid = true;
                     }
                 }
             }
-            return inLiquid;
+            return !inLiquid;
         }
-        return false;
+        return true;
     }
 
     public static void setTimer(float speed) {

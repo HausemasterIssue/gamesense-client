@@ -8,7 +8,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.server.SPacketPlayerPosLook;
 import net.minecraftforge.client.event.InputUpdateEvent;
-import java.util.Arrays;
+
+import java.util.Collections;
+import java.util.Objects;
+
 import com.gamesense.api.event.events.PacketEvent;
 import com.gamesense.api.setting.values.DoubleSetting;
 import com.gamesense.api.setting.values.ModeSetting;
@@ -22,7 +25,7 @@ import com.gamesense.api.setting.values.ModeSetting;
 @Module.Declaration(name = "StrafeTest", category = Category.Movement)
 public class StrafeTest extends Module {
 	
-	ModeSetting mode = registerMode("Mode", Arrays.asList("StrictStrafe") , "StrictStrafe");
+	ModeSetting mode = registerMode("Mode", Collections.singletonList("StrictStrafe"), "StrictStrafe");
 	DoubleSetting speed = registerDouble("Speed", 2.6, 0.0, 10.0);
 	
 	private double moveSpeed = 0.0;
@@ -46,7 +49,7 @@ public class StrafeTest extends Module {
         if (stage == 1) {
             moveSpeed = mode.getValue().equalsIgnoreCase("StrictStrafe") ? 0.33119999999999994 : 1.38 * (speed.getValue() / 10.0);
             if (mc.player.isPotionActive(MobEffects.SPEED)) {
-                amplifier = mc.player.getActivePotionEffect(MobEffects.SPEED).getAmplifier();
+                amplifier = Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.SPEED)).getAmplifier();
                 moveSpeed *= 1.0 + 0.2 * (double)(amplifier + 1);
             }
             ++stage;
@@ -57,14 +60,14 @@ public class StrafeTest extends Module {
             }
             moveSpeed *= 2.149;
             if (mc.player.isPotionActive(MobEffects.SPEED)) {
-                amplifier = mc.player.getActivePotionEffect(MobEffects.SPEED).getAmplifier();
+                amplifier = Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.SPEED)).getAmplifier();
                 moveSpeed *= 1.0 + 0.2 * (double)(amplifier + 1);
             }
             ++stage;
         } else if (stage == 3) {
             moveSpeed = mode.getValue().equalsIgnoreCase("StrictStrafe") ? lastDist - 0.66 * (lastDist - 0.24) : lastDist - 0.66 * (lastDist - speed.getValue() / 10.0);
             if (mc.player.isPotionActive(MobEffects.SPEED)) {
-                amplifier = mc.player.getActivePotionEffect(MobEffects.SPEED).getAmplifier();
+                amplifier = Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.SPEED)).getAmplifier();
                 moveSpeed *= 1.0 + 0.2 * (double)(amplifier + 1);
             }
             ++stage;

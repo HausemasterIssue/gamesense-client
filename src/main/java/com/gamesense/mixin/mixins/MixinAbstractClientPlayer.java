@@ -1,7 +1,6 @@
 package com.gamesense.mixin.mixins;
 
 import com.gamesense.api.util.render.CapeUtil;
-import com.gamesense.client.GameSense;
 import com.gamesense.client.module.ModuleManager;
 import com.gamesense.client.module.modules.render.CapesModule;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -14,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Mixin(AbstractClientPlayer.class)
@@ -25,7 +25,7 @@ public abstract class MixinAbstractClientPlayer {
 
     @Inject(method = "getLocationCape", at = @At("HEAD"), cancellable = true)
     public void getLocationCape(CallbackInfoReturnable<ResourceLocation> callbackInfoReturnable) {
-        UUID uuid = getPlayerInfo().getGameProfile().getId();
+        UUID uuid = Objects.requireNonNull(getPlayerInfo()).getGameProfile().getId();
         CapesModule capesModule = ModuleManager.getModule(CapesModule.class);
 
         if (capesModule.isEnabled() && CapeUtil.hasCape(uuid)) {

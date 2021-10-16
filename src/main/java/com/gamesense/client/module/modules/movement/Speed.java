@@ -16,6 +16,7 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.init.MobEffects;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * @author Crystallinqq/Auto for original code
@@ -86,17 +87,17 @@ public class Speed extends Module {
             if (mc.player.onGround && MotionUtil.isMoving(mc.player) && timer.hasReached(300)) {
                 EntityUtil.setTimer(timerVal.getValue().floatValue());
                 if (mc.player.isPotionActive(MobEffects.JUMP_BOOST)) {
-                    speedY += (mc.player.getActivePotionEffect(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1f;
+                    speedY += (Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.JUMP_BOOST)).getAmplifier() + 1) * 0.1f;
                 }
 
                 event.setY(mc.player.motionY = speedY);
-                playerSpeed = MotionUtil.getBaseMoveSpeed() * (EntityUtil.isColliding(0, -0.5, 0) instanceof BlockLiquid && !EntityUtil.isInLiquid() ? 0.9 : 1.901);
+                playerSpeed = MotionUtil.getBaseMoveSpeed() * (EntityUtil.isColliding(0, -0.5, 0) instanceof BlockLiquid && EntityUtil.isInLiquid() ? 0.9 : 1.901);
                 slowDown = true;
                 timer.reset();
             } else {
                 EntityUtil.resetTimer();
                 if (slowDown || mc.player.collidedHorizontally) {
-                    playerSpeed -= (EntityUtil.isColliding(0, -0.8, 0) instanceof BlockLiquid && !EntityUtil.isInLiquid()) ? 0.4 : 0.7 * (playerSpeed = MotionUtil.getBaseMoveSpeed());
+                    playerSpeed -= (EntityUtil.isColliding(0, -0.8, 0) instanceof BlockLiquid && EntityUtil.isInLiquid()) ? 0.4 : 0.7 * (playerSpeed = MotionUtil.getBaseMoveSpeed());
                     slowDown = false;
                 } else {
                     playerSpeed -= playerSpeed / 159.0;

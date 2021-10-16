@@ -29,6 +29,7 @@ public class PlayerInfo {
         this.health = entity.getHealth() + entity.getAbsorptionAmount();
         this.enchantModifier = EnchantmentHelper.getEnchantmentModifierDamage(entity.getArmorInventoryList(), EXPLOSION_SOURCE);
 
+        assert RESISTANCE != null;
         this.hasResistance = entity.isPotionActive(RESISTANCE);
 
         boolean i = false;
@@ -49,6 +50,7 @@ public class PlayerInfo {
         this.health = entity.getHealth() + entity.getAbsorptionAmount();
         this.enchantModifier = EnchantmentHelper.getEnchantmentModifierDamage(entity.getArmorInventoryList(), EXPLOSION_SOURCE);
 
+        assert RESISTANCE != null;
         this.hasResistance = entity.isPotionActive(RESISTANCE);
 
         this.lowArmour = lowArmour;

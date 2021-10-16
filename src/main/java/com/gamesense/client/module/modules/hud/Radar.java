@@ -82,10 +82,7 @@ public class Radar extends HUDModule {
                 if (renderPlayer.getValue()) {
                     mc.world.playerEntities.stream()
                             .filter(entityPlayer -> entityPlayer != mc.player)
-                            .forEach(entityPlayer -> {
-
-                                renderEntityPoint(entityPlayer, getPlayerColor(entityPlayer), context);
-                            });
+                            .forEach(entityPlayer -> renderEntityPoint(entityPlayer, getPlayerColor(entityPlayer), context));
                 }
 
                 //mobs

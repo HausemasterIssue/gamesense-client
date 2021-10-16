@@ -19,8 +19,7 @@ public class CapeUtil {
             while ((inputLine = in.readLine()) != null) {
                 uuids.add(UUID.fromString(inputLine));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
     }
 

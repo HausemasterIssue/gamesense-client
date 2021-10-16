@@ -298,8 +298,8 @@ public class RenderUtil {
             if (nametags.customColor.getValue()) {
                 bcolor = nametags.borderColor.getValue();
             }
-            for (int i = 0; i < text.length; i++) {
-                double w = FontUtil.getStringWidth(colorMain.customFont.getValue(), text[i]) / 2;
+            for (String s : text) {
+                double w = FontUtil.getStringWidth(colorMain.customFont.getValue(), s) / 2;
                 if (w > width) {
                     width = w;
                 }

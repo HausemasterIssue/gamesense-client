@@ -314,9 +314,9 @@ public class AutoGear extends Module {
         Object[] keyList = containerInv.keySet().toArray();
 
         // Lets take items from chest
-        for (int values = 0; values < keyList.length; values++) {
+        for (Object o : keyList) {
             // Which index we are referring
-            int itemC = (int) keyList[values];
+            int itemC = (int) o;
             // If nItems contains what we are looking
             if (nItemsCopy.containsKey(containerInv.get(itemC))) {
                 // If yes, get the item

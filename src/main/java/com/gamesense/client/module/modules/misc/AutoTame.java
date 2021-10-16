@@ -14,6 +14,8 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.util.EnumHand;
 
+import java.util.Objects;
+
 /*
 * @author hausemasterissue
 * @since 7/10/2021
@@ -78,7 +80,7 @@ public class AutoTame extends Module {
 	            return;
 	        
 	        timer.reset();
-	        mc.getConnection().sendPacket(new CPacketUseEntity(EntityToTame, EnumHand.MAIN_HAND));
+	        Objects.requireNonNull(mc.getConnection()).sendPacket(new CPacketUseEntity(EntityToTame, EnumHand.MAIN_HAND));
 	 }
 
 }

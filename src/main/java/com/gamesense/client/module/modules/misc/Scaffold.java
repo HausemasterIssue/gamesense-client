@@ -3,7 +3,6 @@ package com.gamesense.client.module.modules.misc;
 import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.util.player.InventoryUtil;
 import com.gamesense.api.util.player.PlacementUtil;
-import com.gamesense.api.util.world.BlockUtil;
 import com.gamesense.api.util.misc.Timer;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;

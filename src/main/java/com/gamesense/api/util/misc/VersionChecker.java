@@ -4,7 +4,6 @@ import com.gamesense.client.GameSense;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -30,8 +29,7 @@ public class VersionChecker {
             if (!version.equalsIgnoreCase(grabbedVersion)) {
                 generatePopUp(grabbedVersion);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
     }
 

@@ -70,7 +70,7 @@ public class Blink extends Module {
     @SuppressWarnings("unused")
     @EventHandler
     private final Listener<PacketEvent.Send> packetSendListener = new Listener<>(event -> {
-        Packet<?> packet = event.getPacket();
+        Packet<?> packet = PacketEvent.getPacket();
         EntityPlayerSP player = mc.player;
 
         if (player != null && player.isEntityAlive() && packet instanceof CPacketPlayer) {

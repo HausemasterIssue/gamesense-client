@@ -5,7 +5,6 @@ import com.gamesense.api.setting.values.IntegerSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
 /*

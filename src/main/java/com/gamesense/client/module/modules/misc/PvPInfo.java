@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -61,7 +62,7 @@ public class PvPInfo extends Module {
                         }
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
             try {
                 for (Entity e : knownPlayers) {
@@ -71,7 +72,7 @@ public class PvPInfo extends Module {
                         }
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
 
@@ -98,11 +99,11 @@ public class PvPInfo extends Module {
                     if (e instanceof EntityEnderPearl) {
                         if (!antiPearlList.contains(e)) {
                             antiPearlList.add(e);
-                            MessageBus.sendClientPrefixMessage(ColorUtil.textToChatFormatting(chatColor) + e.getEntityWorld().getClosestPlayerToEntity(e, 3).getName() + " has just thrown a pearl!");
+                            MessageBus.sendClientPrefixMessage(ColorUtil.textToChatFormatting(chatColor) + Objects.requireNonNull(e.getEntityWorld().getClosestPlayerToEntity(e, 3)).getName() + " has just thrown a pearl!");
                         }
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
         if (strengthDetect.getValue() || weaknessDetect.getValue()) {

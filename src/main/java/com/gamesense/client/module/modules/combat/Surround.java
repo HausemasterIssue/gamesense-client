@@ -106,7 +106,7 @@ public class Surround extends Module {
             return;
         }
 
-        if (!(mc.player.onGround) && !(mc.player.isInWeb) || surrounded == true) {
+        if (!(mc.player.onGround) && !(mc.player.isInWeb) || surrounded) {
             switch (jumpMode.getValue()) {
                 case "Pause" : {
                     return;

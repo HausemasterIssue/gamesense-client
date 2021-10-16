@@ -179,15 +179,15 @@ public class PlayerUtil {
     }
     
     public static boolean IsEating() {
-        return mc.player != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemFood && mc.player.isHandActive();
+        return mc.player == null || !(mc.player.getHeldItemMainhand().getItem() instanceof ItemFood) || !mc.player.isHandActive();
     }
     
     public static boolean isMining() {
-		return mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_PICKAXE && mc.playerController.getIsHittingBlock();
+		return mc.player.getHeldItemMainhand().getItem() != Items.DIAMOND_PICKAXE || !mc.playerController.getIsHittingBlock();
 	}
 	
 	public static boolean isMending() {
-		return mc.player.getHeldItemMainhand().getItem() == Items.EXPERIENCE_BOTTLE && Mouse.isButtonDown(1);
+		return mc.player.getHeldItemMainhand().getItem() != Items.EXPERIENCE_BOTTLE || !Mouse.isButtonDown(1);
 	}
 
 }

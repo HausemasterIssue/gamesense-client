@@ -279,7 +279,7 @@ public class AutoAnvil extends Module {
         EnumFacing opposite = side.getOpposite();
 
         // If that block can be clicked
-        if (!BlockUtil.canBeClicked(neighbour)) {
+        if (BlockUtil.canBeClicked(neighbour)) {
             return false;
         }
 
@@ -411,7 +411,7 @@ public class AutoAnvil extends Module {
         return null;
     }
 
-    private static ArrayList<Vec3d> to_place = new ArrayList<Vec3d>();
+    private static ArrayList<Vec3d> to_place = new ArrayList <>();
 
     private boolean getMaterialsSlot() {
 		/*
