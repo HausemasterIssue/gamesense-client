@@ -40,7 +40,7 @@ public class AntiWeb extends Module {
         if (mc.player.isInWeb) {
             delay++;
             if (downMode.getValue().equalsIgnoreCase("Strict")) {
-                mc.player.motionY = 1.1 / -5;
+                mc.player.motionY = -0.22000000000000003;
 
             }
             if (downMode.getValue().equalsIgnoreCase("Other")) {

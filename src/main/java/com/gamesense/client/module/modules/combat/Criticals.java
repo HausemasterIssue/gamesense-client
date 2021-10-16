@@ -21,7 +21,7 @@ import java.util.Arrays;
 @Module.Declaration(name = "Criticals", category = Category.Combat)
 public class Criticals extends Module {
 	
-	ModeSetting critMode = registerMode("Mode", Arrays.asList("Packet", "Jump", "NCPStrict"), "NCPStrict");
+	ModeSetting critMode = registerMode("Mode", Arrays.asList("Packet", "Jump", "MiniJump", "NCPStrict"), "NCPStrict");
 
     @EventHandler
     private final Listener<PacketEvent.Send> packetSendListener = new Listener<>(event -> {
@@ -45,6 +45,13 @@ public class Criticals extends Module {
                     mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY, mc.player.posZ, false));
                     break;
                 }
+		
+		case "MiniJump": {
+		    mc.player.motionY = 0.2;
+                    mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY - 0.02, mc.player.posZ, false));
+                    mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY, mc.player.posZ, false));
+                    break;
+		}
 
                 case "NCPStrict": {
                     mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 0.062602401692772D, mc.player.posZ, false));

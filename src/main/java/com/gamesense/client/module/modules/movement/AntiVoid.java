@@ -25,7 +25,7 @@ public class AntiVoid extends Module {
 	             mc.player.motionY = 0;
 	             break;
 	         case "SlowFall":
-	             mc.player.motionY /= 4;
+	             mc.player.motionY /= 12;
 	             break;
 	         case "Teleport":
 	             mc.player.setPosition(mc.player.posX, mc.player.posY + 2, mc.player.posZ);

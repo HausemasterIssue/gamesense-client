@@ -15,7 +15,7 @@ import net.minecraft.network.play.client.CPacketPlayerDigging;
 */
 
 
-@Module.Declaration(name = "BowStrength", category = Category.Combat)
+@Module.Declaration(name = "BowStrength", category = Category.Exploits)
 public class FastProjectile extends Module {
 	
     public void onPacketSend(PacketEvent.Send event) {

@@ -10,6 +10,7 @@ import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketPlayerDigging;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 
@@ -19,8 +20,10 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
  */
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
 public class NoSlow extends Module {
-	BooleanSetting strict = registerBoolean("Strict", true);
-	BooleanSetting sneak = registerBoolean("Sneak", true);
+	
+	public BooleanSetting soulSand = registerBoolean("SoulSand", true);
+	BooleanSetting sneak = registerBoolean("Sneak", false);
+	BooleanSetting strict = registerBoolean("NCP Strict", false);
 
 	private boolean sneaking;
 
@@ -59,7 +62,8 @@ public class NoSlow extends Module {
 	@EventHandler
 	private final Listener<PacketEvent.Send> packetSendListener = new Listener<>(event -> {
 		if (this.strict.getValue() && PacketEvent.getPacket() instanceof CPacketPlayer && mc.player.isHandActive() && !mc.player.isRiding()) {
-			mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, mc.player.getPosition(), EnumFacing.DOWN));
+			mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ)), EnumFacing.DOWN));
 		}
 	});
+	
 }

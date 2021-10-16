@@ -38,9 +38,9 @@ import java.util.Map;
 @Module.Declaration(name = "Offhand", category = Category.Combat)
 public class OffHand extends Module {
 
-    ModeSetting defaultItem = registerMode("Default", Arrays.asList("Totem", "Crystal", "Gapple", "Plates", "Obby", "Pot", "Exp"), "Totem");
-    ModeSetting nonDefaultItem = registerMode("Non Default", Arrays.asList("Totem", "Crystal", "Gapple", "Obby", "Pot", "Exp", "Plates", "String", "Skull"), "Crystal");
-    ModeSetting noPlayerItem = registerMode("No Player", Arrays.asList("Totem", "Crystal", "Gapple", "Plates", "Obby", "Pot", "Exp"), "Gapple");
+    ModeSetting defaultItem = registerMode("Default", Arrays.asList("Totem", "Crystal", "Gapple", "Plates", "Obby", "Pot", "Exp", "Beds"), "Totem");
+    ModeSetting nonDefaultItem = registerMode("Non Default", Arrays.asList("Totem", "Crystal", "Gapple", "Obby", "Pot", "Exp", "Plates", "String", "Skull", "Beds"), "Crystal");
+    ModeSetting noPlayerItem = registerMode("No Player", Arrays.asList("Totem", "Crystal", "Gapple", "Plates", "Obby", "Pot", "Exp", "Beds"), "Gapple");
     ModeSetting potionChoose = registerMode("Potion", Arrays.asList("first", "strength", "swiftness"), "first");
     IntegerSetting healthSwitch = registerInteger("Health Switch", 14, 0, 36);
     IntegerSetting tickDelay = registerInteger("Tick Delay", 0, 0, 20);
@@ -105,6 +105,7 @@ public class OffHand extends Module {
         put("Gapple", Items.GOLDEN_APPLE);
         put("Pot", Items.POTIONITEM);
         put("Exp", Items.EXPERIENCE_BOTTLE);
+        put("Beds", Items.BED);
         put("String", Items.STRING);
     }};
     // Create maps of allowed blocks
@@ -113,6 +114,7 @@ public class OffHand extends Module {
             put("Plates", Blocks.WOODEN_PRESSURE_PLATE);
             put("Skull", Blocks.SKULL);
             put("Obby", Blocks.OBSIDIAN);
+            put("Beds", Blocks.BED);
         }
     };
 

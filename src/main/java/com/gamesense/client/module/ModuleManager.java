@@ -27,13 +27,14 @@ public class ModuleManager {
         addMod(new AutoClicker());
         addMod(new AutoCrystal());
         addMod(new AutoLog());
+        addMod(new AutoMend());
         addMod(new AutoSkull());
         addMod(new AutoTrap());
         addMod(new AutoTotem());
         addMod(new AutoWeb());
         addMod(new BedAura());
         addMod(new Blocker());
-        addMod(new FastProjectile());
+        addMod(new BowAim());
         addMod(new CevBreaker());
         addMod(new Criticals());
         addMod(new FastBow());
@@ -41,12 +42,16 @@ public class ModuleManager {
         addMod(new OffHand());
         addMod(new PistonCrystal());
         addMod(new Quiver());
+        addMod(new SelfFill());
         addMod(new SelfTrap());
         addMod(new SelfWeb());
         addMod(new Surround());
         //Exploits
         addMod(new AntiDesync());
         addMod(new AntiHunger());
+        addMod(new BowBomb());
+        addMod(new FastProjectile());
+        addMod(new ChorusNotify());
         addMod(new EntityAlert());
         addMod(new LiquidInteract());
         addMod(new MultiTask());
@@ -55,15 +60,20 @@ public class ModuleManager {
         addMod(new Reach());
         addMod(new PacketUse());
         addMod(new PacketXP());
+        addMod(new PearlNotify());
+        addMod(new PingSpoof());
         addMod(new PortalGodmode());
         addMod(new FastBreak());
         addMod(new Timer());
         //Movement
+        addMod(new AirJump());
         addMod(new Anchor());
         addMod(new AntiLevitation());
         addMod(new AntiVoid());
         addMod(new AntiWeb());
         addMod(new AutoWalk());
+        addMod(new BoatFly());
+        addMod(new ElytraFly());
         addMod(new EntityControl());
         addMod(new EntitySpeed());
         addMod(new Blink());
@@ -76,6 +86,7 @@ public class ModuleManager {
         addMod(new Speed());
         addMod(new Sprint());
         addMod(new Step());
+        addMod(new StrafeTest());
         addMod(new Velocity());
         //Misc
         addMod(new Announcer());
@@ -88,6 +99,7 @@ public class ModuleManager {
         addMod(new AutoTame());
         addMod(new AutoTool());
         addMod(new AutoMine()); 
+        addMod(new AutoMount());
         addMod(new ChatModifier());
         addMod(new ChatSuffix());
         addMod(new CoordLeakerReal());
@@ -101,6 +113,7 @@ public class ModuleManager {
         addMod(new PvPInfo());
         addMod(new Scaffold());
         addMod(new SortInventory());
+        addMod(new Spammer());
         addMod(new XCarry());
         //Render
         addMod(new BlockHighlight());
