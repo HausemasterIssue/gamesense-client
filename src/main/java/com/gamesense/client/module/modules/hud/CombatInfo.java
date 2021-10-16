@@ -22,10 +22,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 import java.awt.*;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Module.Declaration(name = "CombatInfo", category = Category.HUD)
@@ -36,7 +34,7 @@ public class CombatInfo extends HUDModule {
     ColorSetting color1 = registerColor("On", new GSColor(0, 255, 0, 255));
     ColorSetting color2 = registerColor("Off", new GSColor(255, 0, 0, 255));
 
-    private final InfoList list = new InfoList();
+    private InfoList list = new InfoList();
     private static final BlockPos[] surroundOffset = new BlockPos[]{new BlockPos(0, 0, -1), new BlockPos(1, 0, 0), new BlockPos(0, 0, 1), new BlockPos(-1, 0, 0)};
     private static final String[] hoosiersModules = {"AutoCrystal", "KillAura", "Surround", "AutoTrap", "SelfTrap"};
     private static final String[] hoosiersNames = {"AC", "KA", "SU", "AT", "ST"};
@@ -87,7 +85,7 @@ public class CombatInfo extends HUDModule {
     }
 
     private static int getPing() {
-        int p;
+        int p = -1;
         if (mc.player == null || mc.getConnection() == null || mc.getConnection().getPlayerInfo(mc.player.getName()) == null) {
             p = -1;
         } else {

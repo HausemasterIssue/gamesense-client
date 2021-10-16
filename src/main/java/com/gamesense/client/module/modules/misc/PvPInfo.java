@@ -132,7 +132,11 @@ public class PvPInfo extends Module {
     private boolean isBurrowed(Entity entity) {
         BlockPos entityPos = new BlockPos(roundValueToCenter(entity.posX), entity.posY + .2, roundValueToCenter(entity.posZ));
 
-        return mc.world.getBlockState(entityPos).getBlock() == Blocks.OBSIDIAN || mc.world.getBlockState(entityPos).getBlock() == Blocks.ENDER_CHEST;
+        if (mc.world.getBlockState(entityPos).getBlock() == Blocks.OBSIDIAN || mc.world.getBlockState(entityPos).getBlock() == Blocks.ENDER_CHEST) {
+            return true;
+        }
+
+        return false;
     }
 
     private double roundValueToCenter(double inputVal) {

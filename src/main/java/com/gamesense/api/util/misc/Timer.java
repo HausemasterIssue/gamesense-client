@@ -3,7 +3,7 @@ package com.gamesense.api.util.misc;
 public class Timer {
 
     private long current;
-    private final long time = -1L;
+    private long time = -1L;
 
     public Timer() {
         this.current = System.currentTimeMillis();

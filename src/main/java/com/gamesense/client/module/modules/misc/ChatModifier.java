@@ -51,7 +51,7 @@ public class ChatModifier extends Module {
                 if (((CPacketChatMessage) PacketEvent.getPacket()).getMessage().startsWith("/") || ((CPacketChatMessage) PacketEvent.getPacket()).getMessage().startsWith(CommandManager.getCommandPrefix()))
                     return;
                 String message = ((CPacketChatMessage) PacketEvent.getPacket()).getMessage();
-                String prefix;
+                String prefix = "";
                 prefix = ">";
                 String s = prefix + message;
                 if (s.length() > 255) return;

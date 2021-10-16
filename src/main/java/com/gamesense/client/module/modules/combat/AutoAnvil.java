@@ -84,7 +84,9 @@ public class AutoAnvil extends Module {
 
     public void onEnable() {
         // Setup
-        pick_d = anvilMode.getValue().equalsIgnoreCase("Pick");
+        if (anvilMode.getValue().equalsIgnoreCase("Pick")) {
+            pick_d = true;
+        } else pick_d = false;
         blocksPlaced = 0;
         isHole = true;
         hasMoved = blockUp = false;
@@ -375,6 +377,7 @@ public class AutoAnvil extends Module {
         // Re-Active ca
         if (stoppedAC) {
             AutoCrystal.stopAC = false;
+            stoppedAC = false;
         }
 
         // Breaking the anvil

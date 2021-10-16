@@ -172,7 +172,8 @@ public class PistonCrystal extends Module {
             if (!target.getValue().equals("Looking") && aimTarget == null)
                 disable();
             // If not found a target
-            return aimTarget == null;
+            if (aimTarget == null)
+                return true;
         }
         return false;
     }
@@ -587,7 +588,9 @@ public class PistonCrystal extends Module {
 
     private boolean checkRedstonePlace() {
         BlockPos targetPosPist = compactBlockPos(3);
-        return !Objects.requireNonNull(BlockUtil.getBlock(targetPosPist.getX(), targetPosPist.getY(), targetPosPist.getZ()).getRegistryName()).toString().contains("redstone");
+        if (Objects.requireNonNull(BlockUtil.getBlock(targetPosPist.getX(), targetPosPist.getY(), targetPosPist.getZ()).getRegistryName()).toString().contains("redstone") ) {
+            return false;
+        } else return true;
     }
 
     // Algo for destroying the crystal
@@ -1359,7 +1362,7 @@ public class PistonCrystal extends Module {
                             double[] redstoneCoordsAbs = new double[3];
                             int[] redstoneCoordsRel = new int[3];
                             double minFound = Double.MAX_VALUE;
-                            double minNow;
+                            double minNow = -1;
                             boolean foundOne = true;
 
                             // Iterate for all 4 positions

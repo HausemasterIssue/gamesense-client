@@ -19,21 +19,29 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.item.EntityBoat;
-import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.entity.monster.*;
-import net.minecraft.entity.passive.*;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntityPigZombie;
+import net.minecraft.entity.monster.EntityPolarBear;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityLlama;
+import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityShulkerBullet;
+import net.minecraft.entity.item.EntityBoat;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.Vec2f;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -183,13 +191,13 @@ public class KillAura extends Module {
     private void attack(Entity e) {
         if (mc.player.getCooledAttackStrength(0.0f) >= 1.0f || !delay.getValue()) {
             if(stopSprint.getValue()) {
-            	 mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SPRINTING));
+            	 mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SPRINTING));
                  mc.player.setSprinting(false);
             }
             mc.playerController.attackEntity(mc.player, e);
             mc.player.swingArm(EnumHand.MAIN_HAND);
             if(stopSprint.getValue()) {
-            	mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SPRINTING));
+            	mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SPRINTING));
             	mc.player.setSprinting(true);
             }
         }

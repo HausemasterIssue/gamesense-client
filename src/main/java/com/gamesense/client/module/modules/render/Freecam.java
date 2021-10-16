@@ -8,12 +8,12 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.CPacketInput;
 import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.PlayerSPPushOutOfBlocksEvent;
 
 @Module.Declaration(name = "Freecam", category = Category.Render)

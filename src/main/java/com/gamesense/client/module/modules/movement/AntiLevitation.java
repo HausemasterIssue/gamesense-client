@@ -4,7 +4,6 @@ import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.init.MobEffects;
-
 import java.util.Arrays;
 import java.util.Objects;
 

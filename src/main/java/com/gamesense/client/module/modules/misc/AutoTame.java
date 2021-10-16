@@ -28,7 +28,7 @@ public class AutoTame extends Module {
 	DoubleSetting delay = registerDouble("Delay", 0.1, 0, 1.0);
 	
 	 private AbstractHorse EntityToTame = null;
-	 private final Timer timer = new Timer();
+	 private Timer timer = new Timer();
 	
 	 public void onEnable() {
 		 MessageBus.sendClientPrefixMessage("Right click on the mob you want to tame");

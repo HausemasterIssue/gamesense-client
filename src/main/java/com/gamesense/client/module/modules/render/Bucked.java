@@ -60,7 +60,9 @@ public class Bucked extends Module {
 
         if (!self.getValue() && entityPlayer == mc.player) return false;
 
-        return friend.getValue() || !SocialManager.isFriend(entityPlayer.getName());
+        if (!friend.getValue() && SocialManager.isFriend(entityPlayer.getName())) return false;
+
+        return true;
     }
 
     private boolean isSurrounded(BlockPos blockPos) {

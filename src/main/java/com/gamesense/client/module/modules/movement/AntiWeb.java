@@ -1,5 +1,6 @@
 package com.gamesense.client.module.modules.movement;
 
+import java.util.Arrays;
 import com.gamesense.api.event.events.AddCollisionBoxToListEvent;
 import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.client.module.Category;
@@ -7,11 +8,9 @@ import com.gamesense.client.module.Module;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
-import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
-
-import java.util.Arrays;
+import net.minecraft.init.Blocks;
 
 /*
 * @author hausemasterissue

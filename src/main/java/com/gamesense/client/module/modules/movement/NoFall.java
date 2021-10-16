@@ -1,5 +1,7 @@
 package com.gamesense.client.module.modules.movement;
 
+import java.util.Arrays;
+
 import com.gamesense.api.setting.values.DoubleSetting;
 import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.api.util.player.InventoryUtil;
@@ -11,8 +13,6 @@ import net.minecraft.init.Items;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.Arrays;
 
 /*
  * @author hausemasterissue, sxmurai

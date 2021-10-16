@@ -1,11 +1,11 @@
 package com.gamesense.client.module.modules.movement;
 
-import com.gamesense.api.event.events.EntitySaddledEvent;
-import com.gamesense.api.event.events.SteerEntityEvent;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
+import com.gamesense.api.event.events.EntitySaddledEvent;
+import com.gamesense.api.event.events.SteerEntityEvent;
 import me.zero.alpine.type.Cancellable;
 
 /*
@@ -17,9 +17,9 @@ import me.zero.alpine.type.Cancellable;
 public class EntityControl extends Module {
 	
 	@EventHandler
-    private final Listener<SteerEntityEvent> onSteerEntity = new Listener<>(Cancellable::cancel);
+    private Listener<SteerEntityEvent> onSteerEntity = new Listener<>(Cancellable::cancel);
 
     @EventHandler
-    private final Listener<EntitySaddledEvent> onEntitySaddled = new Listener<>(Cancellable::cancel);
+    private Listener<EntitySaddledEvent> onEntitySaddled = new Listener<>(Cancellable::cancel);
     
 }

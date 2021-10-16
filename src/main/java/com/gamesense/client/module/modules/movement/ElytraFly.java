@@ -8,6 +8,7 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketEntityAction;
 
 /*
@@ -32,14 +33,14 @@ public class ElytraFly extends Module {
 	
 	public void onEnable() {
 		if(!mc.player.onGround && packet.getValue() && !autoTakeoff.getValue()) {
-			mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
+			mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
 		}
 		
 		if(autoTakeoff.getValue()) {
 			mc.timer.tickLength = ((float)(50.0 * 10));
 			mc.player.jump();
 			if(!mc.player.onGround) {
-				mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
+				mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
 			}
 			mc.timer.tickLength = 50f;
 		}

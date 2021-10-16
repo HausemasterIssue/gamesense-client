@@ -32,10 +32,7 @@ import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
-import net.minecraft.network.play.client.CPacketEntityAction;
-import net.minecraft.network.play.client.CPacketHeldItemChange;
-import net.minecraft.network.play.client.CPacketPlayerDigging;
-import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
+import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -194,7 +191,8 @@ public class CevBreaker extends Module {
             if (!target.getValue().equals("Looking") && aimTarget == null)
                 disable();
             // If not found a target
-            return aimTarget == null;
+            if (aimTarget == null)
+                return true;
         }
         return false;
     }

@@ -1,17 +1,17 @@
 package com.gamesense.client.module.modules.combat;
 
+import com.gamesense.client.module.Module;
 import com.gamesense.api.setting.values.IntegerSetting;
 import com.gamesense.api.util.misc.MessageBus;
 import com.gamesense.client.module.Category;
-import com.gamesense.client.module.Module;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.ItemExpBottle;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.EnumHand;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,7 +71,7 @@ public class AutoMend extends Module {
         if (shouldArmor) {
             if (wait >= delay.getValue()) {
                 wait = 0;
-                mc.playerController.windowClick(0, slots[armorCount], 0, ClickType.QUICK_MOVE, mc.player);
+                mc.playerController.windowClick(0, slots[armorCount], 0, ClickType.QUICK_MOVE, (EntityPlayer)mc.player);
                 mc.playerController.updateController();
                 armorCount++;
                 if (armorCount > 2) {
@@ -103,7 +103,11 @@ public class AutoMend extends Module {
                 float percent = ( (float) damage.getValue() / (float) 100);
                 int dam = Math.round(stack.getMaxDamage() * percent);
                 int goods = stack.getMaxDamage() - stack.getItemDamage();
-                return dam <= goods;
+                if (dam <= goods) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
         return false;
@@ -147,7 +151,7 @@ public class AutoMend extends Module {
             if (mostDamagedSlot != -1) {
                 for (final Map.Entry<Integer, ItemStack> armorSlot : getArmor().entrySet()) {
                     if (armorSlot.getKey() != mostDamagedSlot) {
-                        mc.playerController.windowClick(0, armorSlot.getKey(), 0, ClickType.QUICK_MOVE, mc.player);
+                        mc.playerController.windowClick(0, armorSlot.getKey(), 0, ClickType.QUICK_MOVE, (EntityPlayer)mc.player);
                     }
                 }
                 counter = 0;
@@ -157,6 +161,7 @@ public class AutoMend extends Module {
         }
         MessageBus.sendClientPrefixMessage("You need at least 3 available inventory slots to use this module! Disabling...");
         disable();
+        return;
     }
     
     private static Map<Integer, ItemStack> getInventory() {
@@ -170,7 +175,7 @@ public class AutoMend extends Module {
     private static Map<Integer, ItemStack> getInventorySlots(int current, final int last) {
         final Map<Integer, ItemStack> fullInventorySlots = new HashMap <>();
         while (current <= last) {
-            fullInventorySlots.put(current, mc.player.inventoryContainer.getInventory().get(current));
+            fullInventorySlots.put(current, (ItemStack)mc.player.inventoryContainer.getInventory().get(current));
             ++current;
         }
         return fullInventorySlots;

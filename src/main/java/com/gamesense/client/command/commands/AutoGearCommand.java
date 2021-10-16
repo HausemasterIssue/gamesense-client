@@ -63,7 +63,7 @@ public class AutoGearCommand extends Command {
     }
 
     private void listMessage() {
-        JsonObject completeJson;
+        JsonObject completeJson = new JsonObject();
         try {
             // Read json
             completeJson = new JsonParser().parse(new FileReader(pathSave)).getAsJsonObject();
@@ -81,7 +81,7 @@ public class AutoGearCommand extends Command {
     }
 
     private void delete(String name) {
-        JsonObject completeJson;
+        JsonObject completeJson = new JsonObject();
         try {
             // Read json
             completeJson = new JsonParser().parse(new FileReader(pathSave)).getAsJsonObject();
@@ -102,7 +102,7 @@ public class AutoGearCommand extends Command {
     }
 
     private void set(String name) {
-        JsonObject completeJson;
+        JsonObject completeJson = new JsonObject();
         try {
             // Read json
             completeJson = new JsonParser().parse(new FileReader(pathSave)).getAsJsonObject();
@@ -169,7 +169,7 @@ public class AutoGearCommand extends Command {
 
     public static String getCurrentSet() {
 
-        JsonObject completeJson;
+        JsonObject completeJson = new JsonObject();
         try {
             // Read json
             completeJson = new JsonParser().parse(new FileReader(pathSave)).getAsJsonObject();
@@ -185,7 +185,7 @@ public class AutoGearCommand extends Command {
     }
 
     public static String getInventoryKit(String kit) {
-        JsonObject completeJson;
+        JsonObject completeJson = new JsonObject();
         try {
             // Read json
             completeJson = new JsonParser().parse(new FileReader(pathSave)).getAsJsonObject();

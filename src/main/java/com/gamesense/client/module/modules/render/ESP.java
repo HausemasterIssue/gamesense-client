@@ -133,7 +133,7 @@ public class ESP extends Module {
     }
 
     public void onDisable() {
-        mc.world.loadedEntityList.forEach(entity -> {
+        mc.world.loadedEntityList.stream().forEach(entity -> {
             if ((entity instanceof EntityEnderCrystal || entity instanceof EntityPlayer || entity instanceof EntityCreature || entity instanceof EntitySlime || entity instanceof EntitySquid) && entity.isGlowing()) {
                 entity.setGlowing(false);
             }

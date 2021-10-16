@@ -12,7 +12,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.EnumHand;
-
 import java.util.Comparator;
 
 @Module.Declaration(name = "AutoMount", category = Category.Misc)
@@ -28,10 +27,10 @@ public class AutoMount extends Module {
 	IntegerSetting range = registerInteger("Range", 4, 0, 15);
 	IntegerSetting delay = registerInteger("Delay", 1, 0, 30);
 	
-	private final Timer timer = new Timer();
+	private Timer timer = new Timer();
 
     @EventHandler
-    private final Listener<PlayerMoveEvent> OnPlayerUpdate = new Listener<>(p_Event ->
+    private Listener<PlayerMoveEvent> OnPlayerUpdate = new Listener<>(p_Event ->
     {
         if (mc.player.isRiding())
             return;
@@ -41,10 +40,13 @@ public class AutoMount extends Module {
 
         timer.reset();
 
-        mc.world.loadedEntityList.stream()
+        Entity entity = mc.world.loadedEntityList.stream()
                 .filter(this::isValidEntity)
-                .min(Comparator.comparing(p_Entity -> mc.player.getDistance(p_Entity))).ifPresent(entity -> mc.playerController.interactWithEntity(mc.player, entity, EnumHand.MAIN_HAND));
+                .min(Comparator.comparing(p_Entity -> mc.player.getDistance(p_Entity)))
+                .orElse(null);
 
+        if (entity != null)
+            mc.playerController.interactWithEntity(mc.player, entity, EnumHand.MAIN_HAND);
     });
     
     @SuppressWarnings("unused")
@@ -83,14 +85,18 @@ public class AutoMount extends Module {
         
             EntityPig pig = (EntityPig) entity;
 
-            return pig.getSaddled();
+            if (pig.getSaddled())
+                return true;
+
+            return false;
         }
 
         if (entity instanceof EntityLlama && llamas.getValue()) {
         
             EntityLlama llama = (EntityLlama) entity;
 
-            return !llama.isChild();
+            if (!llama.isChild())
+                return true;
         }
 
         return false;
