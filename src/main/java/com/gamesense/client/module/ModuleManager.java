@@ -86,7 +86,6 @@ public class ModuleManager {
         addMod(new Speed());
         addMod(new Sprint());
         addMod(new Step());
-        addMod(new StrafeTest());
         addMod(new Velocity());
         //Misc
         addMod(new Announcer());
