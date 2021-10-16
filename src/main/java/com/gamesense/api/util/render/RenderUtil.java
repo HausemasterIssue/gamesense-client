@@ -213,11 +213,8 @@ public class RenderUtil {
             square.addPoints(bb.maxX, bb.minZ);
         }
 
-        switch (mode) {
-            case 0: {
-                drawDirection(square, color, width);
-                break;
-            }
+        if (mode == 0) {
+            drawDirection(square, color, width);
             //can add different modes in the future
         }
     }
