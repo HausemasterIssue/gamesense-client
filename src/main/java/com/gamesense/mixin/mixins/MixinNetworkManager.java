@@ -2,7 +2,6 @@ package com.gamesense.mixin.mixins;
 
 import com.gamesense.api.event.events.PacketEvent;
 import com.gamesense.client.GameSense;
-import com.gamesense.client.module.ModuleManager;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -10,8 +9,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.io.IOException;
 
 @Mixin(NetworkManager.class)
 public class MixinNetworkManager {

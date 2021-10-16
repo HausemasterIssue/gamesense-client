@@ -29,22 +29,22 @@ public class MixinMinecraft {
     // imagine pasting from c0mmie_ blue in 2021 lol
     @Inject(method = "rightClickMouse", at = @At("HEAD"))
     public void rightClickMousePre(CallbackInfo ci) {
-        
+
     }
 
     @Inject(method = "rightClickMouse", at = @At("RETURN"))
     public void rightClickMousePost(CallbackInfo ci) {
-        
+
     }
 
     @Inject(method = "sendClickBlockToController", at = @At("HEAD"))
     public void sendClickBlockToControllerPre(boolean leftClick, CallbackInfo ci) {
-        
+
     }
 
     @Inject(method = "sendClickBlockToController", at = @At("RETURN"))
     public void sendClickBlockToControllerPost(boolean leftClick, CallbackInfo ci) {
-        
+
     }
 
     @Inject(method = "crashed", at = @At("HEAD"))

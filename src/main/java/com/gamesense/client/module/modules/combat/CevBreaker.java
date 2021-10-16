@@ -141,8 +141,8 @@ public class CevBreaker extends Module {
     @EventHandler
     private final Listener<PacketEvent.Receive> packetReceiveListener = new Listener<>(event -> {
         // If the explosion is on the enemy's idea
-        if (event.getPacket() instanceof SPacketSoundEffect) {
-            final SPacketSoundEffect packet = (SPacketSoundEffect) event.getPacket();
+        if (PacketEvent.getPacket() instanceof SPacketSoundEffect) {
+            final SPacketSoundEffect packet = (SPacketSoundEffect) PacketEvent.getPacket();
             if (packet.getCategory() == SoundCategory.BLOCKS && packet.getSound() == SoundEvents.ENTITY_GENERIC_EXPLODE) {
                 // Reset
                 if ((int) packet.getX() == enemyCoordsInt[0] && (int) packet.getZ() == enemyCoordsInt[2])
@@ -607,7 +607,7 @@ public class CevBreaker extends Module {
             mc.player.inventory.currentItem = slot_mat[3];
         /// Break type
         // Swing
-        Vec3d vecCrystal = crystal.getPositionVector().add(0.5, 0.5, 0.5);;
+        Vec3d vecCrystal = crystal.getPositionVector().add(0.5, 0.5, 0.5);
 
         // If it's not none, then allow the rotation
         if (!breakCrystal.getValue().equalsIgnoreCase("None")) {
@@ -734,7 +734,7 @@ public class CevBreaker extends Module {
             BlockPos neighbour = pos.offset(side);
             EnumFacing opposite = side.getOpposite();
 
-            if (!BlockUtil.canBeClicked(neighbour)) {
+            if (BlockUtil.canBeClicked(neighbour)) {
                 return false;
             }
             // This is for where to aim when there is an obby block

@@ -129,7 +129,7 @@ public class Announcer extends Module {
     @SuppressWarnings("unused")
     @EventHandler
     private final Listener<PacketEvent.Send> sendListener = new Listener<>(event -> {
-        if (event.getPacket() instanceof CPacketPlayerTryUseItemOnBlock && mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemBlock) {
+        if (PacketEvent.getPacket() instanceof CPacketPlayerTryUseItemOnBlock && mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemBlock) {
             blocksPlaced++;
             int randomNum = ThreadLocalRandom.current().nextInt(1, 10 + 1);
             if (blockPlacedDelay >= 150 * delay.getValue()) {

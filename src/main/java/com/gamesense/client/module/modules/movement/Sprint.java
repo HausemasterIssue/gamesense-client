@@ -22,7 +22,7 @@ public class Sprint extends Module {
 
     public void onUpdate() {
         if(mc.world != null) {
-            if (mode.getValue() == "Legit" && mc.gameSettings.keyBindForward.isKeyDown() || mode.getValue() == "Rage") {
+            if (Objects.equals(mode.getValue(), "Legit") && mc.gameSettings.keyBindForward.isKeyDown() || Objects.equals(mode.getValue(), "Rage")) {
                 if ((hungerSafe.getValue() && mc.player.getFoodStats().getFoodLevel() <= 6) || (strict.getValue() && (mc.player.isSneaking() || mc.player.isHandActive() || mc.player.collidedHorizontally))) {
                     mc.player.setSprinting(false);
                     return;

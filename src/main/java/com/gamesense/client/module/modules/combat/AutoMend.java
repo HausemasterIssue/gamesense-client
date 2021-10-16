@@ -173,7 +173,7 @@ public class AutoMend extends Module {
     }
     
     private static Map<Integer, ItemStack> getInventorySlots(int current, final int last) {
-        final Map<Integer, ItemStack> fullInventorySlots = new HashMap<Integer, ItemStack>();
+        final Map<Integer, ItemStack> fullInventorySlots = new HashMap <>();
         while (current <= last) {
             fullInventorySlots.put(current, (ItemStack)mc.player.inventoryContainer.getInventory().get(current));
             ++current;

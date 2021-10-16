@@ -58,7 +58,7 @@ public class BlockUtil {
     }
 
     public static boolean canBeClicked(BlockPos pos) {
-        return getBlock(pos).canCollideCheck(getState(pos), false);
+        return !getBlock(pos).canCollideCheck(getState(pos), false);
     }
 
     public static void faceVectorPacketInstant(Vec3d vec, Boolean roundAngles) {

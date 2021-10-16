@@ -19,7 +19,7 @@ import net.minecraft.network.play.client.CPacketPlayerDigging;
 public class FastProjectile extends Module {
 	
     public void onPacketSend(PacketEvent.Send event) {
-        if (event.getPacket() instanceof CPacketPlayerDigging && ((CPacketPlayerDigging) event.getPacket()).getAction().equals(CPacketPlayerDigging.Action.RELEASE_USE_ITEM)) {
+        if (PacketEvent.getPacket() instanceof CPacketPlayerDigging && ((CPacketPlayerDigging) PacketEvent.getPacket()).getAction().equals(CPacketPlayerDigging.Action.RELEASE_USE_ITEM)) {
             if (InventoryUtil.isHolding(Items.BOW) && mc.player.getItemInUseMaxCount() >= 20) {
                 for (int ticks = 0; ticks < 10; ticks++) {
                     double sin = -Math.sin(Math.toRadians(mc.player.rotationYaw));

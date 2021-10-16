@@ -47,15 +47,15 @@ public class ChatModifier extends Module {
     @EventHandler
     private final Listener<PacketEvent.Send> listener = new Listener<>(event -> {
         if (greenText.getValue()) {
-            if (event.getPacket() instanceof CPacketChatMessage) {
-                if (((CPacketChatMessage) event.getPacket()).getMessage().startsWith("/") || ((CPacketChatMessage) event.getPacket()).getMessage().startsWith(CommandManager.getCommandPrefix()))
+            if (PacketEvent.getPacket() instanceof CPacketChatMessage) {
+                if (((CPacketChatMessage) PacketEvent.getPacket()).getMessage().startsWith("/") || ((CPacketChatMessage) PacketEvent.getPacket()).getMessage().startsWith(CommandManager.getCommandPrefix()))
                     return;
-                String message = ((CPacketChatMessage) event.getPacket()).getMessage();
+                String message = ((CPacketChatMessage) PacketEvent.getPacket()).getMessage();
                 String prefix = "";
                 prefix = ">";
                 String s = prefix + message;
                 if (s.length() > 255) return;
-                ((CPacketChatMessage) event.getPacket()).message = s;
+                ((CPacketChatMessage) PacketEvent.getPacket()).message = s;
             }
         }
     });

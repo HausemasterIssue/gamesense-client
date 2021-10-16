@@ -14,6 +14,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 
+import java.util.Objects;
+
 public class DamageUtil {
 
     private static final Minecraft mc = Minecraft.getMinecraft();
@@ -46,7 +48,7 @@ public class DamageUtil {
             float f = MathHelper.clamp(k, 0.0F, 20.0F);
             damage *= 1.0F - f / 25.0F;
 
-            if (entity.isPotionActive(Potion.getPotionById(11))) {
+            if (entity.isPotionActive(Objects.requireNonNull(Potion.getPotionById(11)))) {
                 damage = damage - (damage / 4);
             }
             damage = Math.max(damage, 0.0F);

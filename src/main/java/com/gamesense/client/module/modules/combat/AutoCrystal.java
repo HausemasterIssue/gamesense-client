@@ -32,7 +32,6 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketAnimation;
-import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.network.play.server.SPacketSoundEffect;
@@ -45,7 +44,6 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.*;
-import org.lwjgl.input.Mouse;
 
 @Module.Declaration(name = "AutoCrystal", category = Category.Combat, priority = 100)
 public class AutoCrystal extends Module {
@@ -137,8 +135,8 @@ public class AutoCrystal extends Module {
 
         // no longer target dead players
         targets.removeIf(placeInfo -> placeInfo.target.entity.isDead || placeInfo.target.entity.getHealth() == 0);
-        if (!breakCrystal(settings)) {
-            if (!placeCrystal(settings)) {
+        if (breakCrystal(settings)) {
+            if (placeCrystal(settings)) {
                 rotating = false;
                 isAttacking = false;
                 render = null;
@@ -205,7 +203,7 @@ public class AutoCrystal extends Module {
                         		if (breakType.getValue().equalsIgnoreCase("Swing")) {
                                     swingArm();
                                     mc.playerController.attackEntity(mc.player, crystal);
-                                    InventoryUtil.switchTo(oldSlot, silent == true);
+                                    InventoryUtil.switchTo(oldSlot, silent);
                                 } else {
                                     swingArm();
                                     mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
@@ -217,15 +215,15 @@ public class AutoCrystal extends Module {
                                     mc.world.getLoadedEntityList();
                                 }
                         	} else {
-                        		return false;
+                        		return true;
                         	}
                         }
                     }
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     //  == Items.END_CRYSTAL ? mc.player.inventory.currentItem : -1; <--- silent swap pls work
@@ -235,7 +233,7 @@ public class AutoCrystal extends Module {
     private boolean placeCrystal(ACSettings settings) {
         // check to see if we are holding crystals or not
         int crystalSlot = mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL ? mc.player.inventory.currentItem : -1;
-        if (crystalSlot == -1 && autoSwitch.getValue() != "Silent") {
+        if (crystalSlot == -1 && !Objects.equals(autoSwitch.getValue(), "Silent")) {
             crystalSlot = InventoryUtil.findFirstItemSlot(ItemEndCrystal.class, 0, 8);
         }
         
@@ -243,7 +241,7 @@ public class AutoCrystal extends Module {
         if (mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
             offhand = true;
         } else if (crystalSlot == -1) {
-            return false;
+            return true;
         }
 
         if (placeCrystal.getValue()) {
@@ -272,7 +270,7 @@ public class AutoCrystal extends Module {
                 }
             }
             if (possiblePlacements.size() == 0) {
-                return false;
+                return true;
             }
 
             CrystalInfo.PlaceInfo crystal = possiblePlacements.last();
@@ -283,23 +281,23 @@ public class AutoCrystal extends Module {
             if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
                 switch(autoSwitch.getValue()) {
                 case "Normal": {
-                	if (!noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE || !noMiningSwitch.getValue() && !PlayerUtil.isMining()
-                			|| !noMendingSwitch.getValue() && !PlayerUtil.isMending()) {
+                	if (!noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE || !noMiningSwitch.getValue() && PlayerUtil.isMining()
+                			|| !noMendingSwitch.getValue() && PlayerUtil.isMending()) {
                         mc.player.inventory.currentItem = crystalSlot;
                         rotating = false;
                         this.switchCooldown = true;
                     }
                 }
                 case "Silent": {
-                	if (!noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE || !noMiningSwitch.getValue() && !PlayerUtil.isMining()
-                			|| !noMendingSwitch.getValue() && !PlayerUtil.isMending()) {
+                	if (!noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE || !noMiningSwitch.getValue() && PlayerUtil.isMining()
+                			|| !noMendingSwitch.getValue() && PlayerUtil.isMending()) {
                 		InventoryUtil.switchTo(crystalSlot, true);
                         rotating = false;
                         this.switchCooldown = true;
                     }
                 }
                 }
-                return false;
+                return true;
             }
 
             EnumFacing enumFacing = null;
@@ -307,7 +305,7 @@ public class AutoCrystal extends Module {
                 RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + (double) mc.player.getEyeHeight(), mc.player.posZ), new Vec3d((double) crystal.crystal.getX() + 0.5d, (double) crystal.crystal.getY() - 0.5d, (double) crystal.crystal.getZ() + 0.5d));
                 if (result == null || result.sideHit == null) {
                     render = null;
-                    return false;
+                    return true;
                 } else {
                     enumFacing = result.sideHit;
                 }
@@ -315,7 +313,7 @@ public class AutoCrystal extends Module {
 
             if (this.switchCooldown) {
                 this.switchCooldown = false;
-                return false;
+                return true;
             }
 
             ACHelper.INSTANCE.onPlaceCrystal(crystal.crystal);
@@ -337,9 +335,9 @@ public class AutoCrystal extends Module {
                 AutoGG.INSTANCE.addTargetedPlayer(renderEntity.getName());
             }
 
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public void onWorldRender(RenderEvent event) {
@@ -406,7 +404,7 @@ public class AutoCrystal extends Module {
     @SuppressWarnings("unused")
     @EventHandler
     private final Listener<PacketEvent.Receive> packetReceiveListener = new Listener<>(event -> {
-        Packet<?> packet = event.getPacket();
+        Packet<?> packet = PacketEvent.getPacket();
         if (packet instanceof SPacketSoundEffect && sequential.getValue()) {
             final SPacketSoundEffect packetSoundEffect = (SPacketSoundEffect) packet;
             if (packetSoundEffect.getCategory() == SoundCategory.BLOCKS && packetSoundEffect.getSound() == SoundEvents.ENTITY_GENERIC_EXPLODE) {

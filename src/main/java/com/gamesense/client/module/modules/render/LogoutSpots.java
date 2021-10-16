@@ -131,7 +131,7 @@ public class LogoutSpots extends Module {
                     loggedPlayers.put(entity, date);
 
                     if (chatMsg.getValue() && timer.getTimePassed() / 50L >= 5) {
-                        String location = "(" + (int) entity.posX + "," + (int) entity.posY + "," + (int) entity.posZ + ")";
+                        String location = "(" + entity.posX + "," + entity.posY + "," + entity.posZ + ")";
                         MessageBus.sendClientPrefixMessage(event.getName() + " disconnected at " + location + "!");
                         timer.reset();
                     }

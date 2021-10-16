@@ -55,7 +55,7 @@ public enum PlayerPacketManager implements Manager {
     private final Listener<PacketEvent.PostSend> postSendListener = new Listener<>(event -> {
         if (event.isCancelled()) return;
 
-        Packet<?> rawPacket = event.getPacket();
+        Packet<?> rawPacket = PacketEvent.getPacket();
         EntityPlayerSP player = getPlayer();
 
         if (player != null && rawPacket instanceof CPacketPlayer) {

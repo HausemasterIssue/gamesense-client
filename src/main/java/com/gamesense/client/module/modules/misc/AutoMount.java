@@ -41,7 +41,7 @@ public class AutoMount extends Module {
         timer.reset();
 
         Entity entity = mc.world.loadedEntityList.stream()
-                .filter(p_Entity -> isValidEntity(p_Entity))
+                .filter(this::isValidEntity)
                 .min(Comparator.comparing(p_Entity -> mc.player.getDistance(p_Entity)))
                 .orElse(null);
 

@@ -53,8 +53,8 @@ public enum TotemPopManager implements Manager {
     private final Listener<PacketEvent.Receive> packetEventListener = new Listener<>(event -> {
         if (getPlayer() == null || getWorld() == null) return;
 
-        if (event.getPacket() instanceof SPacketEntityStatus) {
-            SPacketEntityStatus packet = (SPacketEntityStatus) event.getPacket();
+        if (PacketEvent.getPacket() instanceof SPacketEntityStatus) {
+            SPacketEntityStatus packet = (SPacketEntityStatus) PacketEvent.getPacket();
             Entity entity = packet.getEntity(getWorld());
 
             if (packet.getOpCode() == 35) {

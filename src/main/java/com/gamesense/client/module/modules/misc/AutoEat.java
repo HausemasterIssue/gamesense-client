@@ -38,7 +38,7 @@ public class AutoEat extends Module {
 	    public void onUpdate() {
 	        float l_Health = mc.player.getHealth() + mc.player.getAbsorptionAmount();
 
-	        if (health.getValue() >= l_Health && !PlayerUtil.IsEating())
+	        if (health.getValue() >= l_Health && PlayerUtil.IsEating())
 	        {
 	            if (mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE)
 	            {
@@ -62,7 +62,7 @@ public class AutoEat extends Module {
 	            return;
 	        }
 
-	        if (!PlayerUtil.IsEating() && hunger.getValue() >= mc.player.getFoodStats().getFoodLevel())
+	        if (PlayerUtil.IsEating() && hunger.getValue() >= mc.player.getFoodStats().getFoodLevel())
 	        {
 	            boolean l_CanEat = false;
 

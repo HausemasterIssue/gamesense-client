@@ -7,10 +7,9 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zero.alpine.listener.EventHandler;
-import me.zero.alpine.listener.Listener;;
+import me.zero.alpine.listener.Listener;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
 /*

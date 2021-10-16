@@ -113,8 +113,8 @@ public enum ClientEventManager implements Manager {
     @SuppressWarnings("unused")
     @EventHandler
     private final Listener<PacketEvent.Receive> receiveListener = new Listener<>(event -> {
-        if (event.getPacket() instanceof SPacketPlayerListItem) {
-            SPacketPlayerListItem packet = (SPacketPlayerListItem) event.getPacket();
+        if (PacketEvent.getPacket() instanceof SPacketPlayerListItem) {
+            SPacketPlayerListItem packet = (SPacketPlayerListItem) PacketEvent.getPacket();
             if (packet.getAction() == SPacketPlayerListItem.Action.ADD_PLAYER) {
                 for (SPacketPlayerListItem.AddPlayerData playerData : packet.getEntries()) {
                     if (playerData.getProfile().getId() != getMinecraft().session.getProfile().getId()) {

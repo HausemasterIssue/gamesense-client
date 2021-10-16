@@ -5,6 +5,7 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.init.MobEffects;
 import java.util.Arrays;
+import java.util.Objects;
 
 @Module.Declaration(name = "AntiLevitation", category = Category.Movement)
 public class AntiLevitation extends Module {
@@ -13,9 +14,9 @@ public class AntiLevitation extends Module {
 	
     public void onUpdate() {
         if (mc.player.isPotionActive(MobEffects.LEVITATION)) {
-            if (mode.getValue() == "Remove") {
+            if (Objects.equals(mode.getValue(), "Remove")) {
                 mc.player.removePotionEffect(MobEffects.LEVITATION);
-            } else if (mode.getValue() == "Motion") {
+            } else if (Objects.equals(mode.getValue(), "Motion")) {
                 mc.player.motionY = 0.0f;
             }
         }

@@ -4,6 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 
+import java.util.Objects;
+
 public class MotionUtil {
 
     public static boolean isMoving(EntityLivingBase entity) {
@@ -18,8 +20,8 @@ public class MotionUtil {
 
     public static double getBaseMoveSpeed() {
         double baseSpeed = 0.2873;
-        if (Minecraft.getMinecraft().player != null && Minecraft.getMinecraft().player.isPotionActive(Potion.getPotionById(1))) {
-            final int amplifier = Minecraft.getMinecraft().player.getActivePotionEffect(Potion.getPotionById(1)).getAmplifier();
+        if (Minecraft.getMinecraft().player != null && Minecraft.getMinecraft().player.isPotionActive(Objects.requireNonNull(Potion.getPotionById(1)))) {
+            final int amplifier = Objects.requireNonNull(Objects.requireNonNull(Minecraft.getMinecraft().player.getActivePotionEffect(Objects.requireNonNull(Potion.getPotionById(1))))).getAmplifier();
             baseSpeed *= 1.0 + 0.2 * (amplifier + 1);
         }
         return baseSpeed;

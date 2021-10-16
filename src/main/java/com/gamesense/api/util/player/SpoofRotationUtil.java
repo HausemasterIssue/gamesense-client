@@ -69,7 +69,7 @@ public class SpoofRotationUtil {
     @SuppressWarnings("unused")
     @EventHandler
     private final Listener<PacketEvent.Send> packetSendListener = new Listener<>(event -> {
-        Packet packet = event.getPacket();
+        Packet packet = PacketEvent.getPacket();
         if (packet instanceof CPacketPlayer && shouldSpoofAngles) {
             if (isSpoofingAngles) {
                 ((CPacketPlayer) packet).yaw = (float) yaw;

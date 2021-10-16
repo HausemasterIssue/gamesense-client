@@ -58,7 +58,7 @@ public class TextRadar extends HUDModule {
 
     private class PlayerList implements HUDList {
 
-        public List<EntityPlayer> players = new ArrayList<EntityPlayer>();
+        public List<EntityPlayer> players = new ArrayList <>();
 
         @Override
         public int getSize() {

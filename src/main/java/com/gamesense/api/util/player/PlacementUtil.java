@@ -109,7 +109,7 @@ public class PlacementUtil {
         BlockPos neighbour = blockPos.offset(side);
         EnumFacing opposite = side.getOpposite();
 
-        if (!BlockUtil.canBeClicked(neighbour)) {
+        if (BlockUtil.canBeClicked(neighbour)) {
             return false;
         }
 
@@ -165,7 +165,7 @@ public class PlacementUtil {
         BlockPos neighbour = blockPos.offset(side);
         EnumFacing opposite = side.getOpposite();
 
-        if (!BlockUtil.canBeClicked(neighbour)) {
+        if (BlockUtil.canBeClicked(neighbour)) {
             return false;
         }
 

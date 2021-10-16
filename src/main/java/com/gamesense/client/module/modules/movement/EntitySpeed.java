@@ -15,6 +15,7 @@ import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.util.math.Vec3d;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 /*
 * @author hausemasterissue
@@ -36,7 +37,7 @@ public class EntitySpeed extends Module {
     		return;
     	}
     	
-    	if (mc.player.ridingEntity instanceof EntityPig || mc.player.ridingEntity instanceof AbstractHorse && mc.player.ridingEntity.getControllingPassenger().equals(mc.player)) {
+    	if (mc.player.ridingEntity instanceof EntityPig || mc.player.ridingEntity instanceof AbstractHorse && Objects.requireNonNull(mc.player.ridingEntity.getControllingPassenger()).equals(mc.player)) {
     		moveEntity(mc.player.ridingEntity, speed.getValue(), antiStuck.getValue());
     		
     		if (mc.player.ridingEntity instanceof AbstractHorse) {

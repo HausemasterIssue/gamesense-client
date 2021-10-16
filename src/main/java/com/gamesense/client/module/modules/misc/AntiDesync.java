@@ -31,9 +31,9 @@ public class AntiDesync extends Module {
     
     
     public void receivePacket(PacketEvent event) {
-            if (event.getPacket() instanceof SPacketSoundEffect) {
+            if (PacketEvent.getPacket() instanceof SPacketSoundEffect) {
                 if (this.crystals.getValue()) {
-                    final SPacketSoundEffect packet = (SPacketSoundEffect) event.getPacket();
+                    final SPacketSoundEffect packet = (SPacketSoundEffect) PacketEvent.getPacket();
                     if (packet.getCategory() == SoundCategory.BLOCKS && packet.getSound() == SoundEvents.ENTITY_GENERIC_EXPLODE) {
                         final Minecraft mc = Minecraft.getMinecraft();
                         if (mc.world != null) {
@@ -50,9 +50,9 @@ public class AntiDesync extends Module {
                         }
                     }
                 }
-            } else if (event.getPacket() instanceof SPacketBlockChange) {
+            } else if (PacketEvent.getPacket() instanceof SPacketBlockChange) {
                 if (this.destroyedBlocks.getValue()) {
-                    SPacketBlockChange packet = (SPacketBlockChange) event.getPacket();
+                    SPacketBlockChange packet = (SPacketBlockChange) PacketEvent.getPacket();
                     if (packet.getBlockPosition() == this.pos) {
                         this.destroy = true;
                     }

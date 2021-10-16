@@ -68,7 +68,7 @@ dependencies {
 		exclude module: 'commons-io'
 	}
 	compile 'com.github.ZeroMemes:Alpine:1.5'
-	compile group: 'net.jodah', name: 'typetools', version: '0.5.0'
+	compile group: 'net.jodah', name: 'typetools', version: '0.6.3'
 	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 	compile group: 'club.minnced', name: 'java-discord-rpc', version: '2.0.1'
 	compile('com.lukflug:panelstudio:0.1.8')
@@ -101,8 +101,7 @@ shadowJar {
 		include(dependency('com.lukflug:panelstudio'))
 		include(dependency('com.lukflug:panelstudio-mc12'))
 	}
-	exclude 'dummyThing'
-	exclude 'LICENSE.txt'
+	exclude 'dummyThing', 'LICENSE.txt', 'org/**/*.html', 'META-INF/maven/**'
 	classifier = 'release'
 }
 

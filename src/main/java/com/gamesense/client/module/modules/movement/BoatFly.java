@@ -66,7 +66,7 @@ public class BoatFly extends Module {
 	            mc.player.getRidingEntity().motionX = 0.0;
 	            mc.player.getRidingEntity().motionZ = 0.0;
 	        }
-	        if (noKick.getValue().booleanValue()) {
+	        if (noKick.getValue()) {
 	            if (mc.gameSettings.keyBindJump.isKeyDown()) {
 	                if (mc.player.ticksExisted % 8 < 2) {
 	                    mc.player.getRidingEntity().motionY = -0.04f;
@@ -79,7 +79,7 @@ public class BoatFly extends Module {
 	    }
 	 
 	 	public void handlePackets(double x, double y, double z) {
-	        if (packet.getValue().booleanValue()) {
+	        if (packet.getValue()) {
 	            Vec3d vec = new Vec3d(x, y, z);
 	            if (BoatFly.mc.player.getRidingEntity() == null) {
 	                return;

@@ -22,9 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,7 +55,7 @@ public class CombatInfo extends HUDModule {
                 .min(Comparator.comparing(cl -> mc.player.getDistance(cl)))
                 .orElse(null);
         list.renderLby = false;
-        List<EntityPlayer> entities = new ArrayList<EntityPlayer>(mc.world.playerEntities.stream().filter(entityPlayer -> !SocialManager.isFriend(entityPlayer.getName())).collect(Collectors.toList()));
+        List<EntityPlayer> entities = mc.world.playerEntities.stream().filter(entityPlayer -> !SocialManager.isFriend(entityPlayer.getName())).collect(Collectors.toList());
         for (EntityPlayer e : entities) {
             int i = 0;
             for (BlockPos add : surroundOffset) {
@@ -91,7 +89,7 @@ public class CombatInfo extends HUDModule {
         if (mc.player == null || mc.getConnection() == null || mc.getConnection().getPlayerInfo(mc.player.getName()) == null) {
             p = -1;
         } else {
-            p = mc.getConnection().getPlayerInfo(mc.player.getName()).getResponseTime();
+            p = Objects.requireNonNull(mc.getConnection().getPlayerInfo(mc.player.getName())).getResponseTime();
         }
         return p;
     }

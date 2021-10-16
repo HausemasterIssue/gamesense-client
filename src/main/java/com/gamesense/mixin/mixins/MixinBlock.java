@@ -1,11 +1,9 @@
 package com.gamesense.mixin.mixins;
 
 import com.gamesense.api.util.world.BlockUtil;
-import com.gamesense.client.GameSense;
 import com.gamesense.client.module.modules.render.Xray;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;

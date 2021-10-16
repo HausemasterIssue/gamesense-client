@@ -46,6 +46,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static com.gamesense.api.util.player.SpoofRotationUtil.ROTATION_UTIL;
 
@@ -210,8 +211,8 @@ public class PistonCrystal extends Module {
     @EventHandler
     private final Listener<PacketEvent.Receive> packetReceiveListener = new Listener<>(event -> {
 
-        if (event.getPacket() instanceof SPacketSoundEffect) {
-            final SPacketSoundEffect packet = (SPacketSoundEffect) event.getPacket();
+        if (PacketEvent.getPacket() instanceof SPacketSoundEffect) {
+            final SPacketSoundEffect packet = (SPacketSoundEffect) PacketEvent.getPacket();
             if (packet.getCategory() == SoundCategory.BLOCKS && packet.getSound() == SoundEvents.ENTITY_GENERIC_EXPLODE) {
                 if ((int) packet.getX() == enemyCoordsInt[0] && (int) packet.getZ() == enemyCoordsInt[2])
                     stage = 1;
@@ -587,7 +588,7 @@ public class PistonCrystal extends Module {
 
     private boolean checkRedstonePlace() {
         BlockPos targetPosPist = compactBlockPos(3);
-        if (BlockUtil.getBlock(targetPosPist.getX(), targetPosPist.getY(), targetPosPist.getZ()).getRegistryName().toString().contains("redstone") ) {
+        if (Objects.requireNonNull(BlockUtil.getBlock(targetPosPist.getX(), targetPosPist.getY(), targetPosPist.getZ()).getRegistryName()).toString().contains("redstone") ) {
             return false;
         } else return true;
     }
@@ -766,7 +767,7 @@ public class PistonCrystal extends Module {
             try {
                 mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
                 mc.player.swingArm(EnumHand.MAIN_HAND);
-            } catch (NullPointerException e) {
+            } catch (NullPointerException ignored) {
 
             }
         }
@@ -938,7 +939,7 @@ public class PistonCrystal extends Module {
 
 
         // If that block can be clicked
-        if (!BlockUtil.canBeClicked(neighbour)) {
+        if (BlockUtil.canBeClicked(neighbour)) {
             return false;
         }
 
@@ -1050,7 +1051,7 @@ public class PistonCrystal extends Module {
 
 
         // If that block can be clicked
-        if (!BlockUtil.canBeClicked(neighbour)) {
+        if (BlockUtil.canBeClicked(neighbour)) {
             return false;
         }
 
@@ -1225,7 +1226,7 @@ public class PistonCrystal extends Module {
                         // How much we are going above
                         int incr = 0;
                         // Blocks we are going to add
-                        List<Vec3d> highSup = new ArrayList<Vec3d>();
+                        List<Vec3d> highSup = new ArrayList <>();
                         // Create the structure until it's on us
                         while (meCoordsInt[1] > enemyCoordsInt[1] + incr) {
                             incr++;
@@ -1268,7 +1269,7 @@ public class PistonCrystal extends Module {
                                 continue;
                             // Check if that block is a piece of obsidian or bedrock
                             if (!(BlockUtil.getBlock(crystalCordsAbs[0], crystalCordsAbs[1] - 1, crystalCordsAbs[2]) instanceof BlockObsidian
-                                    || BlockUtil.getBlock(crystalCordsAbs[0], crystalCordsAbs[1] - 1, crystalCordsAbs[2]).getRegistryName().getPath().equals("bedrock")))
+                                    || Objects.requireNonNull(BlockUtil.getBlock(crystalCordsAbs[0], crystalCordsAbs[1] - 1, crystalCordsAbs[2]).getRegistryName()).getPath().equals("bedrock")))
                                 continue;
                             /// Piston Coordinates ///
                             // Init
@@ -1389,8 +1390,10 @@ public class PistonCrystal extends Module {
                                 boolean torchFront = false;
                                 for (int part : new int[]{0, 2}) {
                                     int contPart = part == 0 ? 2 : 0;
-                                    if ((int) torchCoords[contPart] == (int) pistonCordAbs[contPart] && (int) torchCoords[part] == enemyCoordsInt[part])
+                                    if ((int) torchCoords[contPart] == (int) pistonCordAbs[contPart] && (int) torchCoords[part] == enemyCoordsInt[part]) {
                                         torchFront = true;
+                                        break;
+                                    }
                                 }
                                 if (torchFront)
                                     continue;
@@ -1486,8 +1489,8 @@ public class PistonCrystal extends Module {
                             // If we are above the enemy
                             if (incr > 1) {
                                 // Lets add everything
-                                for (int i2 = 0; i2 < highSup.size(); i2++) {
-                                    toPlaceTemp.add(0, highSup.get(i2));
+                                for (Vec3d vec3d : highSup) {
+                                    toPlaceTemp.add(0, vec3d);
                                     supportBlock++;
                                 }
                             }
