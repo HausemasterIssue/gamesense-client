@@ -17,7 +17,7 @@ public class XCarry extends Module {
 
     @SuppressWarnings("unused")
     @EventHandler
-    private Listener<PacketEvent.Send> listener = new Listener<>(event -> {
+    private final Listener<PacketEvent.Send> listener = new Listener<>(event -> {
         if (PacketEvent.getPacket() instanceof CPacketCloseWindow) {
             if (((CPacketCloseWindow) PacketEvent.getPacket()).windowId == mc.player.inventoryContainer.windowId) {
                 event.cancel();

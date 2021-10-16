@@ -7,7 +7,6 @@ import com.gamesense.api.setting.values.IntegerSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.entity.item.EntityBoat;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketConfirmTeleport;
 import net.minecraft.network.play.client.CPacketInput;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -88,7 +87,7 @@ public class BoatFly extends Module {
 	            BoatFly.mc.player.getRidingEntity().setPosition(position.x, position.y, position.z);
 	            BoatFly.mc.player.connection.sendPacket(new CPacketVehicleMove(BoatFly.mc.player.getRidingEntity()));
 	            for (int i = 0; i < packets.getValue(); ++i) {
-	                BoatFly.mc.player.connection.sendPacket((Packet<?>) new CPacketConfirmTeleport(teleportID++));
+	                BoatFly.mc.player.connection.sendPacket(new CPacketConfirmTeleport(teleportID++));
 	            }
 	        }
 	    }

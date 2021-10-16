@@ -1,13 +1,13 @@
 package com.gamesense.mixin.mixins;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.gamesense.api.event.events.EntitySaddledEvent;
 import com.gamesense.api.event.events.SteerEntityEvent;
 import com.gamesense.client.GameSense;
 import net.minecraft.entity.passive.EntityPig;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(EntityPig.class)

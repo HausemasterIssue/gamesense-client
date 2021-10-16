@@ -2,9 +2,9 @@ package com.gamesense.client.module.modules.movement;
 
 import com.gamesense.api.event.events.EntityCollisionEvent;
 import com.gamesense.api.event.events.PacketEvent;
+import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
-import com.gamesense.api.setting.values.BooleanSetting;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import net.minecraft.network.play.server.SPacketEntityVelocity;

@@ -29,7 +29,7 @@ public class AutoGear extends Module {
     BooleanSetting debugMode = registerBoolean("Debug Mode", false);
 
     private HashMap<Integer, String> planInventory = new HashMap<>();
-    private HashMap<Integer, String> containerInv = new HashMap<>();
+    private final HashMap<Integer, String> containerInv = new HashMap<>();
     private ArrayList<Integer> sortItems = new ArrayList<>();
 
     private int delayTimeTicks;

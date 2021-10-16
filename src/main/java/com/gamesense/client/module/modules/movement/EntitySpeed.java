@@ -13,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.util.math.Vec3d;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
@@ -32,7 +33,7 @@ public class EntitySpeed extends Module {
 	double roundedSpeed = round(speed.getValue(), 2);
 	
     @EventHandler
-    private Listener<TravelEvent> onTravel = new Listener<>(event -> {
+    private final Listener<TravelEvent> onTravel = new Listener<>(event -> {
     	if (mc.player == null || mc.player.ridingEntity == null) {
     		return;
     	}

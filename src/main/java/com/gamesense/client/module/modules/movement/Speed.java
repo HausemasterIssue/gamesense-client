@@ -1,9 +1,9 @@
 package com.gamesense.client.module.modules.movement;
 
 import com.gamesense.api.event.events.PlayerMoveEvent;
+import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.setting.values.DoubleSetting;
 import com.gamesense.api.setting.values.ModeSetting;
-import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.util.misc.Timer;
 import com.gamesense.api.util.world.EntityUtil;
 import com.gamesense.api.util.world.MotionUtil;
@@ -35,7 +35,7 @@ public class Speed extends Module {
 
     private boolean slowDown;
     private double playerSpeed;
-    private Timer timer = new Timer();
+    private final Timer timer = new Timer();
 
     public void onEnable() {
         playerSpeed = MotionUtil.getBaseMoveSpeed();

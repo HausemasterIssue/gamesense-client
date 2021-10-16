@@ -1,20 +1,18 @@
 package com.gamesense.client.module.modules.movement;
 
+import com.gamesense.api.event.events.PacketEvent;
+import com.gamesense.api.setting.values.DoubleSetting;
+import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
-import net.minecraft.entity.Entity;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.server.SPacketPlayerPosLook;
 import net.minecraftforge.client.event.InputUpdateEvent;
 
 import java.util.Collections;
 import java.util.Objects;
-
-import com.gamesense.api.event.events.PacketEvent;
-import com.gamesense.api.setting.values.DoubleSetting;
-import com.gamesense.api.setting.values.ModeSetting;
 
 /*
 * @author hausemasterissue
@@ -72,7 +70,7 @@ public class StrafeTest extends Module {
             }
             ++stage;
         } else {
-            if (mc.world.getCollisionBoxes((Entity)mc.player, mc.player.getEntityBoundingBox().offset(0.0, mc.player.motionY, 0.0)).size() > 0 || mc.player.collidedVertically) {
+            if (mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(0.0, mc.player.motionY, 0.0)).size() > 0 || mc.player.collidedVertically) {
                 stage = 1;
             }
             moveSpeed = lastDist - lastDist / 159.0;

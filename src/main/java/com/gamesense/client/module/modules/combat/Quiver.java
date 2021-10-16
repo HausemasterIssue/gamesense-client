@@ -1,8 +1,6 @@
 package com.gamesense.client.module.modules.combat;
 
 
-import java.util.List;
-import java.util.Objects;
 import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.setting.values.IntegerSetting;
 import com.gamesense.api.util.player.InventoryUtil;
@@ -12,6 +10,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemBow;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.potion.PotionUtils;
+
+import java.util.List;
+import java.util.Objects;
 
 /*
 * @author hausemasterissue

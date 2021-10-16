@@ -1,13 +1,14 @@
 package com.gamesense.api.event.events;
 
+import com.gamesense.api.event.GameSenseEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import java.util.List;
-import com.gamesense.api.event.GameSenseEvent;
 
 public class AddCollisionBoxToListEvent extends GameSenseEvent {
 	

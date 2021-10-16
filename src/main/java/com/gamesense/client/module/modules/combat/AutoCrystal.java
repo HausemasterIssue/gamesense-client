@@ -43,6 +43,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+
 import java.util.*;
 
 @Module.Declaration(name = "AutoCrystal", category = Category.Combat, priority = 100)

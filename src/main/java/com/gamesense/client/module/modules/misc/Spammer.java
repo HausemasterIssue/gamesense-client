@@ -5,6 +5,7 @@ import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.api.util.misc.MessageBus;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -25,7 +26,7 @@ public class Spammer extends Module {
     }
 
     private long lastTime, delay;
-    private Random random = new Random(System.currentTimeMillis());
+    private final Random random = new Random(System.currentTimeMillis());
     private static final Random RNG = new Random();
 
     public void onUpdate() {

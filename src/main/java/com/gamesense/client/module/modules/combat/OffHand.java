@@ -72,7 +72,7 @@ public class OffHand extends Module {
     private static boolean activeT = false;
     private static int forceObby;
     private static int forceSkull;
-    private ArrayList<Long> switchDone = new ArrayList<>();
+    private final ArrayList<Long> switchDone = new ArrayList<>();
     private final ArrayList<Item> ignoreNoSword = new ArrayList<Item>() {
         {
             add(Items.GOLDEN_APPLE);

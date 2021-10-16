@@ -70,7 +70,7 @@ public class Radar extends HUDModule {
             super(getName(), theme.getPanelRenderer(), Radar.this.position);
         }
 
-        private int maxRange = 50;
+        private final int maxRange = 50;
 
         @Override
         public void render(Context context) {
