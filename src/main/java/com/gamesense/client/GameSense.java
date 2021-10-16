@@ -3,7 +3,6 @@ package com.gamesense.client;
 import com.gamesense.api.config.LoadConfig;
 import com.gamesense.api.setting.SettingsManager;
 import com.gamesense.api.util.font.CFontRenderer;
-import com.gamesense.api.util.misc.VersionChecker;
 import com.gamesense.api.util.player.social.SocialManager;
 import com.gamesense.api.util.render.CapeUtil;
 import com.gamesense.client.clickgui.GameSenseGUI;
@@ -51,9 +50,6 @@ public class GameSense {
     public GameSenseGUI gameSenseGUI;
 
     private void startClient() {
-        VersionChecker.init(MODVER);
-        LOGGER.info("Version checked!");
-
         cFontRenderer = new CFontRenderer(new Font("Verdana", Font.PLAIN, 18), true, true); // no custom font on startup
         LOGGER.info("Custom font initialized!");
 
