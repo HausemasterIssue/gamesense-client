@@ -17,6 +17,8 @@ import net.minecraft.block.BlockObsidian;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -54,6 +56,7 @@ public class Surround extends Module {
     private boolean isSneaking = false;
 	private String safe = "Safe";
 	private boolean isSafe = false;
+	private int switches = 0;
 
     public void onEnable() {
         PlacementUtil.onEnable();
@@ -68,9 +71,20 @@ public class Surround extends Module {
 				if(isSafe == true) {
 					safe = "Safe";
 				}
-				mc.player.inventory.currentItem = oldSlot;
+				switches++;
+				if(switches <= 1) {
+					mc.player.inventory.currentItem = oldSlot;
+				}
+				
+				if (Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) == Blocks.OBSIDIAN) {
+					switches = 0;
+				} else {
+					oldSlot = mc.player.inventory.currentItem;
+				}
+				
 				return;
 			}
+			
             mc.player.motionX = 0;
             mc.player.motionZ = 0;
         }
@@ -156,10 +170,20 @@ public class Surround extends Module {
 				if(isSafe == true) {
 					safe = "Safe";
 				}
-				mc.player.inventory.currentItem = oldSlot;
-				mc.player.inventory.currentItem = mc.player.inventory.currentItem;
+				switches++;
+				if(switches <= 1) {
+					mc.player.inventory.currentItem = oldSlot;
+				}
+				
+				if (Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) == Blocks.OBSIDIAN) {
+					switches = 0;
+				} else {
+					oldSlot = mc.player.inventory.currentItem;
+				}
 				return;
 			}
+			
+			
             PlayerUtil.centerPlayer(centeredBlock);
         }
 
