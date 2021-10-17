@@ -2,6 +2,7 @@
 @rem ##########################################################################
 @rem
 @rem  Gradle startup script for Windows
+@rem  Credits to Perry for improving this.
 @rem
 @rem ##########################################################################
 
