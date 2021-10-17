@@ -80,6 +80,7 @@ public class AutoCrystal extends Module {
     DoubleSetting minFacePlaceDmg = registerDouble("FacePlace Dmg", 2, 0, 10);
     BooleanSetting rotate = registerBoolean("Rotate", true);
     BooleanSetting raytrace = registerBoolean("Raytrace", false);
+    BooleanSetting strictDirection = registerBoolean("StrictDirection", false);
     BooleanSetting showDamage = registerBoolean("Render Dmg", false);
     BooleanSetting outline = registerBoolean("Outline", false);
     ModeSetting hudDisplay = registerMode("HUD", Arrays.asList("Mode", "Target", "None"), "Mode");
@@ -328,7 +329,11 @@ public class AutoCrystal extends Module {
                 // For Hoosiers. This is how we do build height. If the target block (q) is at Y 255. Then we send a placement packet to the bottom part of the block. Thus the EnumFacing.DOWN.
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.DOWN, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
             } else {
-                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.UP, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+                if(!strictDirection.getValue()) {
+					mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.DOWN, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+				} else {
+					mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.UP, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+				}
             }
 
             if (ModuleManager.isModuleEnabled(AutoGG.class)) {
