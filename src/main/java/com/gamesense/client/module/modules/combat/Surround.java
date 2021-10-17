@@ -12,6 +12,7 @@ import com.gamesense.api.util.world.BlockUtil;
 import com.gamesense.api.util.world.HoleUtil;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.block.BlockObsidian;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,7 +30,7 @@ import java.util.Arrays;
  * @since 03/29/2021
  */
 
-@Module.Declaration(name = "Surround", category = Category.Combat)
+@Module.Declaration(name = "AutoObsidian", category = Category.Combat)
 public class Surround extends Module {
 
     ModeSetting jumpMode = registerMode("Jump", Arrays.asList("Continue", "Pause", "Disable"), "Disable");
@@ -51,6 +52,8 @@ public class Surround extends Module {
     private boolean outOfTargetBlock = false;
     private boolean activedOff = false;
     private boolean isSneaking = false;
+	private String safe = "Safe";
+	private boolean isSafe = false;
 
     public void onEnable() {
         PlacementUtil.onEnable();
@@ -60,7 +63,14 @@ public class Surround extends Module {
         }
 
         if (centerPlayer.getValue() && mc.player.onGround) {
-            if (this.isSafeHole()) return;
+            if (this.isSafeHole()) {
+				isSafe = true;
+				if(isSafe == true) {
+					safe = "Safe";
+				}
+				mc.player.inventory.currentItem = oldSlot;
+				return;
+			}
             mc.player.motionX = 0;
             mc.player.motionZ = 0;
         }
@@ -82,7 +92,6 @@ public class Surround extends Module {
         if (outOfTargetBlock) setDisabledMessage("No obsidian detected... Surround turned OFF!");
 
         if (oldSlot != mc.player.inventory.currentItem && oldSlot != -1 && oldSlot != 9) {
-            mc.player.inventory.currentItem = oldSlot;
             oldSlot = -1;
         }
 
@@ -107,6 +116,10 @@ public class Surround extends Module {
             disable();
             return;
         }
+		
+		if(isSafe == false) {
+			safe = "Unsafe";
+		}
 
         if (sneakOnly.getValue() && !mc.player.isSneaking()) {
             return;
@@ -138,7 +151,15 @@ public class Surround extends Module {
         activedOff = true;
 
         if (centerPlayer.getValue() && centeredBlock != Vec3d.ZERO && mc.player.onGround) {
-            if (this.isSafeHole()) return;
+            if (this.isSafeHole()) {
+				isSafe = true;
+				if(isSafe == true) {
+					safe = "Safe";
+				}
+				mc.player.inventory.currentItem = oldSlot;
+				mc.player.inventory.currentItem = mc.player.inventory.currentItem;
+				return;
+			}
             PlayerUtil.centerPlayer(centeredBlock);
         }
 
@@ -221,5 +242,13 @@ public class Surround extends Module {
 
         return PlacementUtil.place(pos, handSwing, rotate.getValue(), true);
     }
+	
+	public String getHudInfo() {
+		if(safe.equalsIgnoreCase("Safe")) {
+			return "[" + ChatFormatting.WHITE + "Safe" + ChatFormatting.GRAY + "]";
+		} else {
+			return "[" + ChatFormatting.WHITE + "Unsafe" + ChatFormatting.GRAY + "]";
+		}
+	}
 
 }

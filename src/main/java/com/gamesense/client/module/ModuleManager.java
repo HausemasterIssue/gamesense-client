@@ -28,6 +28,7 @@ public class ModuleManager {
         addMod(new AutoCrystal());
         addMod(new AutoLog());
         addMod(new AutoMend());
+        addMod(new Surround());
         addMod(new AutoSkull());
         addMod(new AutoTrap());
         addMod(new AutoTotem());
@@ -45,7 +46,6 @@ public class ModuleManager {
         addMod(new SelfFill());
         addMod(new SelfTrap());
         addMod(new SelfWeb());
-        addMod(new Surround());
         //Exploits
         addMod(new AntiDesync());
         addMod(new AntiHunger());
@@ -86,7 +86,6 @@ public class ModuleManager {
         addMod(new Speed());
         addMod(new Sprint());
         addMod(new Step());
-        addMod(new StrafeTest());
         addMod(new Velocity());
         //Misc
         addMod(new Announcer());
@@ -128,6 +127,7 @@ public class ModuleManager {
         addMod(new HoleESP());
         addMod(new LogoutSpots());
         addMod(new Nametags());
+        addMod(new NoBob());
         addMod(new NoRender());
         addMod(new RenderTweaks());
         addMod(new ShulkerViewer());

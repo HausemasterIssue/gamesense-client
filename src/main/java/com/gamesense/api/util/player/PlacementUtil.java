@@ -10,6 +10,7 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.item.Item;
 import net.minecraft.network.play.client.CPacketEntityAction;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -200,5 +201,65 @@ public class PlacementUtil {
             return action == EnumActionResult.SUCCESS;
         } return true;
 
+    }
+
+    public static void place(BlockPos pos, EnumHand hand, boolean rotate, boolean swing, boolean packet) {
+        EntityPlayerSP player = mc.player;
+        WorldClient world = mc.world;
+        PlayerControllerMP playerController = mc.playerController;
+
+        if (player == null || world == null || playerController == null) return;
+
+        if (!world.getBlockState(pos).getMaterial().isReplaceable()) {
+            return;
+        }
+
+        EnumFacing side = BlockUtil.getPlaceableSide(pos);
+
+        if (side == null) {
+            return;
+        }
+
+        BlockPos neighbour = pos.offset(side);
+        EnumFacing opposite = side.getOpposite();
+
+        if (!BlockUtil.canBeClicked(neighbour)) {
+            return;
+        }
+
+        Vec3d hitVec = new Vec3d(neighbour).add(0.5, 0.5, 0.5).add(new Vec3d(opposite.getDirectionVec()).scale(0.5));
+        Block neighbourBlock = world.getBlockState(neighbour).getBlock();
+
+        if (!isSneaking && BlockUtil.blackList.contains(neighbourBlock) || BlockUtil.shulkerList.contains(neighbourBlock)) {
+            player.connection.sendPacket(new CPacketEntityAction(player, CPacketEntityAction.Action.START_SNEAKING));
+            isSneaking = true;
+        }
+
+        boolean stoppedAC = false;
+
+        if (ModuleManager.isModuleEnabled(AutoCrystal.class)) {
+            AutoCrystal.stopAC = true;
+            stoppedAC = true;
+        }
+
+        if (rotate) {
+            BlockUtil.faceVectorPacketInstant(hitVec, true);
+        }
+
+        if (packet) {
+            mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(neighbour, opposite, hand, (float) (hitVec.x - pos.x), (float) (hitVec.y - pos.y), (float) (hitVec.z - pos.z)));
+        } else {
+            playerController.processRightClickBlock(player, world, neighbour, opposite, hitVec, hand);
+        }
+
+        if (swing) {
+            player.swingArm(hand);
+        }
+
+        mc.rightClickDelayTimer = 4;
+
+        if (stoppedAC) {
+            AutoCrystal.stopAC = false;
+        }
     }
 }
