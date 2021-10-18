@@ -101,7 +101,7 @@ shadowJar {
 		include(dependency('com.lukflug:panelstudio'))
 		include(dependency('com.lukflug:panelstudio-mc12'))
 	}
-	exclude 'dummyThing', 'LICENSE.txt', 'org/**/*.html', 'META-INF/maven/**'
+	exclude 'dummyThing', 'org/**/*.html', 'META-INF/maven/**'
 	classifier = 'release'
 }
 
