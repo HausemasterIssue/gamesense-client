@@ -1,6 +1,6 @@
 package com.gamesense.mixin.mixins;
 
-mport com.gamesense.api.config.SaveConfig;
+import com.gamesense.api.config.SaveConfig;
 import com.gamesense.client.module.ModuleManager;
 import com.gamesense.client.module.modules.misc.MultiTask;
 import com.gamesense.mixin.mixins.accessor.AccessorEntityPlayerSP;
