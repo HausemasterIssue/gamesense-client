@@ -67,8 +67,8 @@ public class AutoCrystal extends Module {
     //BooleanSetting autoSwitch = registerBoolean("Switch", true);
     ModeSetting autoSwitch = registerMode("Switch", Arrays.asList("Normal", "Silent"), "Normal");
     BooleanSetting noGapSwitch = registerBoolean("NoEatingSwitch", true);
-    BooleanSetting noMiningSwitch = registerBoolean("NoMiningSwitch", true);
-    BooleanSetting noMendingSwitch = registerBoolean("NoMendingSwitch", true);
+    BooleanSetting noMiningSwitch = registerBoolean("NoMiningSwitch", false);
+    BooleanSetting noMendingSwitch = registerBoolean("NoMendingSwitch", false);
     public BooleanSetting endCrystalMode = registerBoolean("1.13 Place", false);
     BooleanSetting cancelCrystal = registerBoolean("Cancel Crystal", false);
     DoubleSetting minDmg = registerDouble("Min Damage", 4, 0, 36);
@@ -288,12 +288,19 @@ public class AutoCrystal extends Module {
             if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
                 switch(autoSwitch.getValue()) {
                 case "Normal": {
-                	if (!noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE || !noMiningSwitch.getValue() && !(PlayerUtil.isMining())
-                			|| !noMendingSwitch.getValue() && !(PlayerUtil.isMending())) {
-                        mc.player.inventory.currentItem = crystalSlot;
-                        rotating = false;
-                        this.switchCooldown = true;
-                    }
+			if(!noGapSwitch.getValue() || mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE) {
+				mc.player.inventory.currentItem = crystalSlot;
+                        	rotating = false;
+                        	this.switchCooldown = true;
+			} else if (!noMiningSwitch.getvalue() || !(PlayerUtil.isMining())) {
+				mc.player.inventory.currentItem = crystalSlot;
+                        	rotating = false;
+                        	this.switchCooldown = true;
+			} else if (!noMendingSwitch.getValue() || !(PlayerUtil.isMending())) {
+				mc.player.inventory.currentItem = crystalSlot;
+                        	rotating = false;
+                        	this.switchCooldown = true;
+			}	
                 }
                 case "Silent": {
                 	InventoryUtil.switchTo(crystalSlot, true);
