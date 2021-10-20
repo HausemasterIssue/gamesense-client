@@ -28,7 +28,7 @@ public class AutoLog extends Module {
             return;
 	    
 	if(healthLog.getValue()) {
-		if(mc.player.getHealth() <= health.getvalue()) {
+		if(mc.player.getHealth() <= health.getValue()) {
 			log("[SpiderSense] [AutoLog] You have been logged out do to being lower than the minimum health allowed");
 		}
 	}
