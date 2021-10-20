@@ -292,7 +292,7 @@ public class AutoCrystal extends Module {
 				mc.player.inventory.currentItem = crystalSlot;
                         	rotating = false;
                         	this.switchCooldown = true;
-			} else if (!noMiningSwitch.getvalue() || !(PlayerUtil.isMining())) {
+			} else if (!noMiningSwitch.getValue() || !(PlayerUtil.isMining())) {
 				mc.player.inventory.currentItem = crystalSlot;
                         	rotating = false;
                         	this.switchCooldown = true;
