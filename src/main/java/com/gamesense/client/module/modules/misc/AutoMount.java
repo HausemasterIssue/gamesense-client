@@ -14,6 +14,12 @@ import net.minecraft.entity.passive.*;
 import net.minecraft.util.EnumHand;
 import java.util.Comparator;
 
+/*
+* @author hausemasterissue, perry
+* @since 17/10/2021
+* pasted from salhack (spidermod)
+*/
+
 @Module.Declaration(name = "AutoMount", category = Category.Misc)
 public class AutoMount extends Module {
 	
@@ -23,7 +29,6 @@ public class AutoMount extends Module {
 	BooleanSetting mules = registerBoolean("Mules", true);
 	BooleanSetting pigs = registerBoolean("Pigs", true);
 	BooleanSetting llamas = registerBoolean("Llamas", true);
-	BooleanSetting eat = registerBoolean("Eat", true);
 	IntegerSetting range = registerInteger("Range", 4, 0, 15);
 	IntegerSetting delay = registerInteger("Delay", 1, 0, 30);
 	
