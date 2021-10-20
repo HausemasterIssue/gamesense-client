@@ -28,8 +28,8 @@ import net.minecraft.network.play.client.CPacketHeldItemChange;
 import java.util.Arrays;
 
 /**
- * @author Hoosiers
- * @since 03/29/2021
+ * @author Hoosiers, hausemasterissue
+ * @since 20/10/2021
  */
 
 @Module.Declaration(name = "AutoObsidian", category = Category.Combat)
