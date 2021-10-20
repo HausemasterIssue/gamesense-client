@@ -1,11 +1,10 @@
 package com.gamesense.client.module.modules.combat;
 
-import com.gamesense.client.module.Module;
 import com.gamesense.api.setting.values.IntegerSetting;
 import com.gamesense.api.util.misc.MessageBus;
+import com.gamesense.client.module.Module;
 import com.gamesense.client.module.Category;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.ItemExpBottle;
@@ -103,11 +102,7 @@ public class AutoMend extends Module {
                 float percent = ( (float) damage.getValue() / (float) 100);
                 int dam = Math.round(stack.getMaxDamage() * percent);
                 int goods = stack.getMaxDamage() - stack.getItemDamage();
-                if (dam <= goods) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return dam <= goods;
             }
         }
         return false;
@@ -151,7 +146,7 @@ public class AutoMend extends Module {
             if (mostDamagedSlot != -1) {
                 for (final Map.Entry<Integer, ItemStack> armorSlot : getArmor().entrySet()) {
                     if (armorSlot.getKey() != mostDamagedSlot) {
-                        mc.playerController.windowClick(0, armorSlot.getKey(), 0, ClickType.QUICK_MOVE, (EntityPlayer)mc.player);
+                        mc.playerController.windowClick(0, armorSlot.getKey(), 0, ClickType.QUICK_MOVE, mc.player);
                     }
                 }
                 counter = 0;
@@ -175,7 +170,7 @@ public class AutoMend extends Module {
     private static Map<Integer, ItemStack> getInventorySlots(int current, final int last) {
         final Map<Integer, ItemStack> fullInventorySlots = new HashMap <>();
         while (current <= last) {
-            fullInventorySlots.put(current, (ItemStack)mc.player.inventoryContainer.getInventory().get(current));
+            fullInventorySlots.put(current, mc.player.inventoryContainer.getInventory().get(current));
             ++current;
         }
         return fullInventorySlots;
