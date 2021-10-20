@@ -80,7 +80,6 @@ public class AutoCrystal extends Module {
     DoubleSetting minFacePlaceDmg = registerDouble("FacePlace Dmg", 2, 0, 10);
     BooleanSetting rotate = registerBoolean("Rotate", true);
     BooleanSetting raytrace = registerBoolean("Raytrace", false);
-    BooleanSetting strictDirection = registerBoolean("StrictDirection", false);
     BooleanSetting showDamage = registerBoolean("Render Dmg", false);
     BooleanSetting outline = registerBoolean("Outline", false);
     ModeSetting hudDisplay = registerMode("HUD", Arrays.asList("Mode", "Target", "None"), "Mode");
@@ -198,13 +197,17 @@ public class AutoCrystal extends Module {
                         lastHitVec = crystal.getPositionVector();
 
                         int oldSlot = mc.player.inventory.currentItem;
+			    
+			if(autoSwitch.getValue().equalsIgnoreCase("Silent")) {
+				InventoryUtil.switchTo(oldSlot, true);
+				mc.playerController.updateController();
+			}
                         
                         for(int tries = 0; tries < limit.getValue(); tries++) {
                         	if(tries < limit.getValue()) {
                         		if (breakType.getValue().equalsIgnoreCase("Swing")) {
                                     swingArm();
                                     mc.playerController.attackEntity(mc.player, crystal);
-                                    InventoryUtil.switchTo(oldSlot, silent);
                                 } else {
                                     swingArm();
                                     mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
@@ -282,20 +285,18 @@ public class AutoCrystal extends Module {
             if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
                 switch(autoSwitch.getValue()) {
                 case "Normal": {
-                	if (!noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE || !noMiningSwitch.getValue() && PlayerUtil.isMining()
-                			|| !noMendingSwitch.getValue() && PlayerUtil.isMending()) {
+                	if (!noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE || !noMiningSwitch.getValue() && !(PlayerUtil.isMining())
+                			|| !noMendingSwitch.getValue() && !(PlayerUtil.isMending())) {
                         mc.player.inventory.currentItem = crystalSlot;
                         rotating = false;
                         this.switchCooldown = true;
                     }
                 }
                 case "Silent": {
-                	if (!noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE || !noMiningSwitch.getValue() && PlayerUtil.isMining()
-                			|| !noMendingSwitch.getValue() && PlayerUtil.isMending()) {
-                		InventoryUtil.switchTo(crystalSlot, true);
+                	InventoryUtil.switchTo(crystalSlot, true);
+			mc.playerController.updateController();
                         rotating = false;
                         this.switchCooldown = true;
-                    }
                 }
                 }
                 return true;
