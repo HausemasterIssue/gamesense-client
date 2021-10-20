@@ -79,6 +79,7 @@ public class Surround extends Module {
 						mc.playerController.updateController();
 					} else {
 						mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
+						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					}
 					
