@@ -70,7 +70,7 @@ public class AutoMend extends Module {
         if (shouldArmor) {
             if (wait >= delay.getValue()) {
                 wait = 0;
-                mc.playerController.windowClick(0, slots[armorCount], 0, ClickType.QUICK_MOVE, (EntityPlayer)mc.player);
+                mc.playerController.windowClick(0, slots[armorCount], 0, ClickType.QUICK_MOVE, mc.player);
                 mc.playerController.updateController();
                 armorCount++;
                 if (armorCount > 2) {
