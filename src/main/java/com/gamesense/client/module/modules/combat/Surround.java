@@ -39,6 +39,7 @@ public class Surround extends Module {
     ModeSetting offsetMode = registerMode("Pattern", Arrays.asList("Normal", "Anti City"), "Normal");
     IntegerSetting delayTicks = registerInteger("Tick Delay", 3, 0, 10);
     IntegerSetting blocksPerTick = registerInteger("Blocks Per Tick", 4, 0, 8);
+    BooleanSetting silent = registerBoolean("SilentSwap", true);
     BooleanSetting rotate = registerBoolean("Rotate", true);
     BooleanSetting centerPlayer = registerBoolean("Center Player", true);
     BooleanSetting sneakOnly = registerBoolean("Sneak Only", false);
@@ -73,7 +74,14 @@ public class Surround extends Module {
 				}
 				switches++;
 				if(switches <= 1) {
-					mc.player.inventory.currentItem = oldSlot;
+					if(silent.getValue() != true) {
+						mc.player.inventory.currentItem = oldSlot;
+						mc.playerController.updateController();
+					} else {
+						mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
+						mc.playerController.updateController();
+					}
+					
 				}
 				
 				if (Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) == Blocks.OBSIDIAN) {
@@ -172,7 +180,13 @@ public class Surround extends Module {
 				}
 				switches++;
 				if(switches <= 1) {
-					mc.player.inventory.currentItem = oldSlot;
+					if(silent.getValue() != true) {
+						mc.player.inventory.currentItem = oldSlot;
+						mc.playerController.updateController();
+					} else {
+						mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
+						mc.playerController.updateController();
+					}
 				}
 				
 				if (Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) == Blocks.OBSIDIAN) {
@@ -261,7 +275,14 @@ public class Surround extends Module {
         }
 
         if (mc.player.inventory.currentItem != targetBlockSlot && targetBlockSlot != 9) {
-            mc.player.inventory.currentItem = targetBlockSlot;
+		if(silent.getValue() == true) {
+			mc.player.connection.sendPacket(new CPacketHeldItemChange(targetBlockSlot));
+			mc.playerController.updateController();	
+		} else {
+			mc.player.inventory.currentItem = targetBlockSlot;
+			mc.playerController.updateController();
+		}
+           
         }
 
         return PlacementUtil.place(pos, handSwing, rotate.getValue(), true);
