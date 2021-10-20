@@ -56,11 +56,7 @@ public class Scaffold extends Module {
             }
 
             int oldSlot = mc.player.inventory.currentItem;
-            if(silent.getValue()) {
-                InventoryUtil.switchTo(slot, true);
-            } else {
-                InventoryUtil.switchTo(slot, false);   
-            }
+            InventoryUtil.switchTo(slot, silent.getValue());
             
 
             this.updateBlocks(base);
