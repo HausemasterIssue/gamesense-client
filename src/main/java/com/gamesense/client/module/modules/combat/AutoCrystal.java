@@ -202,11 +202,6 @@ public class AutoCrystal extends Module {
                         lastHitVec = crystal.getPositionVector();
 
                         int oldSlot = mc.player.inventory.currentItem;
-			    
-			if(autoSwitch.getValue().equalsIgnoreCase("Silent")) {
-				InventoryUtil.switchTo(oldSlot, true);
-				mc.playerController.updateController();
-			}
                         
 			// limit, prevents you from hitting a crystal more than the max amount of times, prevents you from sending too many packets
                         for(int tries = 0; tries < limit.getValue(); tries++) {
