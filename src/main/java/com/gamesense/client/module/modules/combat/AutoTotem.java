@@ -39,7 +39,7 @@ public class AutoTotem extends Module {
 
         for (int i = 0; i < 45; i++) {
             if (totems + totemsOffHand > 0) {
-                if (mc.currentScreen instanceof GuiInventory) {
+                if (mc.currentScreen instanceof GuiInventory || mc.currentScreen == null) {
                     ItemStack stacks = mc.player.openContainer.getSlot(i).getStack();
 
                 if (stacks == ItemStack.EMPTY)
