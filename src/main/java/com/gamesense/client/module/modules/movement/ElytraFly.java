@@ -74,15 +74,11 @@ public class ElytraFly extends Module {
     	
     	if(!ncpStrict.getValue()) {
     		if(mc.gameSettings.keyBindJump.isKeyDown()) {
-        		mc.player.motionX = 0;
         		mc.player.motionY = upSpeed.getValue();
-        		mc.player.motionZ = 0;
         	}
         	
         	if(mc.gameSettings.keyBindSneak.isKeyDown()) {
-        		mc.player.motionX = 0;
         		mc.player.motionY -= downSpeed.getValue();
-        		mc.player.motionZ = 0;
         	}
     	} else {
     		if (mc.gameSettings.keyBindJump.isKeyDown()) {
