@@ -118,11 +118,11 @@ public class CombatInfo extends HUDModule {
                 if (ModuleManager.isModuleEnabled(hoosiersModules[index])) return hoosiersNames[index] + ": ON";
                 else return hoosiersNames[index] + ": OFF";
             } else if (infoType.getValue().equals("Cyber")) {
-                if (index == 0) return "gamesense.cc";
+                if (index == 0) return "SpiderSense";
                 else if (index == 1) return "HTR";
                 else if (index == 2) return "PLR";
-                else if (index == 3) return "" + totems;
-                else if (index == 4) return "PING " + getPing();
+                else if (index == 3) return "Totems " + totems;
+                else if (index == 4) return "Ping " + getPing();
                 else return "LBY";
             } else {
                 return "";
