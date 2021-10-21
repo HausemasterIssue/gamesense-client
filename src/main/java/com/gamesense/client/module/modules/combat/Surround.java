@@ -39,7 +39,8 @@ public class Surround extends Module {
     ModeSetting offsetMode = registerMode("Pattern", Arrays.asList("Normal", "Anti City"), "Normal");
     IntegerSetting delayTicks = registerInteger("Tick Delay", 3, 0, 10);
     IntegerSetting blocksPerTick = registerInteger("Blocks Per Tick", 4, 0, 8);
-    BooleanSetting silent = registerBoolean("SilentSwap", true);
+    BooleanSetting silent = registerBoolean("Silent Swap", true);
+    IntegerSetting swapDelay = registerinteger("Swap Delay", 4, 0, 10);
     BooleanSetting rotate = registerBoolean("Rotate", true);
     BooleanSetting centerPlayer = registerBoolean("Center Player", true);
     BooleanSetting sneakOnly = registerBoolean("Sneak Only", false);
@@ -78,9 +79,12 @@ public class Surround extends Module {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
-						mc.player.inventory.currentItem = oldSlot;
-						mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
-						mc.playerController.updateController();
+						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue()) {
+							mc.player.inventory.currentItem = oldSlot;
+							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
+							mc.playerController.updateController();	
+						}
+						
 					}
 					
 				}
@@ -185,9 +189,11 @@ public class Surround extends Module {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
-						mc.player.inventory.currentItem = oldSlot;
-						mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
-						mc.playerController.updateController();
+						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue()) {
+							mc.player.inventory.currentItem = oldSlot;
+							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
+							mc.playerController.updateController();	
+						}
 					}
 				}
 				
