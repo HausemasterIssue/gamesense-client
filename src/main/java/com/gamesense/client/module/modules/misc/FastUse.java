@@ -23,7 +23,11 @@ public class FastUse extends Module {
     BooleanSetting blocks = registerBoolean("Blocks", false);
 
     private int ticks = 0;
-
+	
+    public void onDisable() {
+	  mc.rightClickDelayTimer = 6;
+    }
+	
     public void onUpdate() {
     	if (delay.getValue() != 0) {
             ++ticks;
@@ -36,18 +40,13 @@ public class FastUse extends Module {
 	    
 	    if (exp.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.EXPERIENCE_BOTTLE || mc.player.getHeldItemOffhand().getItem() == Items.EXPERIENCE_BOTTLE) {
         	 mc.rightClickDelayTimer = this.speed.getValue();
-            }
-
-            if (crystals.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL || crystals.getValue() && mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
-        	 mc.rightClickDelayTimer = this.speed.getValue();
-            }
-
-            if (fireworks.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.FIREWORKS || mc.player.getHeldItemOffhand().getItem() == Items.FIREWORKS) {
-       	 	 mc.rightClickDelayTimer = this.speed.getValue();
-            }
-
-            if (blocks.getValue() && mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock || mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock) {
-      	 	 mc.rightClickDelayTimer = this.speed.getValue();
+            } else if (crystals.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL || crystals.getValue() && mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
+		 mc.rightClickDelayTimer = this.speed.getValue();
+	    } else if (fireworks.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.FIREWORKS || mc.player.getHeldItemOffhand().getItem() == Items.FIREWORKS) {
+		 mc.rightClickDelayTimer = this.speed.getValue(); 
+	    } else if (blocks.getValue() && mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock || mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock) {
+		 mc.rightClickDelayTimer = this.speed.getValue();    
 	    }
+
     }
 }
