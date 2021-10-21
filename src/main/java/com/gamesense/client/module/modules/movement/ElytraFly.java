@@ -63,13 +63,16 @@ public class ElytraFly extends Module {
     	
     	
     	if (mc.player.movementInput.moveStrafe != 0f || mc.player.movementInput.moveForward != 0f) {
-    		mc.player.motionX = dir[0];
 		if(antiKick.getValue() == true) {
+			mc.player.motionX = dir[0];
 			mc.player.motionY = -(fallSpeed.getValue() / 2500f);
+			mc.player.motionZ = dir[1];
 		} else {
-			mc.player.motionY = 0f;	
+			mc.player.motionX = dir[0];
+			mc.player.motionY = 0f;
+			mc.player.motionZ = dir[1];
 		}
-    		mc.player.motionZ = dir[1];
+    		
     	}
     	
     	if(!ncpStrict.getValue()) {
