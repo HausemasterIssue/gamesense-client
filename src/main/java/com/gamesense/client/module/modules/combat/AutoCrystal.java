@@ -290,14 +290,17 @@ public class AutoCrystal extends Module {
                 case "Normal": {
 			if(!noGapSwitch.getValue() || mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE) {
 				mc.player.inventory.currentItem = crystalSlot;
+				mc.playerController.updateController();
                         	rotating = false;
                         	this.switchCooldown = true;
 			} else if (!noMiningSwitch.getValue() || !(PlayerUtil.isMining())) {
 				mc.player.inventory.currentItem = crystalSlot;
+				mc.playerController.updateController();
                         	rotating = false;
                         	this.switchCooldown = true;
 			} else if (!noMendingSwitch.getValue() || !(PlayerUtil.isMending())) {
 				mc.player.inventory.currentItem = crystalSlot;
+				mc.playerController.updateController();
                         	rotating = false;
                         	this.switchCooldown = true;
 			}	
