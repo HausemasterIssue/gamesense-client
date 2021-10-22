@@ -30,13 +30,13 @@ public class BowAim extends Module {
             float tickDis = 100.0f;
             for (EntityPlayer p : mc.world.playerEntities) {
                 float dis;
-                if (p instanceof EntityPlayerSP || SocialManager.isFriend(p.getName()) || !((dis = p.getDistance((Entity)mc.player)) < tickDis)) continue;
+                if (p instanceof EntityPlayerSP || SocialManager.isFriend(p.getName()) || !((dis = p.getDistance(mc.player)) < tickDis)) continue;
                 tickDis = dis;
                 player = p;
             }
             if (player != null) {
                 Vec3d pos = interpolateEntity(player, mc.getRenderPartialTicks());
-                float[] angels = calcAngle(interpolateEntity((Entity)mc.player, mc.getRenderPartialTicks()), pos);
+                float[] angels = calcAngle(interpolateEntity(mc.player, mc.getRenderPartialTicks()), pos);
                 if(packet.getValue()) {
                 	mc.player.connection.sendPacket((Packet<?>) new CPacketPlayer.Rotation(angels[0], angels[1], mc.player.onGround));
                 } else {

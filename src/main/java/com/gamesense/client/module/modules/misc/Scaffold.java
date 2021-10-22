@@ -56,11 +56,7 @@ public class Scaffold extends Module {
             }
 
             int oldSlot = mc.player.inventory.currentItem;
-            if(silent.getValue()) {
-                InventoryUtil.switchTo(slot, true);
-            } else {
-                InventoryUtil.switchTo(slot, false);   
-            }
+            InventoryUtil.switchTo(slot, silent.getValue());
             
 
             this.updateBlocks(base);
@@ -78,13 +74,9 @@ public class Scaffold extends Module {
                     mc.player.motionX *= 0.3;
                     mc.player.motionZ *= 0.3;
                     mc.player.jump();
-                    if (timer.passedMs(1500L)) {
+                    if (timer.passedMs(1200L)) {
+			timer.reset();
                         mc.player.motionY = -0.28;
-                        timer.reset();
-                    } else {
-                        final float towerMotion = 0.41999998688f;
-                        mc.player.setVelocity(0, towerMotion, 0);
-                        timer.reset();
                     }
                 }
 

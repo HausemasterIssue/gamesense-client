@@ -113,7 +113,7 @@ public class AntiAFK extends Module {
             }
 
             case 5: {
-                mc.player.sendChatMessage(weDoABitOfTrolling("I am sending this message to not get AFK kicked thanks to SpiderSense!" + random(2489, 92472)));
+                mc.player.sendChatMessage("/help");
                 break;
             }
         }

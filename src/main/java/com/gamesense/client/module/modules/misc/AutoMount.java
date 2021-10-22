@@ -90,18 +90,14 @@ public class AutoMount extends Module {
         
             EntityPig pig = (EntityPig) entity;
 
-            if (pig.getSaddled())
-                return true;
-
-            return false;
+            return pig.getSaddled();
         }
 
         if (entity instanceof EntityLlama && llamas.getValue()) {
         
             EntityLlama llama = (EntityLlama) entity;
 
-            if (!llama.isChild())
-                return true;
+            return !llama.isChild();
         }
 
         return false;

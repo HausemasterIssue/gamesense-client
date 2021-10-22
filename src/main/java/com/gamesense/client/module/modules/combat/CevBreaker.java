@@ -191,8 +191,7 @@ public class CevBreaker extends Module {
             if (!target.getValue().equals("Looking") && aimTarget == null)
                 disable();
             // If not found a target
-            if (aimTarget == null)
-                return true;
+            return aimTarget == null;
         }
         return false;
     }

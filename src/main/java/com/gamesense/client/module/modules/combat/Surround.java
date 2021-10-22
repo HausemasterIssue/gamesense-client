@@ -19,17 +19,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-
+import net.minecraft.network.play.client.CPacketEntityAction;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
 import java.util.Arrays;
 
 /**
- * @author Hoosiers
- * @since 03/29/2021
+ * @author Hoosiers, hausemasterissue
+ * @since 20/10/2021
  */
 
 @Module.Declaration(name = "AutoObsidian", category = Category.Combat)
@@ -39,6 +39,8 @@ public class Surround extends Module {
     ModeSetting offsetMode = registerMode("Pattern", Arrays.asList("Normal", "Anti City"), "Normal");
     IntegerSetting delayTicks = registerInteger("Tick Delay", 3, 0, 10);
     IntegerSetting blocksPerTick = registerInteger("Blocks Per Tick", 4, 0, 8);
+    BooleanSetting silent = registerBoolean("Silent Swap", true);
+    IntegerSetting swapDelay = registerInteger("Swap Delay", 4, 0, 40);
     BooleanSetting rotate = registerBoolean("Rotate", true);
     BooleanSetting centerPlayer = registerBoolean("Center Player", true);
     BooleanSetting sneakOnly = registerBoolean("Sneak Only", false);
@@ -54,9 +56,10 @@ public class Surround extends Module {
     private boolean outOfTargetBlock = false;
     private boolean activedOff = false;
     private boolean isSneaking = false;
-	private String safe = "Safe";
-	private boolean isSafe = false;
-	private int switches = 0;
+    private String safe = "Safe";
+    private boolean isSafe = false;
+    private int switches = 0;
+    private int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
 
     public void onEnable() {
         PlacementUtil.onEnable();
@@ -73,7 +76,18 @@ public class Surround extends Module {
 				}
 				switches++;
 				if(switches <= 1) {
-					mc.player.inventory.currentItem = oldSlot;
+					if(silent.getValue() != true && mc.player.inventory.currentItem != targetBlockSlot) {
+						mc.player.inventory.currentItem = oldSlot;
+						mc.playerController.updateController();
+					} else {
+						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue() && mc.player.inventory.currentItem != targetBlockSlot) {
+							mc.player.inventory.currentItem = oldSlot;
+							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
+							mc.playerController.updateController();	
+						}
+						
+					}
+					
 				}
 				
 				if (Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) == Blocks.OBSIDIAN) {
@@ -153,8 +167,6 @@ public class Surround extends Module {
                 }
             }
         }
-        
-        int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
 
         if ((outOfTargetBlock || targetBlockSlot == -1) && disableNoBlock.getValue()) {
             outOfTargetBlock = true;
@@ -172,7 +184,16 @@ public class Surround extends Module {
 				}
 				switches++;
 				if(switches <= 1) {
-					mc.player.inventory.currentItem = oldSlot;
+					if(silent.getValue() != true && mc.player.inventory.currentItem != targetBlockSlot) {
+						mc.player.inventory.currentItem = oldSlot;
+						mc.playerController.updateController();
+					} else {
+						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue() && mc.player.inventory.currentItem != targetBlockSlot) {
+							mc.player.inventory.currentItem = oldSlot;
+							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
+							mc.playerController.updateController();	
+						}
+					}
 				}
 				
 				if (Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) == Blocks.OBSIDIAN) {
@@ -261,7 +282,14 @@ public class Surround extends Module {
         }
 
         if (mc.player.inventory.currentItem != targetBlockSlot && targetBlockSlot != 9) {
-            mc.player.inventory.currentItem = targetBlockSlot;
+		if(silent.getValue() == true) {
+			mc.player.connection.sendPacket(new CPacketHeldItemChange(targetBlockSlot));
+			mc.playerController.updateController();	
+		} else {
+			mc.player.inventory.currentItem = targetBlockSlot;
+			mc.playerController.updateController();
+		}
+           
         }
 
         return PlacementUtil.place(pos, handSwing, rotate.getValue(), true);

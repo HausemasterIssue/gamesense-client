@@ -25,11 +25,12 @@ public class ElytraFly extends Module {
 	DoubleSetting downSpeed = registerDouble("DownSpeed", 1.0, 0, 5.0);
 	DoubleSetting fallSpeed = registerDouble("FallSpeed", 1.5, 0.0, 5.0);
 	BooleanSetting autoTakeoff = registerBoolean("AutoTakeoff", false);
-	BooleanSetting noLiquid = registerBoolean("LiquidDisable", true);
 	BooleanSetting groundDisable = registerBoolean("GroundDisable", false);
 	BooleanSetting antiKick = registerBoolean("AntiKick", true);
 	BooleanSetting ncpStrict = registerBoolean("NCP Strict", true);
 	DoubleSetting strictPitch = registerDouble("StrictPitch", 30.0, 0, 90.0);
+	
+	private boolean takingOff = false;
 	
 	public void onEnable() {
 		if(!mc.player.onGround && packet.getValue() && !autoTakeoff.getValue()) {
@@ -37,17 +38,17 @@ public class ElytraFly extends Module {
 		}
 		
 		if(autoTakeoff.getValue()) {
+			takingOff = true;
 			mc.timer.tickLength = ((float)(50.0 * 10));
 			mc.player.jump();
-			if(!mc.player.onGround) {
-				mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
-			}
+			mc.player.connection.sendPacket((Packet<?>) new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
+			takingOff = false;
 			mc.timer.tickLength = 50f;
 		}
 	}
 	
 	public void onUpdate() {
-		if(mc.player.onGround) {
+		if(mc.player.onGround && takingOff == false) {
 			disable();
 		}
 			
@@ -62,26 +63,25 @@ public class ElytraFly extends Module {
     	
     	
     	if (mc.player.movementInput.moveStrafe != 0f || mc.player.movementInput.moveForward != 0f) {
-    		mc.player.motionX = dir[0];
-		if(antiKick.getValue()) {
+		if(antiKick.getValue() == true) {
+			mc.player.motionX = dir[0];
 			mc.player.motionY = -(fallSpeed.getValue() / 2500f);
+			mc.player.motionZ = dir[1];
 		} else {
-			mc.player.motionY = 0f;	
+			mc.player.motionX = dir[0];
+			mc.player.motionY = 0f;
+			mc.player.motionZ = dir[1];
 		}
-    		mc.player.motionZ = dir[1];
+    		
     	}
     	
     	if(!ncpStrict.getValue()) {
     		if(mc.gameSettings.keyBindJump.isKeyDown()) {
-        		mc.player.motionX = 0;
         		mc.player.motionY = upSpeed.getValue();
-        		mc.player.motionZ = 0;
         	}
         	
         	if(mc.gameSettings.keyBindSneak.isKeyDown()) {
-        		mc.player.motionX = 0;
         		mc.player.motionY -= downSpeed.getValue();
-        		mc.player.motionZ = 0;
         	}
     	} else {
     		if (mc.gameSettings.keyBindJump.isKeyDown()) {
