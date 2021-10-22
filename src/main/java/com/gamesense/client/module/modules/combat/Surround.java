@@ -75,11 +75,11 @@ public class Surround extends Module {
 				}
 				switches++;
 				if(switches <= 1) {
-					if(silent.getValue() != true) {
+					if(silent.getValue() != true && mc.player.inventory.currentItem != targetBlockSlot) {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
-						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue()) {
+						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue() && mc.player.inventory.currentItem != targetBlockSlot) {
 							mc.player.inventory.currentItem = oldSlot;
 							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
 							mc.playerController.updateController();	
@@ -185,11 +185,11 @@ public class Surround extends Module {
 				}
 				switches++;
 				if(switches <= 1) {
-					if(silent.getValue() != true) {
+					if(silent.getValue() != true && mc.player.inventory.currentItem != targetBlockSlot) {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
-						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue()) {
+						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue() && mc.player.inventory.currentItem != targetBlockSlot) {
 							mc.player.inventory.currentItem = oldSlot;
 							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
 							mc.playerController.updateController();	
