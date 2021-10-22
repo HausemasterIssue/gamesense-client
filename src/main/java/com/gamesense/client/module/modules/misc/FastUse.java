@@ -20,7 +20,6 @@ public class FastUse extends Module {
     BooleanSetting exp = registerBoolean("XP", true);
     BooleanSetting crystals = registerBoolean("Crystals", false);
     BooleanSetting fireworks = registerBoolean("Fireworks", false);
-    BooleanSetting blocks = registerBoolean("Blocks", false);
 
     private int ticks = 0;
 	
@@ -44,8 +43,6 @@ public class FastUse extends Module {
 		 mc.rightClickDelayTimer = this.speed.getValue();
 	    } else if (fireworks.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.FIREWORKS || mc.player.getHeldItemOffhand().getItem() == Items.FIREWORKS) {
 		 mc.rightClickDelayTimer = this.speed.getValue(); 
-	    } else if (blocks.getValue() && mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock || mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock) {
-		 mc.rightClickDelayTimer = this.speed.getValue();    
 	    }
 
     }
