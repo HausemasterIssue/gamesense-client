@@ -69,7 +69,7 @@ public class Surround extends Module {
         }
 
         if (centerPlayer.getValue() && mc.player.onGround) {
-            if (this.isSafeHole() && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
+            if (this.isSafeHole()) {
 				isSafe = true;
 				if(isSafe == true) {
 					safe = "Safe";
@@ -179,7 +179,7 @@ public class Surround extends Module {
         activedOff = true;
 
         if (centerPlayer.getValue() && centeredBlock != Vec3d.ZERO && mc.player.onGround) {
-            if (this.isSafeHole() && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
+            if (this.isSafeHole()) {
 				isSafe = true;
 				if(isSafe == true) {
 					safe = "Safe";
