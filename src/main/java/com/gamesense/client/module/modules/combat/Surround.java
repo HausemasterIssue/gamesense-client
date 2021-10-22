@@ -167,6 +167,8 @@ public class Surround extends Module {
                 }
             }
         }
+	    
+	int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
 
         if ((outOfTargetBlock || targetBlockSlot == -1) && disableNoBlock.getValue()) {
             outOfTargetBlock = true;
