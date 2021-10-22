@@ -69,18 +69,18 @@ public class Surround extends Module {
         }
 
         if (centerPlayer.getValue() && mc.player.onGround) {
-            if (this.isSafeHole()) {
+            if (this.isSafeHole() && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
 				isSafe = true;
 				if(isSafe == true) {
 					safe = "Safe";
 				}
 				switches++;
 				if(switches <= 1) {
-					if(silent.getValue() != true && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
+					if(silent.getValue() != true) {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
-						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue() && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
+						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue()) {
 							mc.player.inventory.currentItem = oldSlot;
 							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
 							mc.playerController.updateController();	
@@ -179,18 +179,18 @@ public class Surround extends Module {
         activedOff = true;
 
         if (centerPlayer.getValue() && centeredBlock != Vec3d.ZERO && mc.player.onGround) {
-            if (this.isSafeHole()) {
+            if (this.isSafeHole() && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
 				isSafe = true;
 				if(isSafe == true) {
 					safe = "Safe";
 				}
 				switches++;
 				if(switches <= 1) {
-					if(silent.getValue() != true && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
+					if(silent.getValue() != true) {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
-						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue() && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
+						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue()) {
 							mc.player.inventory.currentItem = oldSlot;
 							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
 							mc.playerController.updateController();	
