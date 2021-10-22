@@ -278,26 +278,22 @@ public class AutoCrystal extends Module {
             this.render = crystal.crystal;
             this.renderEntity = crystal.target.entity;
             
-            // autoSwitch stuff
+            // autoSwitch
             if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
-                switch(autoSwitch.getValue()) {
-                case "Normal": {
-                	if (!noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE || !noMiningSwitch.getValue() && PlayerUtil.isMining()
-                			|| !noMendingSwitch.getValue() && PlayerUtil.isMending()) {
-                        mc.player.inventory.currentItem = crystalSlot;
-                        rotating = false;
-                        this.switchCooldown = true;
-                    }
-                }
-                case "Silent": {
-                	if (!noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() != Items.GOLDEN_APPLE || !noMiningSwitch.getValue() && PlayerUtil.isMining()
-                			|| !noMendingSwitch.getValue() && PlayerUtil.isMending()) {
-                		InventoryUtil.switchTo(crystalSlot, true);
-                        rotating = false;
-                        this.switchCooldown = true;
-                    }
-                }
-                }
+		    if(autoSwitch.getValue().equalsIgnoreCase("Normal")) {
+			    if(noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.GOLDEN_APPLE || noMiningSwitch.getValue() && PlayerUtil.isMining() || noMendingSwitch.getValue() && PlayerUtil.isMending()) {
+				return false;
+			    } else {
+				mc.player.inventory.currentItem = crystalSlot;
+                        	rotating = false;
+                        	this.switchCooldown = true;
+			    }
+		    } else if (autoSwitch.getValue().equalsIgnoreCase("Silent")) {
+			    InventoryUtil.switchTo(crystalSlot, true);
+                            rotating = false;
+                            this.switchCooldown = true;
+		    }
+                
                 return true;
             }
 
