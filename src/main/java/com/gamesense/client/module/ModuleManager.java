@@ -62,6 +62,7 @@ public class ModuleManager {
         addMod(new PacketXP());
         addMod(new PearlNotify());
         addMod(new PingSpoof());
+        addMod(new PortalChat());
         addMod(new PortalGodmode());
         addMod(new FastBreak());
         addMod(new Timer());
