@@ -267,8 +267,6 @@ public class Surround extends Module {
     private boolean placeBlock(BlockPos pos) {
         EnumHand handSwing = EnumHand.MAIN_HAND;
 
-        int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
-
         if (targetBlockSlot == -1) {
             outOfTargetBlock = true;
             return false;
