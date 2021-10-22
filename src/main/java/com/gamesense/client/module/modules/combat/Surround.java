@@ -32,7 +32,7 @@ import java.util.Arrays;
  * @since 20/10/2021
  */
 
-@Module.Declaration(name = "AutoObsidian", category = Category.Combat)
+@Module.Declaration(name = "Surround", category = Category.Combat)
 public class Surround extends Module {
 
     ModeSetting jumpMode = registerMode("Jump", Arrays.asList("Continue", "Pause", "Disable"), "Disable");
