@@ -76,11 +76,11 @@ public class Surround extends Module {
 				}
 				switches++;
 				if(switches <= 1) {
-					if(silent.getValue() != true && mc.player.getHeldItemMainhand().getItem() != Blocks.OBSIDIAN) {
+					if(silent.getValue() != true && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
-						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue() && mc.player.inventory.currentItem != targetBlockSlot) {
+						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue() && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
 							mc.player.inventory.currentItem = oldSlot;
 							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
 							mc.playerController.updateController();	
@@ -184,11 +184,11 @@ public class Surround extends Module {
 				}
 				switches++;
 				if(switches <= 1) {
-					if(silent.getValue() != true && mc.player.getHeldItemMainhand().getItem() != Blocks.OBSIDIAN) {
+					if(silent.getValue() != true && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
-						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue() && mc.player.inventory.currentItem != targetBlockSlot) {
+						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue() && Block.getBlockFromItem(mc.player.getHeldItemMainhand().getItem()) != Blocks.OBSIDIAN) {
 							mc.player.inventory.currentItem = oldSlot;
 							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
 							mc.playerController.updateController();	
