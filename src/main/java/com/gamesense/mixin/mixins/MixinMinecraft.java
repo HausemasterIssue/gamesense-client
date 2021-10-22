@@ -2,7 +2,7 @@ package com.gamesense.mixin.mixins;
 
 import com.gamesense.api.config.SaveConfig;
 import com.gamesense.client.module.ModuleManager;
-import com.gamesense.client.module.modules.misc.MultiTask;
+import com.gamesense.client.module.modules.exploits.MultiTask;
 import com.gamesense.mixin.mixins.accessor.AccessorEntityPlayerSP;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
