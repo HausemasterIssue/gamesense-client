@@ -283,7 +283,7 @@ public class AutoCrystal extends Module {
             if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
 		            if(autoSwitch.getValue().equalsIgnoreCase("Normal")) {
 			              if(noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.GOLDEN_APPLE || noMiningSwitch.getValue() && PlayerUtil.isMining() || noMendingSwitch.getValue() && PlayerUtil.isMending()) {
-				                return false;
+				                // return statement fucks it up so ill leave this empty for now
 			              } else {
 				                mc.player.inventory.currentItem = crystalSlot;
                         rotating = false;
