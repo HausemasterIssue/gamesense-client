@@ -50,6 +50,7 @@ public class Surround extends Module {
     private final Timer delayTimer = new Timer();
     private Vec3d centeredBlock = Vec3d.ZERO;
     private static final boolean surrounded = false;
+    private int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
 
     private int oldSlot = -1;
     private int offsetSteps = 0;
@@ -166,8 +167,6 @@ public class Surround extends Module {
                 }
             }
         }
-        
-        int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
 
         if ((outOfTargetBlock || targetBlockSlot == -1) && disableNoBlock.getValue()) {
             outOfTargetBlock = true;
