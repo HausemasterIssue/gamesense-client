@@ -59,7 +59,7 @@ public class Surround extends Module {
     private String safe = "Safe";
     private boolean isSafe = false;
     private int switches = 0;
-    private int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
+    
 
     public void onEnable() {
         PlacementUtil.onEnable();
@@ -76,7 +76,7 @@ public class Surround extends Module {
 				}
 				switches++;
 				if(switches <= 1) {
-					if(silent.getValue() != true && mc.player.inventory.currentItem != targetBlockSlot) {
+					if(silent.getValue() != true && mc.player.getHeldItemMainhand().getItem() != Blocks.OBSIDIAN) {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
@@ -184,7 +184,7 @@ public class Surround extends Module {
 				}
 				switches++;
 				if(switches <= 1) {
-					if(silent.getValue() != true && mc.player.inventory.currentItem != targetBlockSlot) {
+					if(silent.getValue() != true && mc.player.getHeldItemMainhand().getItem() != Blocks.OBSIDIAN) {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
@@ -266,6 +266,8 @@ public class Surround extends Module {
 
     private boolean placeBlock(BlockPos pos) {
         EnumHand handSwing = EnumHand.MAIN_HAND;
+	    
+	int targetBlockSlot = InventoryUtil.findObsidianSlot(offhandObby.getValue(), activedOff);
 
         if (targetBlockSlot == -1) {
             outOfTargetBlock = true;
