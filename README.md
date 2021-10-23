@@ -3,7 +3,7 @@
 
 ![GitHub all releases](https://img.shields.io/github/downloads/hausemasterissue/spidersense/total?logo=github) ![GitHub clickgui](https://img.shields.io/badge/clickgui%20key-O-1?logo=Github) ![GitHub issues](https://img.shields.io/github/issues/hausemasterissue/spidersense?logo=Github) ![GitHub contributors](https://img.shields.io/github/contributors/hausemasterissue/spidersense?logo=github) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/hausemasterissue/spidersense?label=code%20pasted) ![GitHub forks](https://img.shields.io/github/forks/hausemasterissue/spidersense?logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/hausemasterissue/spidersense?logo=github)
 
-**_Spidersense has been discontinued as of 23/10/2021_**
+**_SpiderSense has been discontinued as of 23/10/2021_**
 
 <!-- INFORMATION -->
 
