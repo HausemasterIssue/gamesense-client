@@ -10,6 +10,8 @@
 #### About
 SpiderSense is my own personal fork of the GameSense client player assistance utility mod for Minecraft. The client is currently **Discontinued**. This dosen't mean it's completley dead, just there will not be any real updates or releases anymore.
 
+My personal configs for the client can be found here: [Configs.zip](https://www.mediafire.com/file/ldmyjr8k9o6e38l/Configs.zip/file)
+
 #### Credits
 ***Check specific class files for full credits.***
 Huge thank's to the original GameSense developers, Inferno, Cousinware, Catalyst, Phobos, Pyro, Future, Cosmos, Momentum, Oyvey, Cr33pyware, Salhack, Wurst+, Haybale Client, Cookie Client, Seppuku, Summit and RusherHack. Plus everyone who has helped along the way. Especially Cyber, Hoosiers, FINZ0, 086, Christallinqq, Aestheticall and Perry.
