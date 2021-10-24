@@ -2,6 +2,7 @@ package com.gamesense.mixin.mixins;
 
 import com.gamesense.api.event.events.OnUpdateWalkingPlayerEvent;
 import com.gamesense.api.event.events.PlayerMoveEvent;
+import com.gamesense.api.event.events.PushEvent;
 import com.gamesense.client.GameSense;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
