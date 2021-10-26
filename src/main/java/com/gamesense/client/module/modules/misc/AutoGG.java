@@ -122,7 +122,7 @@ public class AutoGG extends Module {
         if (AutoGgMessages.size() > 0)
             message = AutoGgMessages.get(index);
         else
-            message = "hey guys i just DUMPSTERED this shitter thanks to SpiderSense " + GameSense.MODVER;
+            message = "get shitted on by Spidersense! " + GameSense.MODVER;
 
         String messageSanitized = message.replaceAll("ยง", "").replace("{name}", name);
         if (messageSanitized.length() > 255) {
