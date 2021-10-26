@@ -3,7 +3,7 @@
 	"modid": "spidersense",
 	"name": "SpiderSense",
 	"description": "A continuation of the Legendary GameSense client called SpiderSense!",
-	"version": "${version}",
+	"version": "v2.3.9",
 	"mcversion": "1.12.2",
 	"url": "https://github.com/HausemasterIssue/spidersense",
 	"authorList": ["HausemasterIssue", "Go_Hoosiers", "CyberTF2", "lukflug", "auburnhud2", "Techale", "Christallinqq", "Aestheticall", "Perry."],
