@@ -1,14 +1,10 @@
 package com.gamesense.api.util.world;
 
 public class TickTimer {
-    private final Timer timer = new Timer();
+    private static Timer timer = new Timer();
 
-    public boolean passed(float ticks) {
-        return this.timer.passedMs(50L * (long) ticks);
-    }
-
-    public boolean passed(int ticks) {
-        return this.timer.passedMs(50L * ticks);
+    public static boolean passed(int ticks) {
+        return timer.passedMs(50L * ticks);
     }
 
     public TickTimer reset() {
