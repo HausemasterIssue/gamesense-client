@@ -63,9 +63,6 @@ public class Speed extends Module {
         }
 
         if (mc.player.onGround) {
-            if(useTimer.getValue()) {
-                EntityUtil.setTimer(1.15f);
-            }
             mc.player.jump();
             MotionUtil.setSpeed(mc.player, MotionUtil.getBaseMoveSpeed() + yPortSpeed.getValue());
         } else {
@@ -85,7 +82,6 @@ public class Speed extends Module {
             double speedY = jumpHeight.getValue();
 
             if (mc.player.onGround && MotionUtil.isMoving(mc.player) && timer.hasReached(300)) {
-                EntityUtil.setTimer(timerVal.getValue().floatValue());
                 if (mc.player.isPotionActive(MobEffects.JUMP_BOOST)) {
                     speedY += (Objects.requireNonNull(mc.player.getActivePotionEffect(MobEffects.JUMP_BOOST)).getAmplifier() + 1) * 0.1f;
                 }
