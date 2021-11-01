@@ -65,6 +65,7 @@ public class ModuleManager {
         addMod(new PortalChat());
         addMod(new PortalGodmode());
         addMod(new FastBreak());
+        addMod(new TickShift());
         addMod(new Timer());
         //Movement
         addMod(new AirJump());
