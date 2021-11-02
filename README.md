@@ -8,7 +8,8 @@
 <!-- INFORMATION -->
 
 #### About
-SpiderSense is my own personal fork of the GameSense client player assistance utility mod for Minecraft. The client is currently **Discontinued**. This doesn't mean it's completely dead, just there will not be any real updates or releases anymore.
+SpiderSense is my own personal fork of the GameSense client player assistance utility mod for Minecraft. Currently, the client is **Discontinued**.
+This doesn't mean it's completely dead; it just means there won't be any real updates or releases in the future. 
 
 My personal configs for the client can be found here: [Configs.zip](https://www.mediafire.com/file/ldmyjr8k9o6e38l/Configs.zip/file)
 
@@ -38,11 +39,10 @@ For Mac type in these commands
 
 <!-- CONTRIBUTING -->
 ## Contributing
-Make a pull request with the features you want to add and it will most likely be accepted.
+Make a pull request with the features you'd like to see added, and it will most likely be accepted.
 
 
 <!-- SUPPORT -->
 ## Support
-No further support will be offered. If you have any questions contact me at queueskip2b2t@gmail.com.
-
+There will be no further assistance provided. Please contact me at queueskip2b2t@gmail.com if you have any questions.
 
