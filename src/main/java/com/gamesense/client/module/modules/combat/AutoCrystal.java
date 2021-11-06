@@ -80,6 +80,8 @@ public class AutoCrystal extends Module {
     DoubleSetting minFacePlaceDmg = registerDouble("FacePlace Dmg", 2, 0, 10);
     BooleanSetting rotate = registerBoolean("Rotate", true);
     BooleanSetting raytrace = registerBoolean("Raytrace", false);
+    BooleanSetting strictDirection = registerBoolean("StrictDirection", true);
+    BooleanSetting buildHeight = registerBoolean("BuildHeight", true);	
     BooleanSetting showDamage = registerBoolean("Render Dmg", false);
     BooleanSetting outline = registerBoolean("Outline", false);
     ModeSetting hudDisplay = registerMode("HUD", Arrays.asList("Mode", "Target", "None"), "Mode");
@@ -325,13 +327,16 @@ public class AutoCrystal extends Module {
             if (raytrace.getValue() && enumFacing != null) {
 		// if raytrace is on place the crystal on the side that is calculated
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, enumFacing, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
-            } else if (crystal.crystal.getY() == 255) {
+            } else if (crystal.crystal.getY() == 255 && buildHeight.getValue()) {
 		// place the crystal at the bottom of the block at build heigh to bypass build limit
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.DOWN, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+            } else if (crystal.crystal.getY() > mc.player.getEntityBoundingBox().minY + mc.player.getEyeHeight() && strictDirection.getValue()){
+		// if the crystal is above us place at the bottom of it
+                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.DOWN, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));			
             } else {
-		// if were not at build height place the crystal at the top of the block
-                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.UP, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));			
-            }
+		// if its not at build height and not above us place at the top of the block    
+		mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.UP, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));    
+	    }
 
             if (ModuleManager.isModuleEnabled(AutoGG.class)) {
                 AutoGG.INSTANCE.addTargetedPlayer(renderEntity.getName());
