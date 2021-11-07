@@ -105,7 +105,6 @@ public class Spammer extends Module {
     Random rMotiv = new Random();
     int randomMotiv = rMotiv.nextInt(mMotiv.length);
     delay++;
-    funnePlace++;
     if (delay > (Integer) delaySeconds.getValue() * 20) {
         if(mode.getValue().equalsIgnoreCase("Toxic")) {
             mc.player.sendChatMessage(mToxic[randomToxic]);
@@ -120,6 +119,7 @@ public class Spammer extends Module {
             mc.player.sendChatMessage(mClients[randomClients]);
             funnePlace = 0;
         } else if (mode.getValue().equalsIgnoreCase("JaredVPopBob")) {
+            funnePlace++;
             mc.player.sendChatMessage(mFun[funnePlace]); 
         } else if (mode.getValue().equalsIgnoreCase("Motivation")) {
             mc.player.sendChatMessage(mMotiv[randomMotiv]);
