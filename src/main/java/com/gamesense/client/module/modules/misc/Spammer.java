@@ -24,6 +24,7 @@ public class Spammer extends Module {
   private int delay = 0;
   
   List msgsToxic = Arrays.asList("the 11 year old is getting swatted in vc LOL!", "my richness powered by spidersense", 
+                            "i hope your pillow is hot on both sides","i hope you get food stuck on your teeth",
                             "compare funds rn LOL!", "getting ur ip rn, gimme 1 sec", "pooron roflsauce", 
                             "im the KING rofl", "im richer than your entire bloodline nn", "SO POOR LOOOL",
                             "say one more world and im leaking ur dox LOL", "the irl goon squad is en route faggot",
