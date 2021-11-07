@@ -80,11 +80,11 @@ public class Spammer extends Module {
     if (this.delay > (Integer)this.delaySeconds.getValue() * 40) {
         if(mode.getValue().equalsIgnoreCase("Toxic")) {
             mc.player.sendChatMessage(randomElementToxic);
-        } else if (mode.getValue().equalsignoreCase("Advertise")) {
+        } else if (mode.getValue().equalsIgnoreCase("Advertise")) {
             mc.player.sendChatMessage(randomElementAd);
         } else if (mode.getValue().equalsIgnoreCase("AntiRacist")) {
             mc.player.sendChatMessage(randomElementRacist);
-        } else if (mode.getValue().equalsignoreCase("Clients")) {
+        } else if (mode.getValue().equalsIgnoreCase("Clients")) {
             mc.player.sendChatMessage(randomElementClients);
         }
       
