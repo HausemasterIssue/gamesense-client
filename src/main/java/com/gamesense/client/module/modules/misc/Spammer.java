@@ -62,7 +62,7 @@ public class Spammer extends Module {
                                    "Still using Inertia? Wow, that's sad.", "Nutgod.cc is so good", "LeuxBackdoor? You are a literal fucking monkey",
                                    "Hyperlethal is just Wurst+2", "Impact is a RAT I repeat IMPACT is a RAT!", "Meteor? Take a toaster bath please.",
                                    "SPIDERSENSE IS AT THE TIPPITY TOP OF ALL CLIENTS!");
-  private String[] msgsToxic = {"the 11 year old is getting swatted in vc LOL!", "my richness powered by spidersense", 
+  private String[] mToxic = {"the 11 year old is getting swatted in vc LOL!", "my richness powered by spidersense", 
                             "compare funds rn LOL!", "getting ur ip rn, gimme 1 sec", "pooron roflsauce", 
                             "im the KING rofl", "im richer than your entire bloodline nn", "SO POOR LOOOL",
                             "say one more world and im leaking ur dox LOL", "the irl goon squad is en route faggot",
@@ -73,7 +73,7 @@ public class Spammer extends Module {
                             "spidersense owns me and all LOL", "fundless faggot LEL!"};
   
   Random rToxic = new Random();
-  int randomitemToxic = rToxic.nextInt(msgsToxic.length());
+  int randomToxic = rToxic.nextInt(mToxic.length);
   Random rAd = new Random();
   int randomitemAd = rAd.nextInt(msgsAdvertise.size());
   String randomElementAd = (String) msgsAdvertise.get(randomitemAd);
@@ -89,7 +89,7 @@ public class Spammer extends Module {
     delay++;
     if (delay > (Integer) delaySeconds.getValue() * 20) {
         if(mode.getValue().equalsIgnoreCase("Toxic")) {
-            mc.player.sendChatMessage(msgsToxic[rToxic]);
+            mc.player.sendChatMessage(mToxic[randomToxic]);
         } else if (mode.getValue().equalsIgnoreCase("Advertise")) {
             mc.player.sendChatMessage(randomElementAd);
         } else if (mode.getValue().equalsIgnoreCase("AntiRacist")) {
