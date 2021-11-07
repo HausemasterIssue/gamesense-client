@@ -35,7 +35,7 @@ public class Spammer extends Module {
   List msgsAdvertise = Arrays.asList("SpiderSense owns me and all!", "The CA in SpiderSense is too fast bro!",
                                      "HausemasterIssue and his shitty client are so based!", "OMFG HOW IS SPIDERSENSE THIS GOOD???", 
                                      "SpiderSense makes me 500% better at CPVP!", "I just gained like, 3 000 000 funds from SpiderSense!", 
-                                     "SpiderSense is one of the BEST clients out there right now", "Bro your not using SpiderSense? Cringe."
+                                     "SpiderSense is one of the BEST clients out there right now", "Bro your not using SpiderSense? Cringe.",
                                      "RusherWHO? SpiderSense is on top!", "Switch to SpiderSense right now, it's amazing",
                                      "SpiderSense is so good bro, IDK why more people don't use it", "People just seem worse ever since I got SpiderSense"
                                      "TickShift and BowBomb are in SpiderSense!", "The crystal aura is so good on strict, like 10/10",
