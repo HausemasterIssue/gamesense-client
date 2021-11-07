@@ -10,7 +10,7 @@ import java.util.Random;
 
 /*
 * @author hausemasterissue
-* @since 6/11/2021
+* @since 7/11/2021
 * i had wayyy to much fun with this lol
 */
 
@@ -22,27 +22,6 @@ public class Spammer extends Module {
   IntegerSetting delaySeconds = registerInteger("Delay", 5, 0, 180);
   
   private int delay = 0;
-  
-
-  List msgsAntiRacist = Arrays.asList("BLACK LIVES MATTER!", "HAVE YOU POSTED YOUR BLACK SQUARE?", "#BLM",
-                                      "Racism is so cringe in 2021 bro", "Everyone is equal!", "WAO Supports BLM!", 
-                                      "HE IS RACIST!", "No more racism!", "Skin colors do not mean different people!",
-                                      "END WHITE SUPREMACY!", "There are going to be more whites than blacks in 2050!",
-                                      "Vote Obama 2024!", "Please, stop racism.", "Our fathers were racists, but WE WILL NOT BE!",
-                                      "Like living? Support BLM!", "FitMC, SalC1, Armorsmith and HausemasterIssue proudly support BLM!",
-                                      "Like being based like Travis? Support BLM TODAY!", "Stopping racism gives you +250 Social credit!",
-                                      "Asian, Black, Hispanic, or white, WE ARE ALL EQUAL!", "END RACISM! JOIN EMPERIUM!");
-  List msgsClients = Arrays.asList("Go kiss 0x22's ass more Future fag!", "Konas SRC was publicly leaked LOL!", "SalHack in 2021? Wow, you ARE a newfag",
-                                   "Wurst+ will always be the KING of all clients!", "Phobos? Never heard of it.", "FaxHax is real.", 
-                                   "RusherHack is good, go buy it at rusherhack.org", "Oyvey? Reconsider where your life is going please.",
-                                   "Abyss is an exit scam, you just wasted $20 ROFL", "Pyro = Salhack, sorry to break it to you.",
-                                   "Catalyst is pasted from Gishmod, and you paid $20 for it LEL!", "FencingF+2 is kinda hot ngl",
-                                   "Using one of QQ's cracks again? Enjoy the rat kid.", "You wasted $20 on 0xbackdoor- I meant Future client faggot",
-                                   "Stop skidding Oyvey, FOR FIVE SECONDS!", "RenoSense is a confirmed RAT, go wipe your PC STAT!",
-                                   "Yoink was ratted by his own rat once, how tragic.", "Literal apes use zopac's clients roflsauce", 
-                                   "Still using Inertia? Wow, that's sad.", "Nutgod.cc is so good", "LeuxBackdoor? You are a literal fucking monkey",
-                                   "Hyperlethal is just Wurst+2", "Impact is a RAT I repeat IMPACT is a RAT!", "Meteor? Take a toaster bath please.",
-                                   "SPIDERSENSE IS AT THE TIPPITY TOP OF ALL CLIENTS!");
   private String[] mToxic = {"the 11 year old is getting swatted in vc LOL!", "my richness powered by spidersense", 
                             "compare funds rn LOL!", "getting ur ip rn, gimme 1 sec", "pooron roflsauce", 
                             "im the KING rofl", "im richer than your entire bloodline nn", "SO POOR LOOOL",
@@ -61,32 +40,45 @@ public class Spammer extends Module {
                                      "TickShift and BowBomb are in SpiderSense!", "The crystal aura is so good on strict, like 10/10",
                                      "I went from being a peasnt to a KING with SpiderSense!", "I gained 67 IQ points from SpiderSense!",
                                      "SpiderSense is free, open source, and SAFE!", "github.com/hausemasterissue/spidersense 10/10 client"};
-  private String[] m
-  
-  Random rAd = new Random();
-  int randomitemAd = rAd.nextInt(msgsAdvertise.size());
-  String randomElementAd = (String) msgsAdvertise.get(randomitemAd);
-  Random rRacist = new Random();
-  int randomitemRacist = rRacist.nextInt(msgsAntiRacist.size());
-  String randomElementRacist = (String) msgsAntiRacist.get(randomitemRacist);
-  Random rClients = new Random();
-  int randomitemClients = rClients.nextInt(msgsClients.size());
-  String randomElementClients = (String) msgsClients.get(randomitemClients);
-  
-  
+  private String[] mRacist = {"BLACK LIVES MATTER!", "HAVE YOU POSTED YOUR BLACK SQUARE?", "#BLM",
+                                      "Racism is so cringe in 2021 bro", "Everyone is equal!", "WAO Supports BLM!", 
+                                      "HE IS RACIST!", "No more racism!", "Skin colors do not mean different people!",
+                                      "END WHITE SUPREMACY!", "There are going to be more whites than blacks in 2050!",
+                                      "Vote Obama 2024!", "Please, stop racism.", "Our fathers were racists, but WE WILL NOT BE!",
+                                      "Like living? Support BLM!", "FitMC, SalC1, Armorsmith and HausemasterIssue proudly support BLM!",
+                                      "Like being based like Travis? Support BLM TODAY!", "Stopping racism gives you +250 Social credit!",
+                                      "Asian, Black, Hispanic, or white, WE ARE ALL EQUAL!", "END RACISM! JOIN EMPERIUM!"};
+  private String[] mClients = {"Go kiss 0x22's ass more Future fag!", "Konas SRC was publicly leaked LOL!", "SalHack in 2021? Wow, you ARE a newfag",
+                                   "Wurst+ will always be the KING of all clients!", "Phobos? Never heard of it.", "FaxHax is real.", 
+                                   "RusherHack is good, go buy it at rusherhack.org", "Oyvey? Reconsider where your life is going please.",
+                                   "Abyss is an exit scam, you just wasted $20 ROFL", "Pyro = Salhack, sorry to break it to you.",
+                                   "Catalyst is pasted from Gishmod, and you paid $20 for it LEL!", "FencingF+2 is kinda hot ngl",
+                                   "Using one of QQ's cracks again? Enjoy the rat kid.", "You wasted $20 on 0xbackdoor- I meant Future client faggot",
+                                   "Stop skidding Oyvey, FOR FIVE SECONDS!", "RenoSense is a confirmed RAT, go wipe your PC STAT!",
+                                   "Yoink was ratted by his own rat once, how tragic.", "Literal apes use zopac's clients roflsauce", 
+                                   "Still using Inertia? Wow, that's sad.", "Nutgod.cc is so good", "LeuxBackdoor? You are a literal fucking monkey",
+                                   "Hyperlethal is just Wurst+2", "Impact is a RAT I repeat IMPACT is a RAT!", "Meteor? Take a toaster bath please.",
+                                   "SPIDERSENSE IS AT THE TIPPITY TOP OF ALL CLIENTS!"};
+
   public void onUpdate() {
     Random rToxic = new Random();
     int randomToxic = rToxic.nextInt(mToxic.length);
+    Random rAd = new Random();
+    int randomAd = rAd.nextInt(mAd.length);
+    Random rRacist = new Random();
+    int randomRacist = rRacist.nextInt(mRacist.length);
+    Random rClients = new Random();
+    int randomClients = rClients.nextInt(mClients.length);
     delay++;
     if (delay > (Integer) delaySeconds.getValue() * 20) {
         if(mode.getValue().equalsIgnoreCase("Toxic")) {
             mc.player.sendChatMessage(mToxic[randomToxic]);
         } else if (mode.getValue().equalsIgnoreCase("Advertise")) {
-            mc.player.sendChatMessage(randomElementAd);
+            mc.player.sendChatMessage(mAd[randomAd]);
         } else if (mode.getValue().equalsIgnoreCase("AntiRacist")) {
-            mc.player.sendChatMessage(randomElementRacist);
+            mc.player.sendChatMessage(mRacist[randomRacist]);
         } else if (mode.getValue().equalsIgnoreCase("Clients")) {
-            mc.player.sendChatMessage(randomElementClients);
+            mc.player.sendChatMessage(mClients[randomClients]);
         }
       
         delay = 0;
