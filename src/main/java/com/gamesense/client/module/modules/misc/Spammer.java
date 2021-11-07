@@ -119,8 +119,12 @@ public class Spammer extends Module {
             mc.player.sendChatMessage(mClients[randomClients]);
             funnePlace = 0;
         } else if (mode.getValue().equalsIgnoreCase("JaredVPopBob")) {
-            funnePlace++;
-            mc.player.sendChatMessage(mFun[funnePlace]); 
+            if(funnePlace < mFun.length) {
+                mc.player.sendChatMessage(mFun[funnePlace]); 
+                funnePlace++;
+            } else {
+                funnePlace = 0; 
+            }          
         } else if (mode.getValue().equalsIgnoreCase("Motivation")) {
             mc.player.sendChatMessage(mMotiv[randomMotiv]);
             funnePlace = 0;
