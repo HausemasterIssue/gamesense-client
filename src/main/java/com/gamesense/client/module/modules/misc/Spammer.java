@@ -37,7 +37,7 @@ public class Spammer extends Module {
                                      "SpiderSense makes me 500% better at CPVP!", "I just gained like, 3 000 000 funds from SpiderSense!", 
                                      "SpiderSense is one of the BEST clients out there right now", "Bro your not using SpiderSense? Cringe.",
                                      "RusherWHO? SpiderSense is on top!", "Switch to SpiderSense right now, it's amazing",
-                                     "SpiderSense is so good bro, IDK why more people don't use it", "People just seem worse ever since I got SpiderSense"
+                                     "SpiderSense is so good bro, IDK why more people don't use it", "People just seem worse ever since I got SpiderSense",
                                      "TickShift and BowBomb are in SpiderSense!", "The crystal aura is so good on strict, like 10/10",
                                      "I went from being a peasnt to a KING with SpiderSense!", "I gained 67 IQ points from SpiderSense!",
                                      "SpiderSense is free, open source, and SAFE!", "github.com/hausemasterissue/spidersense 10/10 client");
