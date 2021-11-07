@@ -74,7 +74,7 @@ public class Spammer extends Module {
                           "Your so fat your ancesters are losers too LMAO!\"", "No this continues for a few more minutes, but climaxes with Jared exlaiming: ",
                           "\"Go sniff paint you braindamaged kike\"", "Popbob responds, \"I will fuck your ass fag\"", "Jared says, \"Not if I fuck yours first!\"",
                           "To which popbob responds, \"Your too weak willed and feminine for that\"", "I want you to let that sink in for a moment", 
-                           "Now the rest of it, if you want to read through it go right ahead", "But I've just condensed the more colorful quotes for you"
+                           "Now the rest of it, if you want to read through it go right ahead", "But I've just condensed the more colorful quotes for you",
                            "\"Go play in traffic\"", "\"Your family should abanden you\"", "\"Go pray to God faggot\"", "\"Pop, your the result of countless generations of inbreeding\"", 
                            "\"Your more autsitic that Chris Chan\"", "\"He's going to autism himself into an autism white drwarf, he will then eventually collapse into an assburgers blackhole\"",
                            "\"Pop your too scared to even fight me at IMPS\"", "\"Everyone knows about your fetish for cross dressing Jared\"", 
