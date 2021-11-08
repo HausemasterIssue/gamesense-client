@@ -140,7 +140,7 @@ public class AutoCrystal extends Module {
         }
 
         // no longer target dead players
-        targets.removeIf(placeInfo -> placeInfo.target.entity.isDead || placeInfo.target.entity.getHealth() == 0);
+        targets.removeIf(placeInfo -> placeInfo.target.entity.isDead || placeInfo.target.entity.getHealth() == 0 || attacks >= && limit.getValue() || crystal.ticksExisted >= ticksExisted.getValue());
         if (breakCrystal(settings)) {
             if (placeCrystal(settings)) {
                 rotating = false;
@@ -181,9 +181,11 @@ public class AutoCrystal extends Module {
             }
             if (possibleCrystals.size() != 0) {
                 EntityEnderCrystal crystal = possibleCrystals.last().crystal;
+		/*    
 		if(attacks > 2 && limit.getValue()) {
 		    return false;
 		}
+		*/
                 if (mc.player.canEntityBeSeen(crystal) || mc.player.getDistance(crystal) < wallsRange.getValue()) {
                     if (antiWeakness.getValue() && mc.player.isPotionActive(MobEffects.WEAKNESS)) {
                         if (!isAttacking) {
@@ -202,7 +204,8 @@ public class AutoCrystal extends Module {
                     }
 		    
 		    // if the attack speed value has passed then break the crystals
-                    if (timer.getTimePassed() / 50L >= 20 - attackSpeed.getValue() && crystal.ticksExisted <= ticksExisted.getValue()) {
+                    if (timer.getTimePassed() / 50L >= 20 - attackSpeed.getValue()) {
+			//  && crystal.ticksExisted <= ticksExisted.getValue() put there here for now    
                         timer.reset();
 
                         rotating = rotate.getValue();
