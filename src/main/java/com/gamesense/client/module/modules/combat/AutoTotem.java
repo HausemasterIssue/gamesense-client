@@ -45,7 +45,7 @@ public class AutoTotem extends Module {
                 if (stacks == ItemStack.EMPTY)
                     continue;
                 Item itemTotem = Items.TOTEM_OF_UNDYING;
-                if (mc.player.getHeldItemOffhand().isEmpty()) {
+                if (mc.player.getHeldItemOffhand().getItem() != Items.TOTEM_OF_UNDYING) {
                     totemSwtichDelay++;
                         if (stacks.getItem() == itemTotem) {
                             if (totemSwtichDelay >= delay.getValue()) {
