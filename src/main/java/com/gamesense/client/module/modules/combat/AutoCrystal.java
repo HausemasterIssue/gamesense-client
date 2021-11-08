@@ -310,14 +310,14 @@ public class AutoCrystal extends Module {
 				           mc.player.inventory.currentItem = crystalSlot;
 					   rotating = false;
 					   this.switchCooldown = true;
-			              } else if (autoSwitch.getValue().equalsIgnoreCase("Silent")) {
+			              }
+						
+		            } else if (autoSwitch.getValue().equalsIgnoreCase("Silent")) {
 			                   InventoryUtil.switchTo(crystalSlot, true);
 					   rotating = false;
 					   this.switchCooldown = true;
 							
-				      }
-						
-		            }
+			    }
                 
                 return true;
             }
