@@ -181,7 +181,7 @@ public class AutoCrystal extends Module {
             }
             if (possibleCrystals.size() != 0) {
                 EntityEnderCrystal crystal = possibleCrystals.last().crystal;
-		if(attacks > 1 && limit.getValue()) {
+		if(attacks > 2 && limit.getValue()) {
 		    return false;
 		}
                 if (mc.player.canEntityBeSeen(crystal) || mc.player.getDistance(crystal) < wallsRange.getValue()) {
@@ -329,9 +329,11 @@ public class AutoCrystal extends Module {
             } else if (crystal.crystal.getY() == 255 && buildHeight.getValue()) {
 		// place the crystal at the bottom of the block at build heigh to bypass build limit
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.DOWN, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
-            } else if (crystal.crystal.getY() > mc.player.getEntityBoundingBox().minY + mc.player.getEyeHeight() && strictDirection.getValue()){
-		// if the crystal is above us place at the bottom of it
-                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.DOWN, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));			
+            } else if (crystal.crystal.getY() > mc.player.getEntityBoundingBox().minY + mc.player.getEyeHeight() && strictDirection.getValue()) {
+		if(mc.world.getBlockState(crystal.crystal.getPosition().down()).getBlock().equals(Blocks.AIR)) {
+			// if the crystal is above us place at the bottom of it
+                	mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.DOWN, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+		}			
             } else {
 		// if its not at build height and not above us place at the top of the block    
 		mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.UP, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));    
@@ -442,6 +444,10 @@ public class AutoCrystal extends Module {
         rotating = false;
 
         targets.clear();
+    }
+	
+    public BlockPos getPosition() {
+            return blockPos;
     }
 
     // hud information
