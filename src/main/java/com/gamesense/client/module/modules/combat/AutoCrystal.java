@@ -214,13 +214,13 @@ public class AutoCrystal extends Module {
                         int oldSlot = mc.player.inventory.currentItem;
                         
 			// limit, prevents you from hitting a crystal more than the max amount of times, prevents you from sending too many packets
-			attacks++;
                         swingArm();
                         if (breakType.getValue().equalsIgnoreCase("Swing")) {
                             mc.playerController.attackEntity(mc.player, crystal);
                         } else {
                             mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
                         }
+			attacks++;
 
                         if (cancelCrystal.getValue()) {
                             crystal.setDead();
