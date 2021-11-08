@@ -208,7 +208,7 @@ public class AutoCrystal extends Module {
                     if (timer.getTimePassed() / 50L >= 20 - attackSpeed.getValue()) {
                         timer.reset();
 			    
-			if(crystal.ticksExisted <= ticksExisted.getValue()) {
+			if(crystal.ticksExisted >= ticksExisted.getValue()) {
 				targets.remove(crystal)
 				return false;
 			}
