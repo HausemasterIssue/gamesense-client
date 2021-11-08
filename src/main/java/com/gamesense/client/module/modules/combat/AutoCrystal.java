@@ -100,6 +100,7 @@ public class AutoCrystal extends Module {
     Timer timer = new Timer();
     private Vec3d lastHitVec = Vec3d.ZERO;
     private boolean rotating = false;
+    private int attacks = 0;
     public boolean silent;
 
     // Threading Stuff
@@ -177,7 +178,12 @@ public class AutoCrystal extends Module {
                 if (breakInfo != null) {
                     possibleCrystals.add(breakInfo);
                 }
-		if(ticksExisted >
+		if(ticksExisted.getValue() < currentTarget.ticksExisted) {
+		    possibleCrystals.add(breakInfo);
+		}
+		if(attacks <= limit.getValue() {
+		    possibleCrystals.add(breakInfo);
+		}
             }
             if (possibleCrystals.size() != 0) {
                 EntityEnderCrystal crystal = possibleCrystals.last().crystal;
@@ -208,24 +214,18 @@ public class AutoCrystal extends Module {
                         int oldSlot = mc.player.inventory.currentItem;
                         
 			// limit, prevents you from hitting a crystal more than the max amount of times, prevents you from sending too many packets
-                        for(int tries = 0; tries < limit.getValue(); tries++) {
-                        	if(tries < limit.getValue()) {
-                        		if (breakType.getValue().equalsIgnoreCase("Swing")) {
-                                    swingArm();
-                                    mc.playerController.attackEntity(mc.player, crystal);
-                                } else {
-                                    swingArm();
-                                    mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
-                                }
+			attacks++;
+                        swingArm();
+                        if (breakType.getValue().equalsIgnoreCase("Swing")) {
+                            mc.playerController.attackEntity(mc.player, crystal);
+                        } else {
+                            mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
+                        }
 
-                                if (cancelCrystal.getValue()) {
-                                    crystal.setDead();
-                                    mc.world.removeAllEntities();
-                                    mc.world.getLoadedEntityList();
-                                }
-                        	} else {
-                        		return true;
-                        	}
+                        if (cancelCrystal.getValue()) {
+                            crystal.setDead();
+                            mc.world.removeAllEntities();
+                            mc.world.getLoadedEntityList();
                         }
                     }
                     return false;
