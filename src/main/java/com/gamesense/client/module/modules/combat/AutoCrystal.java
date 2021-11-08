@@ -182,10 +182,10 @@ public class AutoCrystal extends Module {
             if (possibleCrystals.size() != 0) {
                 EntityEnderCrystal crystal = possibleCrystals.last().crystal;
 		if(ticksExisted.getValue() >= crystal.ticksExisted) {
-		    return;
+		    return false;
 		}
 		if(attacks >= limit.getValue()) {
-		    return;
+		    return false;
 		}
                 if (mc.player.canEntityBeSeen(crystal) || mc.player.getDistance(crystal) < wallsRange.getValue()) {
                     if (antiWeakness.getValue() && mc.player.isPotionActive(MobEffects.WEAKNESS)) {
