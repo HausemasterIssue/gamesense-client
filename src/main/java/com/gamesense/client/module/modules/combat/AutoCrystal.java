@@ -178,15 +178,15 @@ public class AutoCrystal extends Module {
                 if (breakInfo != null) {
                     possibleCrystals.add(breakInfo);
                 }
-		if(ticksExisted.getValue() < currentTarget.ticksExisted) {
-		    possibleCrystals.add(breakInfo);
-		}
-		if(attacks <= limit.getValue()) {
-		    possibleCrystals.add(breakInfo);
-		}
             }
             if (possibleCrystals.size() != 0) {
                 EntityEnderCrystal crystal = possibleCrystals.last().crystal;
+		if(ticksExisted.getValue() >= crystal.ticksExisted) {
+		    return;
+		}
+		if(attacks >= limit.getValue()) {
+		    return;
+		}
                 if (mc.player.canEntityBeSeen(crystal) || mc.player.getDistance(crystal) < wallsRange.getValue()) {
                     if (antiWeakness.getValue() && mc.player.isPotionActive(MobEffects.WEAKNESS)) {
                         if (!isAttacking) {
