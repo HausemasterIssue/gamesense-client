@@ -181,7 +181,7 @@ public class AutoCrystal extends Module {
 		if(ticksExisted.getValue() < currentTarget.ticksExisted) {
 		    possibleCrystals.add(breakInfo);
 		}
-		if(attacks <= limit.getValue() {
+		if(attacks <= limit.getValue()) {
 		    possibleCrystals.add(breakInfo);
 		}
             }
