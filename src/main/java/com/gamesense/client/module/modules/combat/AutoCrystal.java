@@ -50,13 +50,22 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraft.init.Blocks;
 import java.util.*;
 
+/*
+* @authors: IUDevman, lukflug, auburnhud2, 0b00101010, linustouchtips, notperry1234567890, HausemasterIssue
+* @since: 8/10/2021
+* this autocrystal is so darn chinese and good at the same time. many things were pasted in this ca
+* so i can't give credit to them all, but creds to inferno and cosmos for the most help.
+*
+* this ca holds the world for the most chinese ca ever createdTM
+*/
+
 @Module.Declaration(name = "AutoCrystal", category = Category.Combat, priority = 100)
 public class AutoCrystal extends Module {
 
     ModeSetting breakMode = registerMode("Target", Arrays.asList("All", "Smart", "Own"), "Smart");
     ModeSetting handBreak = registerMode("Hand", Arrays.asList("Main", "Offhand", "Both"), "Main");
     ModeSetting breakType = registerMode("Type", Arrays.asList("Swing", "Packet"), "Swing");
-	ModeSetting timing = registerMode("Timing", Arrays.asList("Sequential", "Normal"), "Sequential");
+    ModeSetting timing = registerMode("Timing", Arrays.asList("Sequential", "Normal"), "Sequential");
     ModeSetting crystalPriority = registerMode("Prioritise", Arrays.asList("Damage", "Closest", "Health"), "Damage");
     BooleanSetting breakCrystal = registerBoolean("Break", true);
     BooleanSetting placeCrystal = registerBoolean("Place", true);
@@ -78,7 +87,7 @@ public class AutoCrystal extends Module {
     BooleanSetting cancelCrystal = registerBoolean("Cancel Crystal", false);
     DoubleSetting minDmg = registerDouble("Min Damage", 4, 0, 36);
     BooleanSetting limit = registerBoolean("Limit", false);
-	BooleanSetting inhibit = registerBoolean("Inhibit", true);
+    BooleanSetting inhibit = registerBoolean("Inhibit", true);
     IntegerSetting ticksExisted = registerInteger("TicksExisted", 1, 0, 20);
     DoubleSetting minBreakDmg = registerDouble("Min Break Dmg", 4, 0, 36.0);
     DoubleSetting maxSelfDmg = registerDouble("Max Self Dmg", 10, 1.0, 36.0);
@@ -103,7 +112,7 @@ public class AutoCrystal extends Module {
     public static boolean stopAC = false;
     private Entity renderEntity;
     private BlockPos render;
-	private BlockPos blockPos;
+    private BlockPos blockPos;
     Timer timer = new Timer();
     private Vec3d lastHitVec = Vec3d.ZERO;
     private boolean rotating = false;
@@ -127,7 +136,7 @@ public class AutoCrystal extends Module {
         }
 	    
 	    
-		// anti suicide
+	// anti suicide
         PlayerInfo player = new PlayerInfo(mc.player, false);
         if (antiSuicide.getValue() && player.health <= antiSuicideValue.getValue()) {
             return;
@@ -180,16 +189,18 @@ public class AutoCrystal extends Module {
                 possibleCrystals = new TreeSet<>(Comparator.comparingDouble((i) -> i.damage));
             }
 	
-			// calculate the best crystal to break
+	    // calculate the best crystal to break
             for (CrystalInfo.PlaceInfo currentTarget : currentTargets) {
                 CrystalInfo.BreakInfo breakInfo = ACUtil.calculateBestBreakable(settings, new PlayerInfo(currentTarget.target.entity, currentTarget.target.lowArmour), crystals);
                 if (breakInfo != null) {
                     possibleCrystals.add(breakInfo);
                 }
             }
+		
             if (possibleCrystals.size() != 0) {
 				crystal = possibleCrystals.last().crystal;
 				EntityEnderCrystal crystal = possibleCrystals.last().crystal;
+		    		// if the crystal has existed less than the amount of ticks it has to exist for dont target it
 				if(crystal.ticksExisted < ticksExisted.getValue()) {
 					return false;
 				}
@@ -211,7 +222,7 @@ public class AutoCrystal extends Module {
                         }
                     }
 		    
-					// if the attack speed value has passed then break the crystals
+		    // if the attack speed value has passed then break the crystals
                     if (timer.getTimePassed() / 50L >= 20 - attackSpeed.getValue()) {
                         timer.reset();
 			   
@@ -221,14 +232,13 @@ public class AutoCrystal extends Module {
 
                         int oldSlot = mc.player.inventory.currentItem;
                         
-						// limit, prevents you from hitting a crystal more than the max amount of times, prevents you from sending too many packets
                         swingArm();
                         if (breakType.getValue().equalsIgnoreCase("Swing")) {
                             mc.playerController.attackEntity(mc.player, crystal);
                         } else {
                             mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
                         }
-						attacks++;
+			attacks++;
 
                         if (cancelCrystal.getValue()) {
                             crystal.setDead();
@@ -244,7 +254,6 @@ public class AutoCrystal extends Module {
     }
 	
     private boolean placeCrystal(ACSettings settings) {
-		attacks = 0;
         // check to see if we are holding crystals or not
         int crystalSlot = mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL ? mc.player.inventory.currentItem : -1;
         if (crystalSlot == -1 && !Objects.equals(autoSwitch.getValue(), "Silent")) {
@@ -279,10 +288,10 @@ public class AutoCrystal extends Module {
 	
 	    // find the best placement
             for (CrystalInfo.PlaceInfo currentTarget : currentTargets) {
-                CrystalInfo.PlaceInfo placeInfo = ACUtil.calculateBestPlacement(settings, new PlayerInfo(currentTarget.target.entity, currentTarget.target.lowArmour), placements);
-                if (placeInfo != null) {
+                 CrystalInfo.PlaceInfo placeInfo = ACUtil.calculateBestPlacement(settings, new PlayerInfo(currentTarget.target.entity, currentTarget.target.lowArmour), placements);
+                 if (placeInfo != null) {
                     possiblePlacements.add(placeInfo);
-                }
+                 }
             }
             if (possiblePlacements.size() == 0) {
                 return true;
@@ -296,17 +305,17 @@ public class AutoCrystal extends Module {
             if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
 		            if(autoSwitch.getValue().equalsIgnoreCase("Normal")) {
 			              if(noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.GOLDEN_APPLE || noMiningSwitch.getValue() && PlayerUtil.isMining() || noMendingSwitch.getValue() && PlayerUtil.isMending()) {
-				                // return statement fucks it up so ill leave this empty for now
+				           // return statement fucks it up so ill leave this empty for now
 			              } else {
-				                mc.player.inventory.currentItem = crystalSlot;
-								rotating = false;
-								this.switchCooldown = true;
+				           mc.player.inventory.currentItem = crystalSlot;
+					   rotating = false;
+					   this.switchCooldown = true;
 			              } else if (autoSwitch.getValue().equalsIgnoreCase("Silent")) {
-			                InventoryUtil.switchTo(crystalSlot, true);
-							rotating = false;
-							this.switchCooldown = true;
+			                   InventoryUtil.switchTo(crystalSlot, true);
+					   rotating = false;
+					   this.switchCooldown = true;
 							
-						  }
+				      }
 						
 		            }
                 
@@ -315,7 +324,7 @@ public class AutoCrystal extends Module {
 
 	   
             EnumFacing enumFacing = null;
-			// raytrace calcs
+	    // raytrace calcs
             if (raytrace.getValue()) {
                 RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + (double) mc.player.getEyeHeight(), mc.player.posZ), new Vec3d((double) crystal.crystal.getX() + 0.5d, (double) crystal.crystal.getY() - 0.5d, (double) crystal.crystal.getZ() + 0.5d));
                 if (result == null || result.sideHit == null) {
@@ -336,27 +345,29 @@ public class AutoCrystal extends Module {
             rotating = rotate.getValue();
             lastHitVec = new Vec3d(crystal.crystal).add(0.5, 0.5, 0.5);
 
-			EnumFacing placementFacing = null;
+	    EnumFacing placementFacing = null;
             if (raytrace.getValue() && enumFacing != null) {
-				// if raytrace is on place the crystal on the side that is calculated
+		// if raytrace is on place the crystal on the side that is calculated
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, enumFacing, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
-				// play the block placing animation
-				strictAnim();
+		// play the block placing animation
+		strictAnim();
             } else if (crystal.crystal.getY() == 255 && buildHeight.getValue()) {
-				// place the crystal at the bottom of the block at build heigh to bypass build limit
+		// place the crystal at the bottom of the block at build heigh to bypass build limit
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.DOWN, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
-				strictAnim();
+		strictAnim();
             } else if (crystal.crystal.getY() > mc.player.getEntityBoundingBox().minY + mc.player.getEyeHeight() && strictDirection.getValue()) {
-				// find the best side of the block to place on and place there idrk know how this works but it works really damn good so ill keep this
-				RayTraceResult lowestResult = mc.world.rayTraceBlocks(mc.player.getPositionEyes(1), lastHitVec);
+		// find the best side of the block to place on and place there idrk know how this works but it works really damn good so ill keep this
+		RayTraceResult lowestResult = mc.world.rayTraceBlocks(mc.player.getPositionEyes(1), lastHitVec);
                 placementFacing = (lowestResult == null || lowestResult.sideHit == null) ? EnumFacing.DOWN : lowestResult.sideHit;
-				mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, placementFacing, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));		
-				strictAnim();
+		mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, placementFacing, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));		
+		strictAnim();
             } else {
-				// if its not at build height and not above us place at the top of the block    
-				mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.UP, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
-				strictAnim();		
+		// if its not at build height and not above us place at the top of the block    
+		mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.UP, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+		strictAnim();		
 	    }
+		
+	    attacks = 0;
 
             if (ModuleManager.isModuleEnabled(AutoGG.class)) {
                 AutoGG.INSTANCE.addTargetedPlayer(renderEntity.getName());
@@ -376,7 +387,7 @@ public class AutoCrystal extends Module {
             }
         }
 
-		// show damage
+	// show damage
         if(showDamage.getValue()) {
             if (this.render != null && this.renderEntity != null) {
                 String[] damageText = {String.format("%.1f", DamageUtil.calculateDamage((double) render.getX() + 0.5d, (double) render.getY() + 1.0d, (double) render.getZ() + 0.5d, renderEntity))};
@@ -497,7 +508,7 @@ public class AutoCrystal extends Module {
 		}
     });
 	
-	@SuppressWarnings("unused")
+    @SuppressWarnings("unused")
     @EventHandler
     private final Listener<EntityRemoveEvent> eRemoveEvent = new Listener<>(event -> {
         if (crystal.equals(event.getEntity())) {
@@ -523,14 +534,14 @@ public class AutoCrystal extends Module {
 		return blockPos;
 	}
 	
-	// swing the hands to create an animation, needed for strict i think
-	public void strictAnim() {
-		if(mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
-			mc.player.swingArm(EnumHand.OFF_HAND);
-		} else {
-			mc.player.swingArm(EnumHand.MAIN_HAND);
-		}
+   // swing the hands to create an animation, needed for strict i think
+   public void strictAnim() {
+	if(mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
+		mc.player.swingArm(EnumHand.OFF_HAND);
+	} else {
+		mc.player.swingArm(EnumHand.MAIN_HAND);
 	}
+    }
 
     // hud information
     public String getHudInfo() {
