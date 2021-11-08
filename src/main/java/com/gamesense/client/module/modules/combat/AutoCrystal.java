@@ -72,7 +72,7 @@ public class AutoCrystal extends Module {
     public BooleanSetting endCrystalMode = registerBoolean("1.13 Place", false);
     BooleanSetting cancelCrystal = registerBoolean("Cancel Crystal", false);
     DoubleSetting minDmg = registerDouble("Min Damage", 4, 0, 36);
-    IntegerSetting limit = registerInteger("Limit", 1, 0, 10);
+    BooleanSetting limit = registerBoolean("Limit", false);
     IntegerSetting ticksExisted = registerInteger("TicksExisted", 1, 0, 20);
     DoubleSetting minBreakDmg = registerDouble("Min Break Dmg", 4, 0, 36.0);
     DoubleSetting maxSelfDmg = registerDouble("Max Self Dmg", 10, 1.0, 36.0);
@@ -181,10 +181,7 @@ public class AutoCrystal extends Module {
             }
             if (possibleCrystals.size() != 0) {
                 EntityEnderCrystal crystal = possibleCrystals.last().crystal;
-		if(ticksExisted.getValue() >= crystal.ticksExisted) {
-		    return false;
-		}
-		if(attacks >= limit.getValue()) {
+		if(attacks >= 1 && limit.getValue()) {
 		    return false;
 		}
                 if (mc.player.canEntityBeSeen(crystal) || mc.player.getDistance(crystal) < wallsRange.getValue()) {
@@ -205,7 +202,7 @@ public class AutoCrystal extends Module {
                     }
 		    
 		    // if the attack speed value has passed then break the crystals
-                    if (timer.getTimePassed() / 50L >= 20 - attackSpeed.getValue()) {
+                    if (timer.getTimePassed() / 50L >= 20 - attackSpeed.getValue() && crystal.ticksExisted <= ticksExisted.getValue()) {
                         timer.reset();
 
                         rotating = rotate.getValue();
@@ -228,11 +225,11 @@ public class AutoCrystal extends Module {
                             mc.world.getLoadedEntityList();
                         }
                     }
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 	
     private boolean placeCrystal(ACSettings settings) {
