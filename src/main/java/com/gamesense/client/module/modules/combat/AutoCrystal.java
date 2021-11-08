@@ -73,6 +73,7 @@ public class AutoCrystal extends Module {
     BooleanSetting cancelCrystal = registerBoolean("Cancel Crystal", false);
     DoubleSetting minDmg = registerDouble("Min Damage", 4, 0, 36);
     IntegerSetting limit = registerInteger("Limit", 1, 0, 10);
+    IntegerSetting ticksExisted = registerInteger("TicksExisted", 1, 0, 20);
     DoubleSetting minBreakDmg = registerDouble("Min Break Dmg", 4, 0, 36.0);
     DoubleSetting maxSelfDmg = registerDouble("Max Self Dmg", 10, 1.0, 36.0);
     IntegerSetting facePlaceValue = registerInteger("FacePlace HP", 8, 0, 36);
@@ -176,6 +177,7 @@ public class AutoCrystal extends Module {
                 if (breakInfo != null) {
                     possibleCrystals.add(breakInfo);
                 }
+		if(ticksExisted >
             }
             if (possibleCrystals.size() != 0) {
                 EntityEnderCrystal crystal = possibleCrystals.last().crystal;
