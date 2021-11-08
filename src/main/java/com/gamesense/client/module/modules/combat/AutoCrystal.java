@@ -209,7 +209,7 @@ public class AutoCrystal extends Module {
                         timer.reset();
 			    
 			if(crystal.ticksExisted >= ticksExisted.getValue()) {
-				targets.remove(crystal)
+				targets.remove(crystal);
 				return false;
 			}
 
