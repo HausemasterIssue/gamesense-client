@@ -181,7 +181,7 @@ public class AutoCrystal extends Module {
             }
             if (possibleCrystals.size() != 0) {
                 EntityEnderCrystal crystal = possibleCrystals.last().crystal;
-		if(attacks >= 1 && limit.getValue()) {
+		if(attacks > 1 && limit.getValue()) {
 		    return false;
 		}
                 if (mc.player.canEntityBeSeen(crystal) || mc.player.getDistance(crystal) < wallsRange.getValue()) {
@@ -225,11 +225,11 @@ public class AutoCrystal extends Module {
                             mc.world.getLoadedEntityList();
                         }
                     }
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 	
     private boolean placeCrystal(ACSettings settings) {
