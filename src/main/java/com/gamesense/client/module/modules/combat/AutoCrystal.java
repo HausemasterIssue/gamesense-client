@@ -450,10 +450,6 @@ public class AutoCrystal extends Module {
 
         targets.clear();
     }
-	
-    public BlockPos getPosition() {
-            return blockPos;
-    }
 
     // hud information
     public String getHudInfo() {
