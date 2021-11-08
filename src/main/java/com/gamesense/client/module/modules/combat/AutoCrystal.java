@@ -141,7 +141,7 @@ public class AutoCrystal extends Module {
         }
 
         // no longer target dead players
-        targets.removeIf(placeInfo -> placeInfo.target.entity.isDead || placeInfo.target.entity.getHealth() == 0 || attacks >= && limit.getValue() || crystal.ticksExisted >= ticksExisted.getValue());
+        targets.removeIf(placeInfo -> placeInfo.target.entity.isDead || placeInfo.target.entity.getHealth() == 0 || attacks >= 2 && limit.getValue() || crystal.ticksExisted >= ticksExisted.getValue());
         if (breakCrystal(settings)) {
             if (placeCrystal(settings)) {
                 rotating = false;
