@@ -4,6 +4,7 @@ import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.util.player.social.SocialManager;
 import com.gamesense.api.util.player.RotationUtil;
 import com.gamesense.api.util.player.PlayerPacket;
+import com.gamesense.client.manager.managers.PlayerPacketManager;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.client.entity.EntityPlayerSP;
