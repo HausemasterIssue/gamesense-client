@@ -12,7 +12,7 @@ public class PlayerPacket {
     private final Vec2f rotation;
 
     public PlayerPacket(Module module, Vec2f rotation) {
-        this(null, rotation);
+        this(module, null, rotation);
     }
    
     public PlayerPacket(Module module, Vec3d position) {
