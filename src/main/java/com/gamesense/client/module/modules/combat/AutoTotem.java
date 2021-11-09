@@ -99,10 +99,11 @@ public class AutoTotem extends Module {
                             }
                         }
                     }*/ if (InventoryUtil.isHolding(Items.DIAMOND_SWORD) && forceGapple.getValue() && Mouse.isButtonDown(1)) {
+			gappling = true;
                     	totemSwtichDelay++;
                         if (stacks.getItem() == itemGap) {
                             if (totemSwtichDelay >= delay.getValue()) {
-				gappling = true;
+				
                             	if(motionStrict.getValue() && MotionUtil.isMovingPlayer()) {
                             		mc.player.motionX = 0;
                             		mc.player.motionY = 0;
