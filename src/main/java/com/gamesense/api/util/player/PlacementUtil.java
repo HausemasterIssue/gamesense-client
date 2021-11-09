@@ -133,7 +133,9 @@ public class PlacementUtil {
         }
 
         if (rotate) {
-            BlockUtil.faceVectorPacketInstant(hitVec, false);
+            Vec2f rotation = RotationUtil.getRotationTo(vec);
+            PlayerPacket packet = new PlayerPacket(null, rotation);
+            PlayerPacketManager.INSTANCE.addPacket(packet);
         }
 
         EnumActionResult action = playerController.processRightClickBlock(player, world, neighbour, opposite, hitVec, hand);
