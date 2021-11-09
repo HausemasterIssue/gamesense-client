@@ -102,10 +102,10 @@ public class ModuleManager {
         addMod(new Nametags());
         addMod(new NoBob()); // rewrite?? no fucking clue
         addMod(new NoRender());
-        addMod(new RenderTweaks()); // make ViewClip its own module
         addMod(new ShulkerViewer());
         addMod(new SmallShield()); // stupid asf, but hause insists
         addMod(new Tracers());
+        addMod(new ViewClip());
         addMod(new ViewModel());
         addMod(new VoidESP());
         addMod(new Xray());

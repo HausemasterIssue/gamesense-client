@@ -3,7 +3,7 @@ package com.gamesense.mixin.mixins;
 import com.gamesense.client.module.ModuleManager;
 import com.gamesense.client.module.modules.misc.NoEntityTrace;
 import com.gamesense.client.module.modules.render.NoRender;
-import com.gamesense.client.module.modules.render.RenderTweaks;
+import com.gamesense.client.module.modules.render.ViewClip;
 import com.google.common.base.Predicate;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -25,9 +25,7 @@ public class MixinEntityRenderer {
 
     @Redirect(method = "orientCamera", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/WorldClient;rayTraceBlocks(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/util/math/RayTraceResult;"))
     public RayTraceResult rayTraceBlocks(WorldClient world, Vec3d start, Vec3d end) {
-        RenderTweaks renderTweaks = ModuleManager.getModule(RenderTweaks.class);
-
-        if (renderTweaks.isEnabled() && renderTweaks.viewClip.getValue()) {
+        if (ModuleManager.isModuleEnabled(ViewClip.class)) {
             return null;
         } else {
             return world.rayTraceBlocks(start, end);
