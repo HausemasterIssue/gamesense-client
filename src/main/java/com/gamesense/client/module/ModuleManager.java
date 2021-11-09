@@ -82,8 +82,7 @@ public class ModuleManager {
         addMod(new FastUse()); // this can just be merged with PacketUse... man wtf
         addMod(new FakePlayer());
         addMod(new HotbarRefill());
-        addMod(new MCF()); // merge -> MiddleClick
-        addMod(new MCP()); // merge -> MiddleClick
+        addMod(new MiddleClick());
         addMod(new NoEntityTrace());
         addMod(new PvPInfo());
         addMod(new Scaffold()); // rewrite, idk what hause did to my poor scaffold
