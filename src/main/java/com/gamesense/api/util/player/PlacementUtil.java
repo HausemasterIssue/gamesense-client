@@ -134,8 +134,8 @@ public class PlacementUtil {
 
         if (rotate) {
             Vec2f rotation = RotationUtil.getRotationTo(hitVec);
-            PlayerPacket packet = new PlayerPacket(null, rotation);
-            PlayerPacketManager.INSTANCE.addPacket(packet);
+            PlayerPacket packet1 = new PlayerPacket(null, rotation);
+            PlayerPacketManager.INSTANCE.addPacket(packet1);
         }
 
         EnumActionResult action = playerController.processRightClickBlock(player, world, neighbour, opposite, hitVec, hand);
@@ -192,8 +192,8 @@ public class PlacementUtil {
 
         if (rotate && !support) {
             Vec2f rotation = RotationUtil.getRotationTo(hitVec);
-            PlayerPacket packet = new PlayerPacket(null, rotation);
-            PlayerPacketManager.INSTANCE.addPacket(packet);
+            PlayerPacket packet2 = new PlayerPacket(null, rotation);
+            PlayerPacketManager.INSTANCE.addPacket(packet2);
         }
 
         if (!onlyRotation) {
@@ -252,8 +252,8 @@ public class PlacementUtil {
 
         if (rotate) {
             Vec2f rotation = RotationUtil.getRotationTo(hitVec);
-            PlayerPacket packet = new PlayerPacket(null, rotation);
-            PlayerPacketManager.INSTANCE.addPacket(packet);
+            PlayerPacket packet3 = new PlayerPacket(null, rotation);
+            PlayerPacketManager.INSTANCE.addPacket(packet3);
         }
 
         if (packet) {
