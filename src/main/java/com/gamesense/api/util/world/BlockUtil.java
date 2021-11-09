@@ -66,11 +66,8 @@ public class BlockUtil {
 
     public static void faceVectorPacketInstant(Vec3d vec, Boolean roundAngles) {
         float[] rotations = getNeededRotations2(vec);
-        Vec2f rotation = RotationUtil.getRotationTo(vec);
-        PlayerPacket packet = new PlayerPacket(null, rotation);
-        PlayerPacketManager.INSTANCE.addPacket(packet);
+
         mc.player.connection.sendPacket(new CPacketPlayer.Rotation(rotations[0], roundAngles ? MathHelper.normalizeAngle((int) rotations[1], 360) : rotations[1], mc.player.onGround));
-        
     }
 
     private static float[] getNeededRotations2(Vec3d vec) {
