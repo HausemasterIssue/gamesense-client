@@ -20,7 +20,6 @@ import java.util.Arrays;
 
 @Module.Declaration(name = "MiddleClick", category = Category.Misc)
 public class MiddleClick extends Module {
-    
     ModeSetting swap = registerMode("Swap", Arrays.asList("Silent", "Legit"), "Silent");
     BooleanSetting friend = registerBoolean("Friend", true);
     BooleanSetting pearl = registerBoolean("Pearl", false);
@@ -41,21 +40,12 @@ public class MiddleClick extends Module {
                 }
             } else if (result.typeOfHit == RayTraceResult.Type.MISS) {
                 if (pearl.getValue()) {
-                    int oldSlot = mc.player.inventory.currentItem;
                     int pearlSlot = InventoryUtil.findFirstItemSlot(ItemEnderPearl.class, 0, 8);
-
                     if (pearlSlot != -1) {
-                        oldSlot = mc.player.inventory.currentItem;
-                    	mc.player.connection.sendPacket(new CPacketHeldItemChange(pearlSlot));
-                    	if(swap.getValue().equalsIgnoreCase("Legit")) {
-                    		mc.player.inventory.currentItem = pearlSlot;
-                    	}
-                    	mc.playerController.updateController();	
+                        int oldSlot = mc.player.inventory.currentItem;
+                        InventoryUtil.switchTo(pearlSlot, this.swap.getValue().equalsIgnoreCase("silent"));
                         mc.rightClickMouse();
-                        mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
-                    	if(swap.getValue().equalsIgnoreCase("Legit")) {
-                    		mc.player.inventory.currentItem = oldSlot;
-                    	}
+                        InventoryUtil.switchTo(oldSlot, this.swap.getValue().equalsIgnoreCase("silent"));
                     	mc.playerController.updateController();
                     }
                 }
