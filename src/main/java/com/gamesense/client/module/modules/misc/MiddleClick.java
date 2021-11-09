@@ -1,6 +1,7 @@
 package com.gamesense.client.module.modules.misc;
 
 import com.gamesense.api.setting.values.BooleanSetting;
+import com.gamesense.api.setting.values.ModeSetting;
 import com.gamesense.api.util.misc.MessageBus;
 import com.gamesense.api.util.player.InventoryUtil;
 import com.gamesense.api.util.player.social.SocialManager;
@@ -13,10 +14,14 @@ import me.zero.alpine.listener.Listener;
 import net.minecraft.item.ItemEnderPearl;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
 import org.lwjgl.input.Mouse;
+import java.util.Arrays;
 
 @Module.Declaration(name = "MiddleClick", category = Category.Misc)
 public class MiddleClick extends Module {
+    
+    ModeSetting swap = registerMode("Swap", Arrays.asList("Silent", "Legit"), "Silent");
     BooleanSetting friend = registerBoolean("Friend", true);
     BooleanSetting pearl = registerBoolean("Pearl", false);
 
@@ -40,9 +45,17 @@ public class MiddleClick extends Module {
                     int pearlSlot = InventoryUtil.findFirstItemSlot(ItemEnderPearl.class, 0, 8);
 
                     if (pearlSlot != -1) {
-                        mc.player.inventory.currentItem = pearlSlot;
+                    	mc.player.connection.sendPacket(new CPacketHeldItemChange(pearlSlot));
+                    	if(swap.getValue().equalsIgnoreCase("Legit")) {
+                    		mc.player.inventory.currentItem = pearlSlot;
+                    	}
+                    	mc.playerController.updateController();	
                         mc.rightClickMouse();
-                        mc.player.inventory.currentItem = oldSlot;
+                        mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
+                    	if(swap.getValue().equalsIgnoreCase("Legit")) {
+                    		mc.player.inventory.currentItem = oldSlot;
+                    	}
+                    	mc.playerController.updateController();
                     }
                 }
             }
