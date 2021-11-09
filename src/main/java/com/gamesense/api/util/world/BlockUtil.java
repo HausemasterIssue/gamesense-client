@@ -1,5 +1,8 @@
 package com.gamesense.api.util.world;
 
+import com.gamesense.api.util.player.PlayerPacket;
+import com.gamesense.api.util.player.RotationUtil;
+import com.gamesense.client.manager.managers.PlayerPacketManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -9,7 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-
+import net.minecraft.util.math.Vec2f;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,9 +65,9 @@ public class BlockUtil {
     }
 
     public static void faceVectorPacketInstant(Vec3d vec, Boolean roundAngles) {
-        float[] rotations = getNeededRotations2(vec);
-
-        mc.player.connection.sendPacket(new CPacketPlayer.Rotation(rotations[0], roundAngles ? MathHelper.normalizeAngle((int) rotations[1], 360) : rotations[1], mc.player.onGround));
+        Vec2f rotation = RotationUtil.getRotationTo(vec);
+        PlayerPacket packet = new PlayerPacket(null, rotation);
+        PlayerPacketManager.INSTANCE.addPacket(packet);
     }
 
     private static float[] getNeededRotations2(Vec3d vec) {
