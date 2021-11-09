@@ -1,7 +1,6 @@
 package com.gamesense.client.module;
 
 import com.gamesense.client.module.modules.combat.*;
-import com.gamesense.client.module.modules.combat.Spammer;
 import com.gamesense.client.module.modules.exploits.*;
 import com.gamesense.client.module.modules.gui.ClickGuiModule;
 import com.gamesense.client.module.modules.gui.ColorMain;
