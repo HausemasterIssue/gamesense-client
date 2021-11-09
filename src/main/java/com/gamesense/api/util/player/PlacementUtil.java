@@ -3,6 +3,9 @@ package com.gamesense.api.util.player;
 import com.gamesense.api.util.world.BlockUtil;
 import com.gamesense.client.module.ModuleManager;
 import com.gamesense.client.module.modules.combat.AutoCrystal;
+import com.gamesense.api.util.player.RotationUtil;
+import com.gamesense.client.manager.managers.PlayerPacketManager;
+import com.gamesense.api.util.player.PlayerPacket;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -16,6 +19,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec2f;
 
 import java.util.ArrayList;
 
@@ -129,7 +133,9 @@ public class PlacementUtil {
         }
 
         if (rotate) {
-            BlockUtil.faceVectorPacketInstant(hitVec, true);
+            Vec2f rotation = RotationUtil.getRotationTo(hitVec);
+            PlayerPacket packetRot = new PlayerPacket(rotation);
+            PlayerPacketManager.INSTANCE.addPacket(packetRot);
         }
 
         EnumActionResult action = playerController.processRightClickBlock(player, world, neighbour, opposite, hitVec, hand);
