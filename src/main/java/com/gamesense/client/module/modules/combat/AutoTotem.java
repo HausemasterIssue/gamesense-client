@@ -41,6 +41,7 @@ public class AutoTotem extends Module {
     private Item itemFallback = null;
     private Item itemDefault = null;
     private Item itemTotem = Items.TOTEM_OF_UNDYING;
+    private int gappling = false;
 
 
     @Override
@@ -110,7 +111,7 @@ public class AutoTotem extends Module {
                                 totemSwtichDelay = 0;
                             }
                         }
-                    } else {
+                    } else if (mc.player.getHeldItemOffhand().getItem() != itemTotem && !gappling) {
                     	totemSwtichDelay++;
                         if (stacks.getItem() == itemDefault) {
                             if (totemSwtichDelay >= delay.getValue()) {
