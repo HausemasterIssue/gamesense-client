@@ -36,17 +36,17 @@ public class ModuleManager {
         addMod(new CevBreaker());
         addMod(new Criticals());
         addMod(new HoleFill());
-        addMod(new OffHand());
+        addMod(new OffHand()); // rewrite
         addMod(new PistonCrystal());
         addMod(new Quiver()); // rewrite
-        addMod(new SelfFill());
+        addMod(new SelfFill()); // why did he remove my selffill? it worked fine, it just didnt have a no block push... hause ur stupid sometimes
         addMod(new SelfWeb());
         //Exploits
         addMod(new AntiHunger());
-        addMod(new EntityAlert());
-        addMod(new MultiTask());
+        addMod(new EntityAlert()); // debatable, useless but he insists
+        addMod(new MultiTask()); // rewrite
         addMod(new NoInteract());
-        addMod(new PingSpoof());
+        addMod(new PingSpoof()); // rewrite
         addMod(new PortalChat());
         addMod(new FastBreak());
         addMod(new TickShift());
@@ -56,13 +56,13 @@ public class ModuleManager {
         addMod(new AntiLevitation());
         addMod(new AntiVoid());
         addMod(new AntiWeb());
-        addMod(new AutoWalk());
+        addMod(new AutoWalk()); // this isnt needed, but whatever
         addMod(new BoatFly());
         addMod(new ElytraFly());
         addMod(new EntityControl());
-        addMod(new EntitySpeed());
-        addMod(new Blink());
-        addMod(new FastSwim());
+        addMod(new EntitySpeed()); // merge with EntityControl
+        addMod(new Blink()); // rewrite, probably shit code + no modes
+        addMod(new FastSwim()); // probs remove, its probs chinese
         addMod(new NoFall());
         addMod(new NoSlow());
         addMod(new ReverseStep());
@@ -72,21 +72,21 @@ public class ModuleManager {
         addMod(new Velocity());
         //Misc
         addMod(new Announcer());
-        addMod(new AntiAFK());
-        addMod(new AutoEat());
+        addMod(new AntiAFK()); // rewrite
+        addMod(new AutoEat()); // wtf, you cant hold down right click?
         addMod(new AutoGG());
         addMod(new AutoRespawn());
-        addMod(new AutoTool());
+        addMod(new AutoTool()); // why
         addMod(new ChatModifier());
         addMod(new ChatSuffix());
-        addMod(new FastUse());
+        addMod(new FastUse()); // this can just be merged with PacketUse... man wtf
         addMod(new FakePlayer());
         addMod(new HotbarRefill());
         addMod(new MCF()); // merge -> MiddleClick
         addMod(new MCP()); // merge -> MiddleClick
         addMod(new NoEntityTrace());
         addMod(new PvPInfo());
-        addMod(new Scaffold());
+        addMod(new Scaffold()); // rewrite, idk what hause did to my poor scaffold
         addMod(new Spammer());
         addMod(new XCarry());
         //Render
@@ -100,11 +100,11 @@ public class ModuleManager {
         addMod(new HoleESP());
         addMod(new LogoutSpots());
         addMod(new Nametags());
-        addMod(new NoBob());
+        addMod(new NoBob()); // rewrite?? no fucking clue
         addMod(new NoRender());
-        addMod(new RenderTweaks());
+        addMod(new RenderTweaks()); // make ViewClip its own module
         addMod(new ShulkerViewer());
-        addMod(new SmallShield());
+        addMod(new SmallShield()); // stupid asf, but hause insists
         addMod(new Tracers());
         addMod(new ViewModel());
         addMod(new VoidESP());
