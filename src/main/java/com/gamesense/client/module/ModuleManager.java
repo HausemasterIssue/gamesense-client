@@ -60,7 +60,6 @@ public class ModuleManager {
         addMod(new BoatFly());
         addMod(new ElytraFly()); // improve (stop the player from constantly falling + add boost mode)
         addMod(new EntityControl()); // fix entitycontrol mixins
-        addMod(new EntitySpeed()); // merge with EntityControl
         addMod(new Blink()); // rewrite, probably shit code + no modes
         addMod(new FastSwim()); // current code works okay but could use a lot of rewriting and improving
         addMod(new NoFall());
