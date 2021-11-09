@@ -42,6 +42,7 @@ public class AutoTotem extends Module {
     private Item itemDefault = null;
     private Item itemTotem = Items.TOTEM_OF_UNDYING;
     private boolean gappling = false;
+    private boolean handFallback = false;
 	
 
     @Override
@@ -100,6 +101,7 @@ public class AutoTotem extends Module {
                     	totemSwtichDelay++;
                         if (stacks.getItem() == itemGap) {
                             if (totemSwtichDelay >= delay.getValue()) {
+				gappling = true;
                             	if(motionStrict.getValue() && MotionUtil.isMovingPlayer()) {
                             		mc.player.motionX = 0;
                             		mc.player.motionY = 0;
@@ -109,9 +111,10 @@ public class AutoTotem extends Module {
                                 mc.playerController.windowClick(0, i, 1, ClickType.PICKUP, mc.player);
                                 mc.playerController.windowClick(0, 45, 1, ClickType.PICKUP, mc.player);
                                 totemSwtichDelay = 0;
+				gappling = false;
                             }
                         }
-                    } else if (mc.player.getHeldItemOffhand().getItem() != itemTotem && !gappling) {
+                    } else if (mc.player.getHeldItemOffhand().getItem() != itemTotem && mc.player.getHealth() <= health.getValue() && gappling == false) {
                     	totemSwtichDelay++;
                         if (stacks.getItem() == itemDefault) {
                             if (totemSwtichDelay >= delay.getValue()) {
