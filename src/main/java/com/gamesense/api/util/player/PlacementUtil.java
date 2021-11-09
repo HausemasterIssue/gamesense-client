@@ -191,7 +191,9 @@ public class PlacementUtil {
         }
 
         if (rotate && !support) {
-            BlockUtil.faceVectorPacketInstant(precise == null ? hitVec : precise, true);
+            Vec2f rotation = RotationUtil.getRotationTo(hitVec);
+            PlayerPacket packet = new PlayerPacket(null, rotation);
+            PlayerPacketManager.INSTANCE.addPacket(packet);
         }
 
         if (!onlyRotation) {
@@ -249,7 +251,9 @@ public class PlacementUtil {
         }
 
         if (rotate) {
-            BlockUtil.faceVectorPacketInstant(hitVec, true);
+            Vec2f rotation = RotationUtil.getRotationTo(hitVec);
+            PlayerPacket packet = new PlayerPacket(null, rotation);
+            PlayerPacketManager.INSTANCE.addPacket(packet);
         }
 
         if (packet) {
