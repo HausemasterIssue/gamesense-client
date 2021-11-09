@@ -82,6 +82,7 @@ public class AutoTotem extends Module {
                 	itemDefault = Items.END_CRYSTAL;
                 }
                 
+		/*
                 if (mc.player.fallDistance >= fallDistance.getValue() && !mc.player.isElytraFlying() && mc.player.getHeldItemOffhand().getItem() != itemTotem || mc.player.getHealth() <= health.getValue() && mc.player.getHeldItemOffhand().getItem() != itemTotem) {
                     totemSwtichDelay++;
                         if (stacks.getItem() == itemFallback) {
@@ -97,7 +98,7 @@ public class AutoTotem extends Module {
                                 totemSwtichDelay = 0;
                             }
                         }
-                    } else if (InventoryUtil.isHolding(Items.DIAMOND_SWORD) && forceGapple.getValue() && Mouse.isButtonDown(1)) {
+                    }*/ if (InventoryUtil.isHolding(Items.DIAMOND_SWORD) && forceGapple.getValue() && Mouse.isButtonDown(1)) {
                     	totemSwtichDelay++;
                         if (stacks.getItem() == itemGap) {
                             if (totemSwtichDelay >= delay.getValue()) {
