@@ -39,7 +39,7 @@ public class ModuleManager {
         addMod(new OffHand()); // rewrite / merge with autototem
         addMod(new PistonCrystal());
         addMod(new Quiver()); // rewrite
-        addMod(new SelfFill()); // ur selffill used silent swap or something which fucked up mine anyways, this one works fine, tho it could use with some improvements
+        addMod(new SelfFill()); // thats cap, i tested it and it worked fine. idk how the hell you run into unknown issues with code that has nothing wrong with it
         addMod(new SelfWeb());
         //Exploits
         addMod(new AntiHunger());
