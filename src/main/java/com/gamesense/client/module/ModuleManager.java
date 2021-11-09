@@ -1,6 +1,7 @@
 package com.gamesense.client.module;
 
 import com.gamesense.client.module.modules.combat.*;
+import com.gamesense.client.module.modules.combat.Spammer;
 import com.gamesense.client.module.modules.exploits.*;
 import com.gamesense.client.module.modules.gui.ClickGuiModule;
 import com.gamesense.client.module.modules.gui.ColorMain;
@@ -21,54 +22,36 @@ public class ModuleManager {
 
     public static void init() {
         //Combat
-        addMod(new KillAura());
+        addMod(new KillAura()); // rework
         addMod(new AutoAnvil());
         addMod(new AutoArmor());
-        addMod(new AutoClicker());
         addMod(new AutoCrystal());
         addMod(new AutoLog());
         addMod(new AutoMend());
         addMod(new Surround());
-        addMod(new AutoSkull());
         addMod(new AutoTrap());
-        addMod(new AutoTotem());
         addMod(new AutoWeb());
         addMod(new BedAura());
-        addMod(new Blocker());
         addMod(new BowAim());
         addMod(new CevBreaker());
         addMod(new Criticals());
-        addMod(new FastBow());
         addMod(new HoleFill());
         addMod(new OffHand());
         addMod(new PistonCrystal());
-        addMod(new Quiver());
+        addMod(new Quiver()); // rewrite
         addMod(new SelfFill());
-        addMod(new SelfTrap());
         addMod(new SelfWeb());
         //Exploits
-        addMod(new AntiDesync());
         addMod(new AntiHunger());
-        addMod(new BowBomb());
-        addMod(new FastProjectile());
-        addMod(new ChorusNotify());
         addMod(new EntityAlert());
-        addMod(new LiquidInteract());
         addMod(new MultiTask());
         addMod(new NoInteract());
-        addMod(new NoSwing());
-        addMod(new Reach());
-        addMod(new PacketUse());
-        addMod(new PacketXP());
-        addMod(new PearlNotify());
         addMod(new PingSpoof());
         addMod(new PortalChat());
-        addMod(new PortalGodmode());
         addMod(new FastBreak());
         addMod(new TickShift());
         addMod(new Timer());
         //Movement
-        addMod(new AirJump());
         addMod(new Anchor());
         addMod(new AntiLevitation());
         addMod(new AntiVoid());
@@ -80,8 +63,6 @@ public class ModuleManager {
         addMod(new EntitySpeed());
         addMod(new Blink());
         addMod(new FastSwim());
-        addMod(new HoleTP());
-        addMod(new IceSpeed());
         addMod(new NoFall());
         addMod(new NoSlow());
         addMod(new ReverseStep());
@@ -93,33 +74,23 @@ public class ModuleManager {
         addMod(new Announcer());
         addMod(new AntiAFK());
         addMod(new AutoEat());
-        addMod(new AutoGear());
         addMod(new AutoGG());
-        addMod(new AutoReply());
         addMod(new AutoRespawn());
-        addMod(new AutoTame());
         addMod(new AutoTool());
-        addMod(new AutoMine()); 
-        addMod(new AutoMount());
         addMod(new ChatModifier());
         addMod(new ChatSuffix());
-        addMod(new CoordLeakerReal());
         addMod(new FastUse());
         addMod(new FakePlayer());
         addMod(new HotbarRefill());
-        addMod(new MCF());
-        addMod(new MCP());
+        addMod(new MCF()); // merge -> MiddleClick
+        addMod(new MCP()); // merge -> MiddleClick
         addMod(new NoEntityTrace());
-        addMod(new PhysicsSpammer());
         addMod(new PvPInfo());
         addMod(new Scaffold());
-        addMod(new SortInventory());
         addMod(new Spammer());
         addMod(new XCarry());
         //Render
-        addMod(new BlockHighlight());
         addMod(new BreakESP());
-        addMod(new Bucked());
         addMod(new CapesModule());
         addMod(new Chams());
         addMod(new CityESP());
@@ -133,7 +104,6 @@ public class ModuleManager {
         addMod(new NoRender());
         addMod(new RenderTweaks());
         addMod(new ShulkerViewer());
-        addMod(new SkyColor());
         addMod(new SmallShield());
         addMod(new Tracers());
         addMod(new ViewModel());

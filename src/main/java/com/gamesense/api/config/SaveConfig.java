@@ -12,7 +12,6 @@ import com.gamesense.client.command.CommandManager;
 import com.gamesense.client.module.Module;
 import com.gamesense.client.module.ModuleManager;
 import com.gamesense.client.module.modules.misc.AutoGG;
-import com.gamesense.client.module.modules.misc.AutoReply;
 import com.gamesense.client.module.modules.misc.AutoRespawn;
 import com.gamesense.client.module.modules.render.Xray;
 import com.google.gson.*;
@@ -52,7 +51,6 @@ public class SaveConfig {
             saveEnemiesList();
             saveClickGUIPositions();
             saveAutoGG();
-            saveAutoReply();
             saveAutoRespawn();
         } catch (IOException e) {
             e.printStackTrace();
@@ -282,22 +280,6 @@ public class SaveConfig {
             messageArray.add(autoGG);
         }
         mainObject.add("Messages", messageArray);
-        String jsonString = gson.toJson(new JsonParser().parse(mainObject.toString()));
-        fileOutputStreamWriter.write(jsonString);
-        fileOutputStreamWriter.close();
-    }
-
-    private static void saveAutoReply() throws IOException {
-
-        registerFiles(miscName, "AutoReply");
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        OutputStreamWriter fileOutputStreamWriter = new OutputStreamWriter(new FileOutputStream(fileName + miscName + "AutoReply" + ".json"), StandardCharsets.UTF_8);
-        JsonObject mainObject = new JsonObject();
-        JsonObject messageObject = new JsonObject();
-
-        messageObject.add("Message", new JsonPrimitive(AutoReply.getReply()));
-        mainObject.add("AutoReply", messageObject);
         String jsonString = gson.toJson(new JsonParser().parse(mainObject.toString()));
         fileOutputStreamWriter.write(jsonString);
         fileOutputStreamWriter.close();

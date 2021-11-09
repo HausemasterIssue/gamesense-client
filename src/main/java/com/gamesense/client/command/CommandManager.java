@@ -15,9 +15,7 @@ public class CommandManager {
     public static final ArrayList<Command> commands = new ArrayList<>();
 
     public static void init() {
-        addCommand(new AutoGearCommand());
         addCommand(new AutoGGCommand());
-        addCommand(new AutoReplyCommand());
         addCommand(new AutoRespawnCommand());
         addCommand(new BackupConfigCommand());
         addCommand(new BindCommand());
