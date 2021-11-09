@@ -1,4 +1,4 @@
-package com.gamesense.client.module.modules.combat;
+package com.gamesense.client.module.modules.misc;
 
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
