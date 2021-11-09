@@ -25,6 +25,8 @@ public class MixinEntityRenderer {
 
     @Redirect(method = "orientCamera", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/WorldClient;rayTraceBlocks(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/util/math/RayTraceResult;"))
     public RayTraceResult rayTraceBlocks(WorldClient world, Vec3d start, Vec3d end) {
+        ViewClip viewClip = ModuleManager.getModule(ViewClip.class);
+        
         if (viewClip.isEnabled()) {
             return null;
         } else {
