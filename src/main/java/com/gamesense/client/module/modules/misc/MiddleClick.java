@@ -45,6 +45,7 @@ public class MiddleClick extends Module {
                     int pearlSlot = InventoryUtil.findFirstItemSlot(ItemEnderPearl.class, 0, 8);
 
                     if (pearlSlot != -1) {
+                        oldSlot = mc.player.inventory.currentItem;
                     	mc.player.connection.sendPacket(new CPacketHeldItemChange(pearlSlot));
                     	if(swap.getValue().equalsIgnoreCase("Legit")) {
                     		mc.player.inventory.currentItem = pearlSlot;
