@@ -27,6 +27,7 @@ public class ModuleManager {
         addMod(new AutoCrystal()); // dechinesify, fix, and improve
         addMod(new AutoLog());
         addMod(new AutoMend()); // rewrite/merge with autoarmor
+        addMod(new AutoTotem()); // idfk if this will even work, anyways, u need to fix it and clean it up
         addMod(new Surround()); // improve (get silent swap to work and just make it better)
         addMod(new AutoTrap()); // fix (fix rotations)
         addMod(new AutoWeb());
