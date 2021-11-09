@@ -133,7 +133,7 @@ public class PlacementUtil {
         }
 
         if (rotate) {
-            Vec2f rotation = RotationUtil.getRotationTo(vec);
+            Vec2f rotation = RotationUtil.getRotationTo(hitVec);
             PlayerPacket packet = new PlayerPacket(null, rotation);
             PlayerPacketManager.INSTANCE.addPacket(packet);
         }
