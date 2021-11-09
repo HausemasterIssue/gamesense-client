@@ -134,7 +134,7 @@ public class PlacementUtil {
 
         if (rotate) {
             Vec2f rotation = RotationUtil.getRotationTo(hitVec);
-            PlayerPacket packet1 = new PlayerPacket(null, null, rotation);
+            PlayerPacket packet1 = new PlayerPacket(0, null, rotation);
             PlayerPacketManager.INSTANCE.addPacket(packet1);
         }
 
@@ -192,7 +192,7 @@ public class PlacementUtil {
 
         if (rotate && !support) {
             Vec2f rotation = RotationUtil.getRotationTo(hitVec);
-            PlayerPacket packet2 = new PlayerPacket(null, null, rotation);
+            PlayerPacket packet2 = new PlayerPacket(0, null, rotation);
             PlayerPacketManager.INSTANCE.addPacket(packet2);
         }
 
@@ -252,7 +252,7 @@ public class PlacementUtil {
 
         if (rotate) {
             Vec2f rotation = RotationUtil.getRotationTo(hitVec);
-            PlayerPacket packet3 = new PlayerPacket(null, null, rotation);
+            PlayerPacket packet3 = new PlayerPacket(0, null, rotation);
             PlayerPacketManager.INSTANCE.addPacket(packet3);
         }
 
