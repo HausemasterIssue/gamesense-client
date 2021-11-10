@@ -151,7 +151,7 @@ public class GameSenseGUI extends MinecraftHUDGUI {
 
     private void addModule(CollapsibleContainer panel, Module module) {
         ClickGuiModule clickGuiModule = ModuleManager.getModule(ClickGuiModule.class);
-        CollapsibleContainer container = new CollapsibleContainer(module.getName() + "...", null, theme.getContainerRenderer(), new SimpleToggleable(false), new SettingsAnimation(clickGuiModule.animationSpeed), module);
+        CollapsibleContainer container = new CollapsibleContainer(module.getName() + " ...", null, theme.getContainerRenderer(), new SimpleToggleable(false), new SettingsAnimation(clickGuiModule.animationSpeed), module);
         panel.addComponent(container);
         for (Setting property : SettingsManager.getSettingsForModule(module)) {
             if (property instanceof BooleanSetting) {
