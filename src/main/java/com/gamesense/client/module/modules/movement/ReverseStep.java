@@ -9,9 +9,8 @@ import com.gamesense.client.module.ModuleManager;
 @Module.Declaration(name = "ReverseStep", category = Category.Movement)
 public class ReverseStep extends Module {
 
-    DoubleSetting height = registerDouble("Height", 2.5, 0.5, 2.5);
+    DoubleSetting height = registerDouble("Height", 2.5, 0.5, 5.0);
     DoubleSetting speed = registerDouble("Speed", 10.0, 0.1, 10.0);
-    BooleanSetting onlyHoles = registerBoolean("OnlyHoles", false);
     BooleanSetting strict = registerBoolean("Strict", false);
 
     public void onUpdate() {
