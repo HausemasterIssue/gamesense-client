@@ -1,6 +1,7 @@
 package com.gamesense.client.module.modules.movement;
 
 import com.gamesense.api.setting.values.DoubleSetting;
+import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import com.gamesense.client.module.ModuleManager;
@@ -9,6 +10,9 @@ import com.gamesense.client.module.ModuleManager;
 public class ReverseStep extends Module {
 
     DoubleSetting height = registerDouble("Height", 2.5, 0.5, 2.5);
+    DoubleSetting speed = registerDouble("Speed", 10.0, 0.1, 10.0);
+    BooleanSetting onlyHoles = registerBoolean("OnlyHoles", false);
+    BooleanSetting strict = registerBoolean("Strict", false);
 
     public void onUpdate() {
         if (mc.world == null || mc.player == null || mc.player.isInWater() || mc.player.isInLava() || mc.player.isOnLadder()
@@ -21,7 +25,7 @@ public class ReverseStep extends Module {
         if (mc.player != null && mc.player.onGround && !mc.player.isInWater() && !mc.player.isOnLadder()) {
             for (double y = 0.0; y < this.height.getValue() + 0.5; y += 0.01) {
                 if (!mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(0.0, -y, 0.0)).isEmpty()) {
-                    mc.player.motionY = -10.0;
+                    mc.player.motionY = strict.getValue() ? -0.22 : -speed.getValue();
                     break;
                 }
             }
