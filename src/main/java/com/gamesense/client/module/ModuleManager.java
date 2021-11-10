@@ -61,10 +61,10 @@ public class ModuleManager {
         addMod(new ElytraFly()); // improve (stop the player from constantly falling + add boost mode)
         addMod(new EntityControl()); // fix entitycontrol mixins
         addMod(new Blink()); // rewrite, probably shit code + no modes
+        addMod(new FastFall());
         addMod(new FastSwim()); // current code works okay but could use a lot of rewriting and improving
         addMod(new NoFall());
         addMod(new NoSlow());
-        addMod(new ReverseStep()); // merge with holetp to make fastfall + improve
         addMod(new Speed()); // improve, add more settings
         addMod(new Sprint());
         addMod(new Step());
