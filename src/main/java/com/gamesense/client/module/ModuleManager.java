@@ -63,6 +63,7 @@ public class ModuleManager {
         addMod(new Blink()); // rewrite, probably shit code + no modes
         addMod(new FastFall());
         addMod(new FastSwim()); // current code works okay but could use a lot of rewriting and improving
+        addMod(new InventoryMove());
         addMod(new NoFall());
         addMod(new NoSlow());
         addMod(new Speed()); // improve, add more settings
