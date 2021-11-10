@@ -126,7 +126,7 @@ public class GameSenseGUI extends MinecraftHUDGUI {
         for (Module module : ModuleManager.getModules()) {
             if (module instanceof HUDModule) {
                 ((HUDModule) module).populate(theme);
-                gui.addHUDComponent(new HUDPanel(((HUDModule) module).getComponent(), theme.getPanelRenderer(), module, new SettingsAnimation(clickGuiModule.animationSpeed), hudToggle, HUD_BORDER));
+                gui.addHUDComponent(new HUDPanel(((HUDModule) module).getComponent() + "...", theme.getPanelRenderer(), module + "...", new SettingsAnimation(clickGuiModule.animationSpeed), hudToggle, HUD_BORDER));
             }
         }
         Point pos = new Point(DISTANCE, DISTANCE);
