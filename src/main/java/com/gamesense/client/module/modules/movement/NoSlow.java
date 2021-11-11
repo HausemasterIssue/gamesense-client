@@ -1,96 +1,58 @@
 package com.gamesense.client.module.modules.movement;
 
-import com.gamesense.api.event.events.PacketEvent;
 import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
-import net.minecraft.network.play.client.CPacketEntityAction;
-import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.network.play.client.CPacketPlayerDigging;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.client.event.InputUpdateEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
+import net.minecraftforge.client.event.InputUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 
 /*
- * @author hausemasterissue, sxmurai
- * @since 9/30/2021
+ * @author hausemasterissue
+ * @since 11/11/2021
+ * thanks to fencingf he is a fucking legend
  */
+
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
 public class NoSlow extends Module {
 	
 	public BooleanSetting soulSand = registerBoolean("SoulSand", true);
-	BooleanSetting sneak = registerBoolean("Sneak", false);
 	BooleanSetting strict = registerBoolean("NCP Strict", false);
 
-	private boolean sneaking;
-
-	@Override
-	protected void onDisable() {
-		if (this.sneaking) {
-			mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
-			this.sneaking = false;
-		}
-	}
-
-	@Override
-	public void onUpdate() {
-		if (this.sneak.getValue() && !mc.player.isHandActive() && this.sneaking) {
-			mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
-			this.sneaking = false;
-		}
-		
-		if(strict.getValue()) {
-			if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() == Items.GOLDEN_APPLE && mc.gameSettings.keyBindUseItem.isKeyDown()) {
-                		mc.player.connection.sendPacket(new CPacketHeldItemChange(findGappleInHotbar()));
-            		}
-		}
-	}
 
 	@EventHandler
 	private final Listener<InputUpdateEvent> inputUpdateEventListener = new Listener<>(event -> {
-		/*
 		if (mc.player.isHandActive() && !mc.player.isRiding()) {
 			event.getMovementInput().moveForward *= 5.0f;
 			event.getMovementInput().moveStrafe *= 5.0f;
 		}
-		*/
 	});
 
 	@EventHandler
 	private final Listener<LivingEntityUseItemEvent.Tick> livingEntityUseItemEventTickListener = new Listener<>(event -> {
-		if (this.sneak.getValue() && !mc.player.isRiding() && event.getEntityLiving() == mc.player && !this.sneaking) {
-			mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
-			this.sneaking = true;
+		if(strict.getValue()) {
+			if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() == Items.GOLDEN_APPLE && mc.gameSettings.keyBindUseItem.isKeyDown()) {
+                		mc.player.connection.sendPacket(new CPacketHeldItemChange(findGappleInHotbar()));
+           		}
 		}
-	});
-
-	@EventHandler
-	private final Listener<PacketEvent.Send> packetSendListener = new Listener<>(event -> {
-		/*
-		if (this.strict.getValue() && PacketEvent.getPacket() instanceof CPacketPlayer && mc.player.isHandActive() && !mc.player.isRiding()) {
-			mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ)), EnumFacing.DOWN));
-		}
-		*/
-		
 	});
 	
-	private int findGappleInHotbar() {
+   	private int findGappleInHotbar() {
         int slot = 0;
 
         for (int i = 0; i < 9; ++i) {
-            if (mc.player.inventory.getStackInSlot(i).getItem() == Items.GOLDEN_APPLE) {
-                slot = i;
-                break;
-            }
-        }
+            		if (mc.player.inventory.getStackInSlot(i).getItem() == Items.GOLDEN_APPLE) {
+                		slot = i;
+                		break;
+            		}
+        	}
 
-        return slot;
-    }
+        	return slot;
+    	}
+
 	
 }
