@@ -84,7 +84,7 @@ public class NoSlow extends Module {
         int slot = 0;
 
         for (int i = 0; i < 9; ++i) {
-            if (GappleNoSlow.mc.player.inventory.getStackInSlot(i).getItem() == Items.GOLDEN_APPLE) {
+            if (mc.player.inventory.getStackInSlot(i).getItem() == Items.GOLDEN_APPLE) {
                 slot = i;
                 break;
             }
