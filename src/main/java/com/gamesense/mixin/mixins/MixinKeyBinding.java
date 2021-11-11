@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(KeyBinding.class)
 public class MixinKeyBinding {
+    /*
     @Shadow
     public boolean pressed;
     
@@ -29,4 +30,5 @@ public class MixinKeyBinding {
             }
         }
     }
+    */
 }
