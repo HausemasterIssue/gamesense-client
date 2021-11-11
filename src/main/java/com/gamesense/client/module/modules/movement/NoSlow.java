@@ -13,6 +13,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
 
 /*
  * @author hausemasterissue, sxmurai
@@ -41,14 +44,22 @@ public class NoSlow extends Module {
 			mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
 			this.sneaking = false;
 		}
+		
+		if(strict.getValue()) {
+			if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() == Items.GOLDEN_APPLE && mc.gameSettings.keyBindUseItem.isKeyDown()) {
+                		mc.player.connection.sendPacket(new CPacketHeldItemChange(findGappleInHotbar()));
+            		}
+		}
 	}
 
 	@EventHandler
 	private final Listener<InputUpdateEvent> inputUpdateEventListener = new Listener<>(event -> {
+		/*
 		if (mc.player.isHandActive() && !mc.player.isRiding()) {
 			event.getMovementInput().moveForward *= 5.0f;
 			event.getMovementInput().moveStrafe *= 5.0f;
 		}
+		*/
 	});
 
 	@EventHandler
@@ -61,9 +72,25 @@ public class NoSlow extends Module {
 
 	@EventHandler
 	private final Listener<PacketEvent.Send> packetSendListener = new Listener<>(event -> {
+		/*
 		if (this.strict.getValue() && PacketEvent.getPacket() instanceof CPacketPlayer && mc.player.isHandActive() && !mc.player.isRiding()) {
 			mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ)), EnumFacing.DOWN));
 		}
+		*/
+		
 	});
+	
+	private int findGappleInHotbar() {
+        int slot = 0;
+
+        for (int i = 0; i < 9; ++i) {
+            if (GappleNoSlow.mc.player.inventory.getStackInSlot(i).getItem() == Items.GOLDEN_APPLE) {
+                slot = i;
+                break;
+            }
+        }
+
+        return slot;
+    }
 	
 }
