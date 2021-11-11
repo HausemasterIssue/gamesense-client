@@ -41,10 +41,6 @@ public class Speed extends Module {
         playerSpeed = MotionUtil.getBaseMoveSpeed();
     }
 
-    public void onDisable() {
-        timer.reset();
-        EntityUtil.resetTimer();
-    }
 
     public void onUpdate() {
         if (mc.player == null || mc.world == null) {
@@ -67,7 +63,6 @@ public class Speed extends Module {
             MotionUtil.setSpeed(mc.player, MotionUtil.getBaseMoveSpeed() + yPortSpeed.getValue());
         } else {
             mc.player.motionY = -1;
-            EntityUtil.resetTimer();
         }
     }
 
@@ -89,9 +84,7 @@ public class Speed extends Module {
                 event.setY(mc.player.motionY = speedY);
                 playerSpeed = MotionUtil.getBaseMoveSpeed() * (EntityUtil.isColliding(0, -0.5, 0) instanceof BlockLiquid && EntityUtil.isInLiquid() ? 0.9 : 1.901);
                 slowDown = true;
-                timer.reset();
             } else {
-                EntityUtil.resetTimer();
                 if (slowDown || mc.player.collidedHorizontally) {
                     playerSpeed -= (EntityUtil.isColliding(0, -0.8, 0) instanceof BlockLiquid && EntityUtil.isInLiquid()) ? 0.4 : 0.7 * (playerSpeed = MotionUtil.getBaseMoveSpeed());
                     slowDown = false;
