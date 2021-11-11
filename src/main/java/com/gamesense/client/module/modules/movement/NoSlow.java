@@ -20,9 +20,6 @@ public class NoSlow extends Module {
 	
 	public BooleanSetting soulSand = registerBoolean("SoulSand", true);
 	BooleanSetting strict = registerBoolean("NCP Strict", false);
-	
-	private Item currentItem = mc.player.getHeldItemMainhand().getItem();
-
 
 	@EventHandler
 	private final Listener<InputUpdateEvent> inputUpdateEventListener = new Listener<>(event -> {
@@ -42,7 +39,8 @@ public class NoSlow extends Module {
 	});
 	
 	private int findItemInHotbar() {
-        int slot = 0;
+        int slot = 0;	
+	Item currentItem = mc.player.getHeldItemMainhand().getItem();
 
         for (int i = 0; i < 9; ++i) {
             if (mc.player.inventory.getStackInSlot(i).getItem() == currentItem) {
