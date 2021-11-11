@@ -26,9 +26,9 @@ import org.lwjgl.input.Mouse;
 @Module.Declaration(name = "AutoTotem", category = Category.Combat)
 public class AutoTotem extends Module {
 
-	ModeSetting item = registerMode("Item", Arrays.asList("Totem", "Crystal", "Gapple"), "Totem");
-	ModeSetting fallBack = registerMode("Fallback", Arrays.asList("Totem", "Crystal", "Gapple"), "Totem");
-	IntegerSetting health = registerInteger("HealthSwap", 14, 0, 36);
+    ModeSetting item = registerMode("Item", Arrays.asList("Totem", "Crystal", "Gapple"), "Totem");
+    ModeSetting fallBack = registerMode("Fallback", Arrays.asList("Totem", "Crystal", "Gapple"), "Totem");
+    IntegerSetting health = registerInteger("HealthSwap", 14, 0, 36);
     IntegerSetting fallDistance = registerInteger("FallDistance", 30, 0, 280);
     BooleanSetting forceGapple = registerBoolean("ForceGapple", true);
     BooleanSetting motionStrict = registerBoolean("MotionStrict", false);
@@ -81,7 +81,6 @@ public class AutoTotem extends Module {
         }
         
         swap(itemDefault, motionStrict.getValue());
-        return;
 
     }
     
@@ -96,7 +95,6 @@ public class AutoTotem extends Module {
 
                 if (stacks == ItemStack.EMPTY)
                     continue;
-                if (mc.player.getHeldItemOffhand().getItem() != item) {
                     totemSwtichDelay++;
                         if (stacks.getItem() == item) {
                             if (totemSwtichDelay >= delay.getValue()) {
@@ -111,7 +109,6 @@ public class AutoTotem extends Module {
                                 totemSwtichDelay = 0;
                             }
                         }
-                    }
 
              }
         }
