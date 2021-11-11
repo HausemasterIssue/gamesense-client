@@ -5,8 +5,10 @@ import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemPotion;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
@@ -14,7 +16,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 /*
  * @author hausemasterissue
  * @since 11/11/2021
- * thanks to fencingf he is a fucking legend
+ * thanks to fencingf for the exploit
  */
 
 @Module.Declaration(name = "NoSlow", category = Category.Movement)
@@ -35,24 +37,24 @@ public class NoSlow extends Module {
 	@EventHandler
 	private final Listener<LivingEntityUseItemEvent.Tick> livingEntityUseItemEventTickListener = new Listener<>(event -> {
 		if(strict.getValue()) {
-			if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() == Items.GOLDEN_APPLE && mc.gameSettings.keyBindUseItem.isKeyDown()) {
-                		mc.player.connection.sendPacket(new CPacketHeldItemChange(findGappleInHotbar()));
-           		}
+			if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() instanceof ItemFood || mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() instanceof ItemBow || mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() instanceof ItemPotion) {
+                		mc.player.connection.sendPacket(new CPacketHeldItemChange(findItemHotbar()));
+            		}
 		}
 	});
 	
-   	private int findGappleInHotbar() {
-        int slot = 0;
+	private int findItemHotbar() {
+        	int slot = 0;
 
-        for (int i = 0; i < 9; ++i) {
-            		if (mc.player.inventory.getStackInSlot(i).getItem() == Items.GOLDEN_APPLE) {
-                		slot = i;
-                		break;
-            		}
-        	}
+        	for (int i = 0; i < 9; ++i) {
+            		if (mc.player.inventory.getStackInSlot(i).getItem() instanceof ItemFood || mc.player.inventory.getStackInSlot(i).getItem() instanceof ItemBow || mc.player.inventory.getStackInSlot(i).getItem() instanceof ItemPotion) {
+                	slot = i;
+                	break;
+            	}
+        }
 
-        	return slot;
-    	}
+        return slot;
+    }
 
 	
 }
