@@ -91,6 +91,7 @@ public class AutoCrystal extends Module {
     IntegerSetting armourFacePlace = registerInteger("Armour Health%", 15, 0, 100);
     DoubleSetting minFacePlaceDmg = registerDouble("FacePlace Dmg", 2, 0, 10);
     BooleanSetting rotate = registerBoolean("Rotate", true);
+    BooleanSetting waitForRotate = registerBoolean("WaitForRotate", false);
     BooleanSetting raytrace = registerBoolean("Raytrace", false);
     BooleanSetting strictDirection = registerBoolean("StrictDirection", true);
     BooleanSetting buildHeight = registerBoolean("BuildHeight", true);	
@@ -114,7 +115,8 @@ public class AutoCrystal extends Module {
     private boolean rotating = false;
     private int attacks = 0;
     public boolean silent;
-	private EntityEnderCrystal crystal = null;
+    private EntityEnderCrystal crystal = null;
+    private boolean rotated = false;
 
     // Threading Stuff
     public List<CrystalInfo.PlaceInfo> targets = new ArrayList<>();
@@ -228,9 +230,22 @@ public class AutoCrystal extends Module {
 
                         swingArm();
                         if (breakType.getValue().equalsIgnoreCase("Swing")) {
-                            mc.playerController.attackEntity(mc.player, crystal);
+                            if(waitForRotate.getValue()) {
+                        	if(rotated) {
+                        		mc.playerController.attackEntity(mc.player, crystal);
+                        	}
+                            } else {
+                        	mc.playerController.attackEntity(mc.player, crystal);
+                            }
                         } else {
-                            mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
+                            if(waitForRotate.getValue()) {
+                        	if(rotated) {
+                        		mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
+                        	}
+                        		
+                            } else {
+                        	mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
+                            }
                         }
 
 			            attacks++;
@@ -440,6 +455,8 @@ public class AutoCrystal extends Module {
         Vec2f rotation = RotationUtil.getRotationTo(lastHitVec);
         PlayerPacket packet = new PlayerPacket(this, rotation);
         PlayerPacketManager.INSTANCE.addPacket(packet);
+	rotated = true;
+	    
     });
 
     // i dont know how this works but you should use this
@@ -459,7 +476,7 @@ public class AutoCrystal extends Module {
                 }
             }
         } else if (packet instanceof SPacketExplosion) {
-			// inhibit thinggs, again, i pasted this and im not sure how it works but it just does 
+			// inhibit things, again, i pasted this and im not sure how it works but it just does 
 			if (inhibit.getValue()) {
 				SPacketExplosion packetExplode = (SPacketExplosion) PacketEvent.getPacket();
 				for (int i = 0; i < mc.world.loadedEntityList.size(); ++i) {
