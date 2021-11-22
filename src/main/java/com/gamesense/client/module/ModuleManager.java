@@ -49,6 +49,7 @@ public class ModuleManager {
         addMod(new PingSpoof()); // rewrite
         addMod(new PortalChat());
         addMod(new FastBreak()); // improve (better renders)
+        addMod(new SilentEXP());
         addMod(new TickShift());
         addMod(new Timer());
         //Movement
