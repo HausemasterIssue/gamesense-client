@@ -21,5 +21,7 @@ This client is an absolute mess and is filled with bad coding practices (pasting
 
 - People: IUDevman, Cyber, Hoosiers, FINZ0, 086, PreparedSystem_32, Christallinqq, Aestheticall and Perry.
 
+**No further updates or support will be offered**. Contact me at queueskip2b2t@gmail.com if you have any questions.
+
 
 <h5 align="center">HausemasterIssue - 2021</h5>
