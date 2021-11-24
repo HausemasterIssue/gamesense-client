@@ -6,6 +6,7 @@
 
 **_SpiderSense is Discontinued, Please, do not bother with this client_**
 
+
 SpiderSense is a **discontinued** continuation of the [GameSense](https://github.com/IUDevman/gamesense-client) utility mod for Minecraft 1.12.2
 
 Credits for pasted/stolen code should have file credits. 
@@ -19,5 +20,6 @@ This client is an absolute mess and is filled with bad coding practices (pasting
 - Clients: [Momentum](https://github.com/momentumdevelopment/momentum), [GameSense](https://github.com/IUDevman/gamesense-client), [Cosmos](https://github.com/momentumdevelopment/cosmos), Haybale Client, [Konas](https://konasclient.com), [SalHack](https://github.com/ionar/spidermod), [Wurst+](https://github.com/WurstPlus), [Oyvey](https://github.com/Gopro336/OyVey_Rewrite-BUILDABLE_SRC), [Phobos](https://github.com/Gopro336/CLEAN_Phobos_1.9.0-BUILDABLE-SRC), [Cookie Client](https://github.com/bebeli555/CookieClient), [Inferno](https://github.com/sxmurai/inferno) and more.
 
 - People: IUDevman, Cyber, Hoosiers, FINZ0, 086, PreparedSystem_32, Christallinqq, Aestheticall and Perry.
+
 
 <h5 align="center">HausemasterIssue - 2021</h5>
