@@ -4,30 +4,20 @@
 
 ---
 
-SpiderSense is a continuation of the [GameSense](https://github.com/IUDevman/gamesense-client) utility mod for Minecraft 1.12.2
+**_SpiderSense is Discontinued, Please, do not bother with this client_**
 
-Credits for pasted/stolen code should have file credits. I (aesthetical) am in the process of cleaning up this mess and making it less pasted while HauseIssue learns java and gets better.
+SpiderSense is a **discontinued** continuation of the [GameSense](https://github.com/IUDevman/gamesense-client) utility mod for Minecraft 1.12.2
 
-If you have any questions and or concerns, please [open an issue](https://github.com/HausemasterIssue/spidersense/issues/new)
+Credits for pasted/stolen code should have file credits. 
 
----
+### Information
 
-## Building the Client
+This client is an absolute mess and is filled with bad coding practices (pasting *cough* *cough*). There is code pasted/inspired from so many clients I can't even count. I am archiving the repository because I don't want to be known by this shitdump of a client. I regret everything in this client. I regret pasting/stealing code from clients instead of making it by myself. I regret portraying it as if it is some kind of actually good client. I regret being an ass. The truth is, I don't want to be known by this, and I don't want people to insult be because of this. It is a bad, pasted, and shit client that nobody should ever use or continue devloping. That's why it is fully discontinued and will **never** recieve any more updates. I am getting better at java, I am learning more about clients and trying to get away from pasting other people's code. **_Once again, Please do not use this, it is bad and I regret everything about this client, I have moved on and an working on other, better things_**.
 
-Download the code, and run the following commands in a terminal. You will need Java 8 installed.
+### Credits
 
-If you are on Windows, the `./`  is not needed when running these commands/
+- Clients: [Momentum](https://github.com/momentumdevelopment/momentum), [GameSense](https://github.com/IUDevman/gamesense-client), [Cosmos](https://github.com/momentumdevelopment/cosmos), Haybale Client, [Konas](https://konasclient.com), [SalHack](https://github.com/ionar/spidermod), [Wurst+](https://github.com/WurstPlus), [Oyvey](https://github.com/Gopro336/OyVey_Rewrite-BUILDABLE_SRC), [Phobos](https://github.com/Gopro336/CLEAN_Phobos_1.9.0-BUILDABLE-SRC), [Cookie Client](https://github.com/bebeli555/CookieClient), [Inferno](https://github.com/sxmurai/inferno) and more.
 
-```
-./gradlew setupDecompWorkspace
-./gradlew clean
-./gradlew build
-```
-
-Your jar file will be found in build/libs. 
-
----
-
-![Meanwhile on 2b2tpvp.net](https://i.imgflip.com/5tq4p2.jpg)
+- People: IUDevman, Cyber, Hoosiers, FINZ0, 086, PreparedSystem_32, Christallinqq, Aestheticall and Perry.
 
 <h5 align="center">HausemasterIssue - 2021</h5>
