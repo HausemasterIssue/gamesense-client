@@ -21,103 +21,76 @@ public class ModuleManager {
 
     public static void init() {
         //Combat
-        addMod(new KillAura());
+        addMod(new KillAura()); // rework
         addMod(new AutoAnvil());
-        addMod(new AutoArmor());
-        addMod(new AutoClicker());
-        addMod(new AutoCrystal());
+        addMod(new AutoArmor()); // improve (more customizability)
+        addMod(new AutoCrystal()); // dechinesify, fix, and improve
         addMod(new AutoLog());
-        addMod(new AutoMend());
-        addMod(new Surround());
-        addMod(new AutoSkull());
-        addMod(new AutoTrap());
-        addMod(new AutoTotem());
+        addMod(new AutoMend()); // rewrite/merge with autoarmor
+        addMod(new AutoTotem()); // idfk if this will even work, anyways, u need to fix it and clean it up
+        addMod(new Surround()); // improve (get silent swap to work and just make it better)
+        addMod(new AutoTrap()); // fix (fix rotations)
         addMod(new AutoWeb());
         addMod(new BedAura());
-        addMod(new Blocker());
-        addMod(new BowAim());
+        addMod(new BowAim()); // improve (improve rotations)
         addMod(new CevBreaker());
         addMod(new Criticals());
-        addMod(new FastBow());
         addMod(new HoleFill());
-        addMod(new OffHand());
+        addMod(new OffHand()); // rewrite / merge with autototem
         addMod(new PistonCrystal());
-        addMod(new Quiver());
-        addMod(new SelfFill());
-        addMod(new SelfTrap());
+        addMod(new Quiver()); // rewrite
+        addMod(new SelfFill()); // thats cap, i tested it and it worked fine. idk how the hell you run into unknown issues with code that has nothing wrong with it
         addMod(new SelfWeb());
         //Exploits
-        addMod(new AntiDesync());
         addMod(new AntiHunger());
-        addMod(new BowBomb());
-        addMod(new FastProjectile());
-        addMod(new ChorusNotify());
-        addMod(new EntityAlert());
-        addMod(new LiquidInteract());
-        addMod(new MultiTask());
+        addMod(new EntityAlert()); // debatable, useless but he insists
+        addMod(new MultiTask()); // rewrite
         addMod(new NoInteract());
-        addMod(new NoSwing());
-        addMod(new Reach());
-        addMod(new PacketUse());
-        addMod(new PacketXP());
-        addMod(new PearlNotify());
-        addMod(new PingSpoof());
+        addMod(new PingSpoof()); // rewrite
         addMod(new PortalChat());
-        addMod(new PortalGodmode());
-        addMod(new FastBreak());
+        addMod(new FastBreak()); // improve (better renders)
+        addMod(new SilentEXP());
+        addMod(new TickShift());
         addMod(new Timer());
         //Movement
-        addMod(new AirJump());
         addMod(new Anchor());
         addMod(new AntiLevitation());
         addMod(new AntiVoid());
         addMod(new AntiWeb());
-        addMod(new AutoWalk());
+        addMod(new AutoWalk()); // this isnt needed, but whatever
         addMod(new BoatFly());
-        addMod(new ElytraFly());
-        addMod(new EntityControl());
-        addMod(new EntitySpeed());
-        addMod(new Blink());
-        addMod(new FastSwim());
-        addMod(new HoleTP());
-        addMod(new IceSpeed());
+        addMod(new ElytraFly()); // improve (stop the player from constantly falling + add boost mode)
+        addMod(new EntityControl()); // fix entitycontrol mixins
+        addMod(new Blink()); // rewrite, probably shit code + no modes
+        addMod(new FastFall());
+        addMod(new FastSwim()); // current code works okay but could use a lot of rewriting and improving
+        addMod(new InventoryMove());
         addMod(new NoFall());
         addMod(new NoSlow());
-        addMod(new ReverseStep());
-        addMod(new Speed());
+        addMod(new Speed()); // improve, add more settings
         addMod(new Sprint());
         addMod(new Step());
-        addMod(new Velocity());
+        addMod(new Velocity()); // improve (bobbers, nopushblocks, etc.)
         //Misc
-        addMod(new Announcer());
-        addMod(new AntiAFK());
-        addMod(new AutoEat());
-        addMod(new AutoGear());
+        addMod(new Announcer()); // improve (add join/leave msgs)
+        addMod(new AntiAFK()); // rewrite
+        addMod(new AutoEat()); // wtf, you cant hold down right click?
         addMod(new AutoGG());
-        addMod(new AutoReply());
-        addMod(new AutoRespawn());
-        addMod(new AutoTame());
-        addMod(new AutoTool());
-        addMod(new AutoMine()); 
-        addMod(new AutoMount());
+        addMod(new AutoRespawn()); // improve (save death coords)
+        addMod(new AutoTool()); // why
         addMod(new ChatModifier());
         addMod(new ChatSuffix());
-        addMod(new CoordLeakerReal());
-        addMod(new FastUse());
-        addMod(new FakePlayer());
+        addMod(new FastUse()); // packetuse != fastuse, keep them seperate
+        addMod(new FakePlayer()); // moving fakeplayer (its already in renosense have a look at it)
         addMod(new HotbarRefill());
-        addMod(new MCF());
-        addMod(new MCP());
+        addMod(new MiddleClick());
         addMod(new NoEntityTrace());
-        addMod(new PhysicsSpammer());
-        addMod(new PvPInfo());
-        addMod(new Scaffold());
-        addMod(new SortInventory());
+        addMod(new PvPInfo()); // rename or merge/rewrite
+        addMod(new Scaffold()); // eh, your scaffold worked just as bad, it needs a serious serious rewrite
+        addMod(new Spammer());
         addMod(new XCarry());
         //Render
-        addMod(new BlockHighlight());
-        addMod(new BreakESP());
-        addMod(new Bucked());
+        addMod(new BreakESP()); // improve (make breaking anims smoother, perrys europa src does it)
         addMod(new CapesModule());
         addMod(new Chams());
         addMod(new CityESP());
@@ -127,13 +100,17 @@ public class ModuleManager {
         addMod(new HoleESP());
         addMod(new LogoutSpots());
         addMod(new Nametags());
-        addMod(new NoBob());
+        addMod(new NoBob()); // rewrite?? no fucking clue
         addMod(new NoRender());
-        addMod(new RenderTweaks());
         addMod(new ShulkerViewer());
-        addMod(new SkyColor());
-        addMod(new SmallShield());
+        addMod(new SmallShield()); // stupid asf, but hause insists
         addMod(new Tracers());
+        addMod(new ViewClip());
+        addMod(new NoBob()); // rewrite (make it look like futures/momentums)
+        addMod(new NoRender()); // improve (wither skulls etc.)
+        addMod(new ShulkerViewer());
+        addMod(new SmallShield()); // stupid asf, but hause insists
+        addMod(new Tracers()); // improve (thin out tracers a bit)
         addMod(new ViewModel());
         addMod(new VoidESP());
         addMod(new Xray());
@@ -141,10 +118,10 @@ public class ModuleManager {
         addMod(new ArmorHUD());
         addMod(new ArrayListModule());
         addMod(new CombatInfo());
-        addMod(new Coordinates());
+        addMod(new Coordinates()); // rewrite (make them look more like phobos's or futures)
         addMod(new InventoryViewer());
-        addMod(new Notifications());
-        addMod(new PotionEffects());
+        addMod(new Notifications()); // rewrite (make its own seperate module in chat or something)
+        addMod(new PotionEffects()); // improve (make the colors look like the actual potion effects, similar to future or xulu)
         addMod(new Radar());
         addMod(new Speedometer());
         addMod(new TabGUIModule());
@@ -152,9 +129,9 @@ public class ModuleManager {
         addMod(new TargetInfo());
         addMod(new TextRadar());
         addMod(new Watermark());
-        addMod(new Welcomer());
+        addMod(new Welcomer()); // improve (add more welcomers)
         //GUI
-        addMod(new ClickGuiModule());
+        addMod(new ClickGuiModule()); // improve (add little dots n shit to the clickgui)
         addMod(new ColorMain());
         addMod(new HUDEditor());
     }

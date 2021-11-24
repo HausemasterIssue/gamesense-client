@@ -1,5 +1,8 @@
 package com.gamesense.api.util.world;
 
+import com.gamesense.api.util.player.PlayerPacket;
+import com.gamesense.api.util.player.RotationUtil;
+import com.gamesense.client.manager.managers.PlayerPacketManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -9,7 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-
+import net.minecraft.util.math.Vec2f;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

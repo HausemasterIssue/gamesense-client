@@ -7,9 +7,15 @@ import net.minecraft.potion.Potion;
 import java.util.Objects;
 
 public class MotionUtil {
+    
+    static Minecraft mc = Minecraft.getMinecraft();
 
     public static boolean isMoving(EntityLivingBase entity) {
         return entity.moveForward != 0 || entity.moveStrafing != 0;
+    }
+    
+    public static boolean isMovingPlayer() {
+        return mc.player.moveForward != 0 || mc.player.moveStrafing != 0;
     }
 
     public static void setSpeed(final EntityLivingBase entity, final double speed) {

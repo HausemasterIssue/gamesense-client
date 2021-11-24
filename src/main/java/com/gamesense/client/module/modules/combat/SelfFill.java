@@ -1,9 +1,12 @@
-package com.gamesense.client.module.modules.exploits;
+package com.gamesense.client.module.modules.combat;
 
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.setting.values.IntegerSetting;
+import com.gamesense.api.util.player.PlayerPacket;
+import com.gamesense.api.util.player.RotationUtil;
+import com.gamesense.client.manager.managers.PlayerPacketManager;
 import com.gamesense.api.util.misc.MessageBus;
 import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.BlockObsidian;
@@ -24,6 +27,7 @@ import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec2f;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +100,7 @@ public class SelfFill extends Module {
         return false;
     }
     
-    public static boolean placeBlock(BlockPos pos, EnumHand hand, boolean rotate, boolean packet, boolean isSneaking) {
+    public boolean placeBlock(BlockPos pos, EnumHand hand, boolean rotate, boolean packet, boolean isSneaking) {
         boolean sneaking = false;
         EnumFacing side = getFirstFacing(pos);
         if (side == null) {
@@ -116,7 +120,9 @@ public class SelfFill extends Module {
         }
 
         if (rotate) {
-            faceVector(hitVec, true);
+            Vec2f rotation = RotationUtil.getRotationTo(hitVec);
+            PlayerPacket packetRot = new PlayerPacket(this, rotation);
+            PlayerPacketManager.INSTANCE.addPacket(packetRot);
         }
 
         rightClickBlock(neighbour, hitVec, hand, opposite, packet);

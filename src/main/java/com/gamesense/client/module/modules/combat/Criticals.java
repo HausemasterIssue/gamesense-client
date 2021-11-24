@@ -14,14 +14,12 @@ import net.minecraft.network.play.client.CPacketUseEntity;
 import java.util.Arrays;
 
 /*
- * @author hausemasterissue, sexmurai
+ * @author aesthetical
  * @since 9/29/2021
  */
-
 @Module.Declaration(name = "Criticals", category = Category.Combat)
 public class Criticals extends Module {
-	
-	ModeSetting critMode = registerMode("Mode", Arrays.asList("Packet", "Jump", "MiniJump", "NCPStrict"), "NCPStrict");
+	ModeSetting mode = registerMode("Mode", Arrays.asList("Packet", "Jump", "MiniJump", "NCPStrict"), "NCPStrict");
 
     @EventHandler
     private final Listener<PacketEvent.Send> packetSendListener = new Listener<>(event -> {
@@ -31,7 +29,7 @@ public class Criticals extends Module {
                 return;
             }
 
-            switch (critMode.getValue()) {
+            switch (mode.getValue()) {
                 case "Jump": {
                     mc.player.jump();
                     mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY - 0.05, mc.player.posZ, false));
@@ -46,12 +44,12 @@ public class Criticals extends Module {
                     break;
                 }
 		
-		case "MiniJump": {
-		    mc.player.motionY = 0.2;
+                case "MiniJump": {
+                    mc.player.motionY = 0.2;
                     mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY - 0.02, mc.player.posZ, false));
                     mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY, mc.player.posZ, false));
                     break;
-		}
+                }
 
                 case "NCPStrict": {
                     mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 0.062602401692772D, mc.player.posZ, false));
@@ -64,7 +62,7 @@ public class Criticals extends Module {
     });
     
     public String getHudInfo() {
-        return "[" + ChatFormatting.WHITE + this.critMode.getValue() + ChatFormatting.GRAY + "]";
+        return "[" + ChatFormatting.WHITE + this.mode.getValue() + ChatFormatting.GRAY + "]";
     }
 }
 

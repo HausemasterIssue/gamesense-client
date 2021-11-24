@@ -44,7 +44,7 @@ public class PotionEffects extends HUDModule {
             PotionEffect effect = (PotionEffect) mc.player.getActivePotionEffects().toArray()[index];
             String name = I18n.format(effect.getPotion().getName());
             int amplifier = effect.getAmplifier() + 1;
-            return name + " " + amplifier + ChatFormatting.GRAY + " " + Potion.getPotionDurationString(effect, 1.0f);
+            return effect.getPotion().getLiquidColor() + name + " " + amplifier + ChatFormatting.GRAY + " " + Potion.getPotionDurationString(effect, 1.0f);
         }
 
         @Override

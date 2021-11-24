@@ -208,53 +208,35 @@ public class HoleFill extends Module {
     private int findRightBlock() {
         switch (mode.getValue()) {
             case "Both" : {
-                int newHand = InventoryUtil.findFirstBlockSlot(BlockObsidian.class, 0, 8);
-                if (newHand == -1) return InventoryUtil.findFirstBlockSlot(BlockEnderChest.class, 0, 8);
-                else return newHand;
+                int slot = InventoryUtil.findFirstBlockSlot(BlockObsidian.class, 0, 8);
+                return slot == -1 ?
+                        InventoryUtil.findFirstBlockSlot(BlockEnderChest.class, 0, 8) :
+                        slot;
             }
-            case "Obby" : {
-                return InventoryUtil.findFirstBlockSlot(BlockObsidian.class, 0, 8);
-            }
-            case "Echest" : {
-                return InventoryUtil.findFirstBlockSlot(BlockEnderChest.class, 0, 8);
-            }
-            case "Web" : {
-                return InventoryUtil.findFirstBlockSlot(BlockWeb.class, 0, 8);
-            }
-            case "Plate" : {
-                return InventoryUtil.findFirstBlockSlot(BlockPressurePlate.class, 0 ,8);
-            }
-            default: {
-                return -1;
-            }
+
+            case "Obby": return InventoryUtil.findFirstBlockSlot(BlockObsidian.class, 0, 8);
+            case "Echest": return InventoryUtil.findFirstBlockSlot(BlockEnderChest.class, 0, 8);
+            case "Web": return InventoryUtil.findFirstBlockSlot(BlockWeb.class, 0, 8);
+            case "Plate": return InventoryUtil.findFirstBlockSlot(BlockPressurePlate.class, 0 ,8);
+            default: return -1;
         }
     }
 
     private Boolean isHoldingRightBlock(int hand, Item item) {
-        if (hand == -1) return false;
+        if (hand == -1) {
+            return false;
+        }
 
         if (item instanceof ItemBlock) {
             Block block = ((ItemBlock) item).getBlock();
 
             switch (mode.getValue()) {
-                case "Both" : {
-                    return block instanceof BlockObsidian || block instanceof BlockEnderChest;
-                }
-                case "Obby" : {
-                    return block instanceof BlockObsidian;
-                }
-                case "Echest" : {
-                    return block instanceof BlockEnderChest;
-                }
-                case "Web" : {
-                    return block instanceof BlockWeb;
-                }
-                case "Plate" : {
-                    return block instanceof BlockPressurePlate;
-                }
-                default: {
-                    return false;
-                }
+                case "Both": return block instanceof BlockObsidian || block instanceof BlockEnderChest;
+                case "Obby": return block instanceof BlockObsidian;
+                case "Echest": return block instanceof BlockEnderChest;
+                case "Web": return block instanceof BlockWeb;
+                case "Plate": return block instanceof BlockPressurePlate;
+                default: return false;
             }
         }
 

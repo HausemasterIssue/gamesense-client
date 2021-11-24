@@ -2,16 +2,18 @@ package com.gamesense.client.module.modules.combat;
 
 import com.gamesense.api.setting.values.BooleanSetting;
 import com.gamesense.api.util.player.social.SocialManager;
+import com.gamesense.api.util.player.RotationUtil;
+import com.gamesense.api.util.player.PlayerPacket;
+import com.gamesense.client.manager.managers.PlayerPacketManager;
 import com.gamesense.client.module.Category;
 import com.gamesense.client.module.Module;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBow;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec2f;
 
 /*
 * @author hausemasterissue
@@ -38,7 +40,9 @@ public class BowAim extends Module {
                 Vec3d pos = interpolateEntity(player, mc.getRenderPartialTicks());
                 float[] angels = calcAngle(interpolateEntity(mc.player, mc.getRenderPartialTicks()), pos);
                 if(packet.getValue()) {
-                	mc.player.connection.sendPacket((Packet<?>) new CPacketPlayer.Rotation(angels[0], angels[1], mc.player.onGround));
+                	Vec2f rotation = RotationUtil.getRotationTo(interpolateEntity(mc.player, mc.getRenderPartialTicks()), pos);
+                    	PlayerPacket packet = new PlayerPacket(this, rotation);
+                    	PlayerPacketManager.INSTANCE.addPacket(packet);
                 } else {
                 	mc.player.rotationYaw = angels[0];
                 	mc.player.rotationPitch = angels[1];

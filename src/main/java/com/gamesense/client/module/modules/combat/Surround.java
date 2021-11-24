@@ -80,9 +80,8 @@ public class Surround extends Module {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
-						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue()) {
+						while(delayTimer.getTimePassed() / 50L >= swapDelay.getValue()) {
 							mc.player.inventory.currentItem = oldSlot;
-							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
 							mc.playerController.updateController();	
 						}
 						
@@ -190,9 +189,8 @@ public class Surround extends Module {
 						mc.player.inventory.currentItem = oldSlot;
 						mc.playerController.updateController();
 					} else {
-						if(delayTimer.getTimePassed() / 50L >= swapDelay.getValue()) {
+						while(delayTimer.getTimePassed() / 50L >= swapDelay.getValue()) {
 							mc.player.inventory.currentItem = oldSlot;
-							mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
 							mc.playerController.updateController();	
 						}
 					}

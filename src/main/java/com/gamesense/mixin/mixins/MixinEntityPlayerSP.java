@@ -1,7 +1,9 @@
 package com.gamesense.mixin.mixins;
 
+import com.gamesense.api.event.events.BlockPushEvent;
 import com.gamesense.api.event.events.OnUpdateWalkingPlayerEvent;
 import com.gamesense.api.event.events.PlayerMoveEvent;
+import com.gamesense.api.event.events.PushEvent;
 import com.gamesense.client.GameSense;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -19,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayerSP.class)
 public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
@@ -95,6 +98,15 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
 
         event = event.nextPhase();
         GameSense.EVENT_BUS.post(event);
+    }
+
+    @Inject(method = "pushOutOfBlocks", at = @At("HEAD"), cancellable = true)
+    public void hookPushOutOfBlocks(double x, double y, double z, CallbackInfoReturnable<Boolean> info) {
+        BlockPushEvent event = new BlockPushEvent();
+        GameSense.EVENT_BUS.post(event);
+        if (event.isCancelled()) {
+            info.setReturnValue(false);
+        }
     }
 
     private void sendSprintPacket() {

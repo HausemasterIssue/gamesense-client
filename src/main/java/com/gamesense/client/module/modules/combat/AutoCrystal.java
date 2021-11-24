@@ -4,6 +4,7 @@ import com.gamesense.api.event.Phase;
 import com.gamesense.api.event.events.OnUpdateWalkingPlayerEvent;
 import com.gamesense.api.event.events.PacketEvent;
 import com.gamesense.api.event.events.RenderEvent;
+import com.gamesense.api.event.events.EntityRemoveEvent;
 import com.gamesense.api.setting.values.*;
 import com.gamesense.api.util.misc.Timer;
 import com.gamesense.api.util.player.InventoryUtil;
@@ -31,10 +32,12 @@ import net.minecraft.item.ItemEndCrystal;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUseEntity;
+import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraft.network.play.server.SPacketSoundEffect;
+import net.minecraft.network.play.server.SPacketSpawnObject;
+import net.minecraft.network.play.server.SPacketDestroyEntities;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -43,28 +46,35 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+
 import java.util.*;
+
+/*
+* @authors: IUDevman, lukflug, auburnhud2, 0b00101010, linustouchtips, notperry1234567890, HausemasterIssue
+* @since: 8/10/2021
+* this autocrystal is so darn chinese and good at the same time. many things were pasted in this ca
+* so i can't give credit to them all, but creds to inferno and cosmos for the most help.
+*
+* this ca holds the world for the most chinese ca ever createdTM
+*/
 
 @Module.Declaration(name = "AutoCrystal", category = Category.Combat, priority = 100)
 public class AutoCrystal extends Module {
-
     ModeSetting breakMode = registerMode("Target", Arrays.asList("All", "Smart", "Own"), "Smart");
     ModeSetting handBreak = registerMode("Hand", Arrays.asList("Main", "Offhand", "Both"), "Main");
     ModeSetting breakType = registerMode("Type", Arrays.asList("Swing", "Packet"), "Swing");
+    ModeSetting timing = registerMode("Timing", Arrays.asList("Sequential", "Normal"), "Sequential");
     ModeSetting crystalPriority = registerMode("Prioritise", Arrays.asList("Damage", "Closest", "Health"), "Damage");
     BooleanSetting breakCrystal = registerBoolean("Break", true);
     BooleanSetting placeCrystal = registerBoolean("Place", true);
-    BooleanSetting sequential = registerBoolean("Sequential", true);
     IntegerSetting attackSpeed = registerInteger("Attack Speed", 19, 0, 20);
     public DoubleSetting breakRange = registerDouble("Hit Range", 4.5, 0.0, 10.0);
     public DoubleSetting placeRange = registerDouble("Place Range", 4.5, 0.0, 6.0);
     DoubleSetting wallsRange = registerDouble("Walls Range", 3.5, 0.0, 10.0);
     DoubleSetting enemyRange = registerDouble("Enemy Range", 6.0, 0.0, 16.0);
     BooleanSetting antiWeakness = registerBoolean("Anti Weakness", true);
-    //BooleanSetting antiTotemPop = registerBoolean("Anti Totem Pop", true);
     BooleanSetting antiSuicide = registerBoolean("Anti Suicide", true);
     IntegerSetting antiSuicideValue = registerInteger("Min Health", 14, 1, 36);
-    //BooleanSetting autoSwitch = registerBoolean("Switch", true);
     ModeSetting autoSwitch = registerMode("Switch", Arrays.asList("Normal", "Silent"), "Normal");
     BooleanSetting noGapSwitch = registerBoolean("NoEatingSwitch", true);
     BooleanSetting noMiningSwitch = registerBoolean("NoMiningSwitch", false);
@@ -72,14 +82,19 @@ public class AutoCrystal extends Module {
     public BooleanSetting endCrystalMode = registerBoolean("1.13 Place", false);
     BooleanSetting cancelCrystal = registerBoolean("Cancel Crystal", false);
     DoubleSetting minDmg = registerDouble("Min Damage", 4, 0, 36);
-    IntegerSetting limit = registerInteger("Limit", 1, 0, 10);
+    BooleanSetting limit = registerBoolean("Limit", false);
+    BooleanSetting inhibit = registerBoolean("Inhibit", true);
+    IntegerSetting ticksExisted = registerInteger("TicksExisted", 1, 0, 20);
     DoubleSetting minBreakDmg = registerDouble("Min Break Dmg", 4, 0, 36.0);
     DoubleSetting maxSelfDmg = registerDouble("Max Self Dmg", 10, 1.0, 36.0);
     IntegerSetting facePlaceValue = registerInteger("FacePlace HP", 8, 0, 36);
     IntegerSetting armourFacePlace = registerInteger("Armour Health%", 15, 0, 100);
     DoubleSetting minFacePlaceDmg = registerDouble("FacePlace Dmg", 2, 0, 10);
     BooleanSetting rotate = registerBoolean("Rotate", true);
+    BooleanSetting waitForRotate = registerBoolean("WaitForRotate", false);
     BooleanSetting raytrace = registerBoolean("Raytrace", false);
+    BooleanSetting strictDirection = registerBoolean("StrictDirection", true);
+    BooleanSetting buildHeight = registerBoolean("BuildHeight", true);	
     BooleanSetting showDamage = registerBoolean("Render Dmg", false);
     BooleanSetting outline = registerBoolean("Outline", false);
     ModeSetting hudDisplay = registerMode("HUD", Arrays.asList("Mode", "Target", "None"), "Mode");
@@ -94,10 +109,14 @@ public class AutoCrystal extends Module {
     public static boolean stopAC = false;
     private Entity renderEntity;
     private BlockPos render;
+    private BlockPos blockPos;
     Timer timer = new Timer();
     private Vec3d lastHitVec = Vec3d.ZERO;
     private boolean rotating = false;
+    private int attacks = 0;
     public boolean silent;
+    private EntityEnderCrystal crystal = null;
+    private boolean rotated = false;
 
     // Threading Stuff
     public List<CrystalInfo.PlaceInfo> targets = new ArrayList<>();
@@ -115,7 +134,7 @@ public class AutoCrystal extends Module {
         }
 	    
 	    
-	// anti suicide
+	    // anti suicide
         PlayerInfo player = new PlayerInfo(mc.player, false);
         if (antiSuicide.getValue() && player.health <= antiSuicideValue.getValue()) {
             return;
@@ -156,6 +175,7 @@ public class AutoCrystal extends Module {
             } else {
                 currentTargets = new ArrayList<>(targets.subList(0, maxTargets.getValue()));
             }
+
             List<EntityEnderCrystal> crystals = ACHelper.INSTANCE.getTargetableCrystals();
 
             TreeSet<CrystalInfo.BreakInfo> possibleCrystals;
@@ -168,16 +188,23 @@ public class AutoCrystal extends Module {
                 possibleCrystals = new TreeSet<>(Comparator.comparingDouble((i) -> i.damage));
             }
 	
-	    // calculate the best crystal to break
+	        // calculate the best crystal to break
             for (CrystalInfo.PlaceInfo currentTarget : currentTargets) {
                 CrystalInfo.BreakInfo breakInfo = ACUtil.calculateBestBreakable(settings, new PlayerInfo(currentTarget.target.entity, currentTarget.target.lowArmour), crystals);
                 if (breakInfo != null) {
                     possibleCrystals.add(breakInfo);
                 }
             }
+		
             if (possibleCrystals.size() != 0) {
-                EntityEnderCrystal crystal = possibleCrystals.last().crystal;
-                if (mc.player.canEntityBeSeen(crystal) || mc.player.getDistance(crystal) < wallsRange.getValue()) {
+				crystal = possibleCrystals.last().crystal;
+				EntityEnderCrystal crystal = possibleCrystals.last().crystal;
+                // if the crystal has existed less than the amount of ticks it has to exist for dont target it
+				if (crystal.ticksExisted < ticksExisted.getValue()) {
+					return false;
+				}
+				
+                if (mc.player.canEntityBeSeen(crystal) || mc.player.getDistance(crystal) < wallsRange.getValue() && attacks <= 2 && limit.getValue()) {
                     if (antiWeakness.getValue() && mc.player.isPotionActive(MobEffects.WEAKNESS)) {
                         if (!isAttacking) {
                             isAttacking = true;
@@ -194,40 +221,47 @@ public class AutoCrystal extends Module {
                         }
                     }
 		    
-		    // if the attack speed value has passed then break the crystals
+		            // if the attack speed value has passed then break the crystals
                     if (timer.getTimePassed() / 50L >= 20 - attackSpeed.getValue()) {
                         timer.reset();
 
                         rotating = rotate.getValue();
                         lastHitVec = crystal.getPositionVector();
 
-                        int oldSlot = mc.player.inventory.currentItem;
-                        
-			// limit, prevents you from hitting a crystal more than the max amount of times, prevents you from sending too many packets
-                        for(int tries = 0; tries < limit.getValue(); tries++) {
-                        	if(tries < limit.getValue()) {
-                        		if (breakType.getValue().equalsIgnoreCase("Swing")) {
-                                    swingArm();
-                                    mc.playerController.attackEntity(mc.player, crystal);
-                                } else {
-                                    swingArm();
-                                    mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
-                                }
-
-                                if (cancelCrystal.getValue()) {
-                                    crystal.setDead();
-                                    mc.world.removeAllEntities();
-                                    mc.world.getLoadedEntityList();
-                                }
-                        	} else {
-                        		return true;
+                        swingArm();
+                        if (breakType.getValue().equalsIgnoreCase("Swing")) {
+                            if(waitForRotate.getValue()) {
+                        	if(rotated) {
+                        		mc.playerController.attackEntity(mc.player, crystal);
                         	}
+                            } else {
+                        	mc.playerController.attackEntity(mc.player, crystal);
+                            }
+                        } else {
+                            if(waitForRotate.getValue()) {
+                        	if(rotated) {
+                        		mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
+                        	}
+                        		
+                            } else {
+                        	mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
+                            }
+                        }
+
+			            attacks++;
+
+                        if (cancelCrystal.getValue()) {
+                            crystal.setDead();
+                            mc.world.removeAllEntities();
+                            mc.world.getLoadedEntityList();
                         }
                     }
+
                     return false;
                 }
             }
         }
+
         return true;
     }
 	
@@ -252,10 +286,12 @@ public class AutoCrystal extends Module {
             } else {
                 currentTargets = targets.subList(0, maxTargets.getValue());
             }
+
             List<BlockPos> placements = ACHelper.INSTANCE.getPossiblePlacements();
 
             TreeSet<CrystalInfo.PlaceInfo> possiblePlacements;
             String crystalPriorityValue = crystalPriority.getValue();
+
             if (crystalPriorityValue.equalsIgnoreCase("Health")) {
                 possiblePlacements = new TreeSet<>(Comparator.comparingDouble((i) -> -i.target.health));
             } else if (crystalPriorityValue.equalsIgnoreCase("Closest")) {
@@ -264,13 +300,14 @@ public class AutoCrystal extends Module {
                 possiblePlacements = new TreeSet<>(Comparator.comparingDouble((i) -> i.damage));
             }
 	
-	    // find the best placement
+	        // find the best placement
             for (CrystalInfo.PlaceInfo currentTarget : currentTargets) {
-                CrystalInfo.PlaceInfo placeInfo = ACUtil.calculateBestPlacement(settings, new PlayerInfo(currentTarget.target.entity, currentTarget.target.lowArmour), placements);
-                if (placeInfo != null) {
+                 CrystalInfo.PlaceInfo placeInfo = ACUtil.calculateBestPlacement(settings, new PlayerInfo(currentTarget.target.entity, currentTarget.target.lowArmour), placements);
+                 if (placeInfo != null) {
                     possiblePlacements.add(placeInfo);
-                }
+                 }
             }
+
             if (possiblePlacements.size() == 0) {
                 return true;
             }
@@ -281,26 +318,25 @@ public class AutoCrystal extends Module {
             
             // autoSwitch
             if (!offhand && mc.player.inventory.currentItem != crystalSlot) {
-		            if(autoSwitch.getValue().equalsIgnoreCase("Normal")) {
-			              if(noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.GOLDEN_APPLE || noMiningSwitch.getValue() && PlayerUtil.isMining() || noMendingSwitch.getValue() && PlayerUtil.isMending()) {
-				                // return statement fucks it up so ill leave this empty for now
-			              } else {
-				                mc.player.inventory.currentItem = crystalSlot;
+                if (autoSwitch.getValue().equalsIgnoreCase("Normal")) {
+                        if (noGapSwitch.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.GOLDEN_APPLE || noMiningSwitch.getValue() && PlayerUtil.isMining() || noMendingSwitch.getValue() && PlayerUtil.isMending()) {
+                            // return statement fucks it up so ill leave this empty for now
+                        } else {
+                            mc.player.inventory.currentItem = crystalSlot;
+                            rotating = false;
+                            this.switchCooldown = true;
+                        }
+		            } else if (autoSwitch.getValue().equalsIgnoreCase("Silent")) {
+                        InventoryUtil.switchTo(crystalSlot, true);
                         rotating = false;
                         this.switchCooldown = true;
-			              }
-		            } else if (autoSwitch.getValue().equalsIgnoreCase("Silent")) {
-			                InventoryUtil.switchTo(crystalSlot, true);
-                      rotating = false;
-                      this.switchCooldown = true;
-		            }
-                
+                    }
+
                 return true;
             }
 
-	   
+            // raytracing for strict direction
             EnumFacing enumFacing = null;
-	    // raytrace calcs
             if (raytrace.getValue()) {
                 RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + (double) mc.player.getEyeHeight(), mc.player.posZ), new Vec3d((double) crystal.crystal.getX() + 0.5d, (double) crystal.crystal.getY() - 0.5d, (double) crystal.crystal.getZ() + 0.5d));
                 if (result == null || result.sideHit == null) {
@@ -321,17 +357,30 @@ public class AutoCrystal extends Module {
             rotating = rotate.getValue();
             lastHitVec = new Vec3d(crystal.crystal).add(0.5, 0.5, 0.5);
 
-            mc.player.connection.sendPacket(new CPacketAnimation(offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND));
+	        EnumFacing placementFacing;
+	        // these if statements can be similifed, but i cba to clean it up @todo
             if (raytrace.getValue() && enumFacing != null) {
-		// if raytrace is on place the crystal on the side that is calculated
+		        // if raytrace is on place the crystal on the side that is calculated
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, enumFacing, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
-            } else if (crystal.crystal.getY() == 255) {
-		// place the crystal at the bottom of the block at build heigh to bypass build limit
+                // play the block placing animation
+		        strictAnim();
+            } else if (crystal.crystal.getY() == 255 && buildHeight.getValue()) {
+		        // place the crystal at the bottom of the block at build heigh to bypass build limit
                 mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.DOWN, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+		        strictAnim();
+            } else if (crystal.crystal.getY() > mc.player.getEntityBoundingBox().minY + mc.player.getEyeHeight() && strictDirection.getValue()) {
+		        // find the best side of the block to place on and place there idrk know how this works but it works really damn good so ill keep this
+                RayTraceResult lowestResult = mc.world.rayTraceBlocks(mc.player.getPositionEyes(1), lastHitVec);
+                placementFacing = (lowestResult == null || lowestResult.sideHit == null) ? EnumFacing.DOWN : lowestResult.sideHit;
+                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, placementFacing, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+                strictAnim();
             } else {
-		// if were not at build height place the crystal at the top of the block
-                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.UP, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));			
+                // if its not at build height and not above us place at the top of the block
+                mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(crystal.crystal, EnumFacing.UP, offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, 0, 0, 0));
+                strictAnim();
             }
+		
+	        attacks = 0;
 
             if (ModuleManager.isModuleEnabled(AutoGG.class)) {
                 AutoGG.INSTANCE.addTargetedPlayer(renderEntity.getName());
@@ -339,6 +388,7 @@ public class AutoCrystal extends Module {
 
             return false;
         }
+
         return true;
     }
 
@@ -405,14 +455,16 @@ public class AutoCrystal extends Module {
         Vec2f rotation = RotationUtil.getRotationTo(lastHitVec);
         PlayerPacket packet = new PlayerPacket(this, rotation);
         PlayerPacketManager.INSTANCE.addPacket(packet);
+	rotated = true;
+	    
     });
 
-    // i dont know how this works but you should use this always, it makes the autocrystal faster
+    // i dont know how this works but you should use this
     @SuppressWarnings("unused")
     @EventHandler
     private final Listener<PacketEvent.Receive> packetReceiveListener = new Listener<>(event -> {
         Packet<?> packet = PacketEvent.getPacket();
-        if (packet instanceof SPacketSoundEffect && sequential.getValue()) {
+        if (packet instanceof SPacketSoundEffect) {
             final SPacketSoundEffect packetSoundEffect = (SPacketSoundEffect) packet;
             if (packetSoundEffect.getCategory() == SoundCategory.BLOCKS && packetSoundEffect.getSound() == SoundEvents.ENTITY_GENERIC_EXPLODE) {
                 for (Entity entity : new ArrayList<>(mc.world.loadedEntityList)) {
@@ -423,6 +475,60 @@ public class AutoCrystal extends Module {
                     }
                 }
             }
+        } else if (packet instanceof SPacketExplosion) {
+			// inhibit things, again, i pasted this and im not sure how it works but it just does 
+			if (inhibit.getValue()) {
+				SPacketExplosion packetExplode = (SPacketExplosion) PacketEvent.getPacket();
+				for (int i = 0; i < mc.world.loadedEntityList.size(); ++i) {
+                    Entity entity = mc.world.loadedEntityList.get(i);
+                    if (entity.isDead || !(entity instanceof EntityEnderCrystal)) {
+                        continue;
+                    }
+
+                    if (entity.getDistance(packetExplode.getX(), packetExplode.getY(), packetExplode.getZ()) >= packetExplode.getStrength()) {
+                        entity.setDead();
+                        if (crystal != null && crystal.equals(entity)) {
+                            crystal = null;
+                        }
+                    }
+                }
+			}
+		} else if (packet instanceof SPacketSpawnObject) {
+			// sequential shit, makes the ca batter ig? (poorly pasted btw)
+			SPacketSpawnObject packetPlace = (SPacketSpawnObject) event.getPacket();
+			if (timing.getValue().equalsIgnoreCase("Sequential")) {
+				    if (packetPlace.getType() == 51 && mc.world.getEntityByID(packetPlace.getEntityID()) instanceof EntityEnderCrystal) {
+                        BlockPos pos = new BlockPos(packetPlace.getX(), packetPlace.getY(), packetPlace.getZ());
+                        if (lastHitVec != null) {
+                            lastHitVec = null;
+                            timer.reset();
+                        }
+                }
+			}
+		} else if (packet instanceof SPacketDestroyEntities) {
+			// more sequential shit, again, no idea how this works but it works
+			if (timing.getValue().equalsIgnoreCase("Sequential")) {
+				SPacketDestroyEntities packetDestroy = (SPacketDestroyEntities) PacketEvent.getPacket();
+                for (int id : packetDestroy.getEntityIDs()) {
+                    Entity entity = mc.world.getEntityByID(id);
+                    if (entity == null || entity.isDead || !(entity instanceof EntityEnderCrystal)) {
+                        continue;
+                    }
+
+                    mc.world.removeEntity(entity);
+                    if (crystal != null && crystal.equals(entity)) {
+                        crystal = null;
+                    }
+                }
+			}
+		}
+    });
+	
+    @SuppressWarnings("unused")
+    @EventHandler
+    private final Listener<EntityRemoveEvent> eRemoveEvent = new Listener<>(event -> {
+        if (crystal.equals(event.getEntity())) {
+            crystal = null;
         }
     });
 
@@ -438,6 +544,19 @@ public class AutoCrystal extends Module {
         rotating = false;
 
         targets.clear();
+    }
+
+    public BlockPos getPos(BlockPos pos) {
+		return blockPos;
+	}
+	
+   // swing the hands to create an animation, needed for strict i think
+    public void strictAnim() {
+        if (mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
+            mc.player.swingArm(EnumHand.OFF_HAND);
+        } else {
+            mc.player.swingArm(EnumHand.MAIN_HAND);
+        }
     }
 
     // hud information

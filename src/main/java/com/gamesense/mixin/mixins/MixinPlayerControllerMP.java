@@ -4,19 +4,13 @@ import com.gamesense.api.event.events.DamageBlockEvent;
 import com.gamesense.api.event.events.DestroyBlockEvent;
 import com.gamesense.api.event.events.ReachDistanceEvent;
 import com.gamesense.client.GameSense;
-import com.gamesense.client.module.ModuleManager;
-import com.gamesense.client.module.modules.exploits.PacketUse;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemPotion;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerControllerMP.class)
@@ -47,18 +41,19 @@ public abstract class MixinPlayerControllerMP {
         distance.setReturnValue(reachDistanceEvent.getDistance());
     }
 
-    @Inject(method = "onStoppedUsingItem", at = @At("HEAD"), cancellable = true)
-    public void onStoppedUsingItem(EntityPlayer playerIn, CallbackInfo ci) {
-        PacketUse packetUse = ModuleManager.getModule(PacketUse.class);
-
-        if (packetUse.isEnabled()) {
-            if ((packetUse.food.getValue() && playerIn.getHeldItem(playerIn.getActiveHand()).getItem() instanceof ItemFood)
-                    || (packetUse.potion.getValue() && playerIn.getHeldItem(playerIn.getActiveHand()).getItem() instanceof ItemPotion)
-                    || packetUse.all.getValue()) {
-                this.syncCurrentPlayItem();
-                playerIn.stopActiveHand();
-                ci.cancel();
-            }
-        }
-    }
+    // this needs to be added into a rewrite of the two modules (PacketUse, PacketXP)
+//    @Inject(method = "onStoppedUsingItem", at = @At("HEAD"), cancellable = true)
+//    public void onStoppedUsingItem(EntityPlayer playerIn, CallbackInfo ci) {
+//        PacketUse packetUse = ModuleManager.getModule(PacketUse.class);
+//
+//        if (packetUse.isEnabled()) {
+//            if ((packetUse.food.getValue() && playerIn.getHeldItem(playerIn.getActiveHand()).getItem() instanceof ItemFood)
+//                    || (packetUse.potion.getValue() && playerIn.getHeldItem(playerIn.getActiveHand()).getItem() instanceof ItemPotion)
+//                    || packetUse.all.getValue()) {
+//                this.syncCurrentPlayItem();
+//                playerIn.stopActiveHand();
+//                ci.cancel();
+//            }
+//        }
+//    }
 }

@@ -11,7 +11,6 @@ import com.gamesense.client.command.CommandManager;
 import com.gamesense.client.module.Module;
 import com.gamesense.client.module.ModuleManager;
 import com.gamesense.client.module.modules.misc.AutoGG;
-import com.gamesense.client.module.modules.misc.AutoReply;
 import com.gamesense.client.module.modules.misc.AutoRespawn;
 import com.gamesense.client.module.modules.render.Xray;
 import com.google.gson.JsonArray;
@@ -55,7 +54,6 @@ public class LoadConfig {
             loadEnemiesList();
             loadClickGUIPositions();
             loadAutoGG();
-            loadAutoReply();
             loadAutoRespawn();
             loadXrayBlocks();
         } catch (IOException e) {
@@ -349,28 +347,6 @@ public class LoadConfig {
         JsonArray messageObject = mainObject.get("Messages").getAsJsonArray();
 
         messageObject.forEach(object -> AutoGG.addAutoGgMessage(object.getAsString()));
-        inputStream.close();
-    }
-
-    private static void loadAutoReply() throws IOException {
-        String fileLocation = fileName + miscName;
-
-        if (!Files.exists(Paths.get(fileLocation + "AutoReply" + ".json"))) {
-            return;
-        }
-
-        InputStream inputStream = Files.newInputStream(Paths.get(fileLocation + "AutoReply" + ".json"));
-        JsonObject mainObject = new JsonParser().parse(new InputStreamReader(inputStream)).getAsJsonObject();
-
-        if (mainObject.get("AutoReply") == null) {
-            return;
-        }
-
-        JsonObject arObject = mainObject.get("AutoReply").getAsJsonObject();
-        JsonElement dataObject = arObject.get("Message");
-        if (dataObject != null && dataObject.isJsonPrimitive()) {
-            AutoReply.setReply(dataObject.getAsString());
-        }
         inputStream.close();
     }
 
